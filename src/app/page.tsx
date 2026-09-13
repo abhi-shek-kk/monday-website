@@ -33,86 +33,102 @@ export default async function HomePage() {
   return (
     <main className="space-y-20 pb-20">
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 sm:pt-20 pb-16 bg-[#FBF9F7] border-b border-[#EFEAE3]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold tracking-wide">
-                First Batch: 2026–2030 &bull; Changanassery, Kerala
-              </div>
+      <section className="relative overflow-hidden min-h-[85vh] flex items-center pt-16 sm:pt-24 pb-16 border-b border-[#EFEAE3]">
+        {/* Background Image IMG_04.jpg */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/home/IMG_04.jpg"
+            alt="St. Berchmans College campus background"
+            fill
+            priority
+            quality={95}
+            sizes="100vw"
+            className="object-cover object-center contrast-[1.02]"
+          />
+          {/* Subtle Gradient Overlays for High Legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/45 md:to-white/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/30" />
+        </div>
 
-              <div className="space-y-2">
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-[#756860]">
-                  St. Berchmans College
-                </h2>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-[#1C1917] tracking-tight leading-[1.15]">
-                  Department of <br />
-                  <span className="text-[#1C1917] no-underline">
-                    Artificial Intelligence
-                  </span>{" "}
-                  & Data Science
-                </h1>
-              </div>
-
-              <p className="text-base sm:text-lg text-[#756860] leading-relaxed max-w-2xl font-normal">
-                Pioneering academic excellence at St. Berchmans College, Changanassery. Combining foundational computing, algorithmic modeling, deep learning, and practical data analytics for modern technology leaders.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                {session ? (
-                  <Link
-                    href={
-                      session.role === "ADMIN"
-                        ? "/dashboard/admin"
-                        : session.role === "FACULTY"
-                        ? "/dashboard/faculty"
-                        : "/dashboard/student"
-                    }
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-sm hover:shadow hover:-translate-y-0.5"
-                  >
-                    Go to {session.role.toLowerCase()} Dashboard <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
-                  </Link>
-                ) : (
-                  <>
-                    <Link
-                      href="/login"
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-sm hover:shadow hover:-translate-y-0.5"
-                    >
-                      <Shield className="w-4 h-4 text-[#FDB27C]" /> Sign In to Portal
-                    </Link>
-                    <Link
-                      href="/signup"
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white text-[#1C1917] border border-[#EFEAE3] font-medium text-sm hover:bg-[#EFEAE3]/50 transition-all shadow-xs hover:-translate-y-0.5"
-                    >
-                      <GraduationCap className="w-4 h-4 text-[#756860]" /> Student Registration
-                    </Link>
-                  </>
-                )}
-                <Link
-                  href="/academics"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl text-[#756860] font-medium text-sm hover:text-[#1C1917] transition-colors"
-                >
-                  Explore Academics <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <div className="max-w-3xl space-y-6">
+            {/* Batch Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDB27C]/30 backdrop-blur-sm border border-[#FDB27C]/50 text-[#1C1917] text-xs font-bold uppercase tracking-wider shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#EA580C]" /> FIRST BATCH 2026–2030 &bull; CHANGANASSERY, KERALA
             </div>
 
-            {/* Right Campus Visual Showcase */}
-            <div className="lg:col-span-5 relative">
-              <div
-                tabIndex={0}
-                className="group relative mx-auto max-w-xl lg:max-w-none bg-white p-3 sm:p-3.5 rounded-3xl border border-[#EFEAE3] shadow-sm cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.03] hover:shadow-xl active:-translate-y-1.5 active:scale-[1.03] active:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#FDB27C]/50"
+            {/* Title */}
+            <div className="space-y-1">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-[#1C1917] tracking-tight leading-[1.12]">
+                BSc. Artificial Intelligence <br />
+                <span className="text-[#EA580C] sm:inline block">
+                  & Data Science
+                </span>
+              </h1>
+            </div>
+
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg text-[#574E46] leading-relaxed max-w-2xl font-medium">
+              Department of AI & Data Science at <strong className="text-[#1C1917] font-semibold">St. Berchmans College</strong>, Changanassery &mdash; shaping the future of technology, one mind at a time.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              {session ? (
+                <Link
+                  href={
+                    session.role === "ADMIN"
+                      ? "/dashboard/admin"
+                      : session.role === "FACULTY"
+                      ? "/dashboard/faculty"
+                      : "/dashboard/student"
+                  }
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  Go to {session.role.toLowerCase()} Dashboard <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                  >
+                    Explore Program <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/70 backdrop-blur-md text-[#1C1917] border border-white/80 font-medium text-sm hover:bg-white transition-all shadow-xs hover:-translate-y-0.5"
+                  >
+                    About the Department
+                  </Link>
+                </>
+              )}
+              <Link
+                href="/academics"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-[#574E46] font-medium text-sm hover:text-[#1C1917] transition-colors"
               >
-                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
-                  <Image
-                    src="/images/home/IMG_04.jpg"
-                    alt="St. Berchmans College campus infrastructure"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                    className="object-cover object-center contrast-[1.02] transition-transform duration-300 ease-out group-hover:scale-105 group-active:scale-105"
-                  />
+                Explore Academics <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            {/* Statistics Bar */}
+            <div className="pt-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 sm:p-5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 shadow-sm max-w-2xl">
+                <div className="text-center space-y-0.5">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">4</div>
+                  <div className="text-xs font-medium text-[#756860]">Year Program</div>
+                </div>
+                <div className="text-center space-y-0.5 border-l border-[#EFEAE3]">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">2026</div>
+                  <div className="text-xs font-medium text-[#756860]">Established</div>
+                </div>
+                <div className="text-center space-y-0.5 sm:border-l border-[#EFEAE3]">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">40+</div>
+                  <div className="text-xs font-medium text-[#756860]">Students</div>
+                </div>
+                <div className="text-center space-y-0.5 border-l border-[#EFEAE3]">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">6</div>
+                  <div className="text-xs font-medium text-[#756860]">Core Subjects</div>
                 </div>
               </div>
             </div>
