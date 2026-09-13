@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/lib/db";
+import { getPublicSubjects } from "@/lib/services/subject.service";
 import { BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -15,30 +15,14 @@ interface CoursesPageProps {
 
 export default async function CoursesPage({ searchParams }: CoursesPageProps) {
   const params = await searchParams;
-  const selectedSemester = params.semester ? parseInt(params.semester, 10) : null;
+  const rawSemester = params?.semester ? parseInt(params.semester, 10) : null;
+  const selectedSemester =
+    rawSemester && !isNaN(rawSemester) && rawSemester >= 1 && rawSemester <= 8
+      ? rawSemester
+      : null;
 
-  // Query subjects from database with assigned faculty relations
-  const subjects = await db.subject.findMany({
-    where: selectedSemester ? { semester: selectedSemester } : {},
-    include: {
-      faculties: {
-        include: {
-          faculty: {
-            select: {
-              fullName: true,
-              designation: true,
-            },
-          },
-        },
-      },
-      notes: {
-        select: {
-          id: true,
-        },
-      },
-    },
-    orderBy: [{ semester: "asc" }, { code: "asc" }],
-  });
+  // Safe query for subjects with fallback default catalog
+  const subjects = await getPublicSubjects(selectedSemester);
 
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -91,7 +75,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
       <section className="space-y-6">
         {subjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {subjects.map((subject: { id: string; code: string; name: string; semester: number; description: string | null; faculties: Array<{ faculty: { fullName: string; designation: string } }>; notes: Array<{ id: string }> }) => (
+            {subjects.map((subject) => (
               <div
                 key={subject.id}
                 className="p-8 rounded-3xl bg-white border border-[#EFEAE3] shadow-xs space-y-4 flex flex-col justify-between"
@@ -124,9 +108,11 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                 <div className="pt-4 border-t border-[#EFEAE3] space-y-2 text-xs">
                   <div className="flex items-center justify-between">
                     <span className="text-[#756860] font-semibold">Faculty In-Charge:</span>
-                    {subject.faculties.length > 0 ? (
+                    {subject.faculties && subject.faculties.length > 0 ? (
                       <span className="font-bold text-[#1C1917]">
-                        {subject.faculties.map((f: { faculty: { fullName: string } }) => f.faculty.fullName).join(", ")}
+                        {subject.faculties
+                          .map((f) => f.faculty.fullName)
+                          .join(", ")}
                       </span>
                     ) : (
                       <span className="text-[#756860] italic">To be assigned</span>
@@ -136,7 +122,8 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-[#756860] font-semibold">Available Notes:</span>
                     <span className="font-bold text-[#1C1917]">
-                      {subject.notes.length} {subject.notes.length === 1 ? "File" : "Files"}
+                      {subject.notes ? subject.notes.length : 0}{" "}
+                      {subject.notes && subject.notes.length === 1 ? "File" : "Files"}
                     </span>
                   </div>
                 </div>

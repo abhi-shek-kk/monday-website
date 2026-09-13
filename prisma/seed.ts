@@ -82,14 +82,21 @@ async function main() {
 
   // 3. Structural Academic Reference Subjects/Courses (S1 to S8)
   const initialSubjects = [
-    { code: "AIDS101", name: "Introduction to Artificial Intelligence & Data Science", semester: 1, description: "Foundational concepts of AI, Data Science, and Problem Solving." },
-    { code: "AIDS102", name: "Python Programming for Data Analytics", semester: 2, description: "Core Python syntax, NumPy, Pandas, and basic analytics workflows." },
-    { code: "AIDS201", name: "Data Structures & Algorithm Analysis", semester: 3, description: "Linear and non-linear data structures, algorithm complexity analysis." },
-    { code: "AIDS202", name: "Database Management Systems & SQL", semester: 4, description: "Relational database design, normal forms, SQL queries, and indexing." },
-    { code: "AIDS301", name: "Machine Learning Fundamentals", semester: 5, description: "Supervised & unsupervised learning models, regression, classification, and evaluation." },
-    { code: "AIDS302", name: "Deep Learning & Neural Networks", semester: 6, description: "Architectures of CNNs, RNNs, Transformers, and deep learning frameworks." },
-    { code: "AIDS401", name: "Natural Language Processing & Computer Vision", semester: 7, description: "Sequence modeling, LLMs, image segmentation, and object detection." },
-    { code: "AIDS402", name: "Capstone AI Project & Ethics", semester: 8, description: "Applied AI capstone development, AI safety, ethics, and deployment." },
+    { code: "AIDS101", name: "Introduction to Artificial Intelligence & Data Science", semester: 1, description: "Foundational concepts of AI, Data Science, linear algebra, and problem-solving methodologies." },
+    { code: "AIDS102", name: "Programming in C & Problem Solving", semester: 1, description: "Fundamentals of procedural programming, control structures, arrays, pointers, and memory management." },
+    { code: "AIDS103", name: "Python Programming for Data Analytics", semester: 2, description: "Core Python syntax, data manipulation with NumPy and Pandas, and visualization libraries." },
+    { code: "AIDS104", name: "Discrete Mathematics & Probability", semester: 2, description: "Mathematical logic, set theory, combinatorics, discrete probability distributions, and random variables." },
+    { code: "AIDS201", name: "Data Structures & Algorithm Analysis", semester: 3, description: "Linear and non-linear data structures, searching, sorting, and asymptotic time-space analysis." },
+    { code: "AIDS202", name: "Object-Oriented Programming with Java", semester: 3, description: "OOP principles, encapsulation, inheritance, polymorphism, and exception handling in Java." },
+    { code: "AIDS203", name: "Database Management Systems & SQL", semester: 4, description: "Relational database design, ER modeling, normalization, complex SQL queries, and transaction management." },
+    { code: "AIDS204", name: "Statistical Methods for Data Science", semester: 4, description: "Inferential statistics, hypothesis testing, ANOVA, regression analysis, and confidence intervals." },
+    { code: "AIDS301", name: "Machine Learning Fundamentals", semester: 5, description: "Supervised and unsupervised learning, regression, decision trees, SVMs, clustering, and model evaluation." },
+    { code: "AIDS302", name: "Web Application Development", semester: 5, description: "Modern web stack, RESTful APIs, frontend frameworks, backend integration, and web deployment." },
+    { code: "AIDS303", name: "Deep Learning & Neural Networks", semester: 6, description: "Artificial neural networks, backpropagation, CNNs for vision, RNNs, and deep learning frameworks." },
+    { code: "AIDS304", name: "Big Data Analytics & Cloud Technologies", semester: 6, description: "Distributed computing, Hadoop, Spark ecosystem, cloud infrastructure, and pipeline architecture." },
+    { code: "AIDS401", name: "Natural Language Processing & Computer Vision", semester: 7, description: "Text preprocessing, LLMs, transformers, image processing, segmentation, and object detection." },
+    { code: "AIDS402", name: "AI Ethics, Governance & Security", semester: 7, description: "Responsible AI practices, bias mitigation, privacy preservation, AI policy, and cybersecurity basics." },
+    { code: "AIDS403", name: "Capstone AI Project & Internship", semester: 8, description: "Applied AI capstone development, model deployment, documentation, and industry internship." },
   ];
 
   for (const sub of initialSubjects) {

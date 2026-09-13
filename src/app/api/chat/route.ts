@@ -355,7 +355,7 @@ ${allowlistContext}`;
           : "Our department features experienced faculty specializing in AI, Machine Learning, and Data Analytics.";
       } else if (q.includes("project")) {
         responseContent = projectsList.length > 0
-          ? `Student Showcase Projects:\n` + projectsList.map((p: { title: string; description: string; tags?: string }) => `- **${p.title}**${p.tags ? ` [${p.tags}]` : ""}: ${p.description}`).join("\n")
+          ? `Student Showcase Projects:\n` + projectsList.map((p: { title: string; description: string; projectUrl?: string | null }) => `- **${p.title}**${p.projectUrl ? ` ([Link](${p.projectUrl}))` : ""}: ${p.description}`).join("\n")
           : "Student projects feature innovative work in Machine Learning, Computer Vision, and Web Development.";
       } else if (q.includes("hello") || q.includes("hi") || q.includes("hey") || q.includes("who are you")) {
         responseContent = "Hello! I am Mr. Melbin, the official AI assistant for the Department of Artificial Intelligence & Data Science at St. Berchmans College. How can I help you with our curriculum, subjects, faculty, events, or general AI topics today?";

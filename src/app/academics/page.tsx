@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/lib/db";
+import { getPublicSubjects, PublicSubject } from "@/lib/services/subject.service";
 import { getNotes } from "@/lib/services/note.service";
 import { getSession } from "@/lib/auth";
 import {
@@ -21,13 +21,11 @@ export const metadata: Metadata = {
 };
 
 export default async function AcademicsPage() {
-  const session = await getSession();
+  const session = await getSession().catch(() => null);
 
-  // Fetch subjects and notes from Prisma DB
+  // Safe fetch for subjects and notes from Prisma DB / Fallback catalog
   const [subjects, notes] = await Promise.all([
-    db.subject.findMany({
-      orderBy: [{ semester: "asc" }, { code: "asc" }],
-    }),
+    getPublicSubjects(),
     getNotes().catch(() => []),
   ]);
 
@@ -103,7 +101,7 @@ export default async function AcademicsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {semesters.map((sem) => {
-            const semSubjects = subjects.filter((s: { semester: number }) => s.semester === sem);
+            const semSubjects = subjects.filter((s: PublicSubject) => s.semester === sem);
             return (
               <div key={sem} className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-4 flex flex-col justify-between">
                 <div className="space-y-2">
@@ -118,7 +116,7 @@ export default async function AcademicsPage() {
 
                   {semSubjects.length > 0 ? (
                     <ul className="space-y-2 pt-1">
-                      {semSubjects.map((sub: { id: string; code: string; name: string }) => (
+                      {semSubjects.map((sub: PublicSubject) => (
                         <li key={sub.id} className="text-xs space-y-0.5">
                           <span className="font-mono font-bold text-[#1C1917]">{sub.code}:</span>{" "}
                           <span className="text-[#756860] font-medium">{sub.name}</span>
@@ -166,7 +164,7 @@ export default async function AcademicsPage() {
 
         {notes.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {notes.map((note: { id: string; title: string; description: string | null; semester: number; fileUrl: string; subject: { code: string; name: string }; uploader: { fullName: string } }) => (
+            {notes.map((note: any) => (
               <div key={note.id} className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-4">
                 <div className="flex items-start justify-between gap-2">
                   <div className="w-10 h-10 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] flex items-center justify-center text-[#1C1917]">
@@ -179,7 +177,7 @@ export default async function AcademicsPage() {
 
                 <div className="space-y-1">
                   <span className="text-xs font-mono font-bold text-[#756860]">
-                    {note.subject.code} &bull; {note.subject.name}
+                    {note.subject?.code} &bull; {note.subject?.name}
                   </span>
                   <h3 className="text-base font-bold text-[#1C1917]">{note.title}</h3>
                   {note.description && (
@@ -189,7 +187,7 @@ export default async function AcademicsPage() {
 
                 <div className="pt-3 border-t border-[#EFEAE3] flex items-center justify-between text-xs">
                   <span className="text-[#756860]">
-                    Uploaded by <strong className="text-[#1C1917]">{note.uploader.fullName}</strong>
+                    Uploaded by <strong className="text-[#1C1917]">{note.uploader?.fullName || "Faculty"}</strong>
                   </span>
 
                   {session ? (

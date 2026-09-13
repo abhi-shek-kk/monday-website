@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       redirectUrl,
     });
   } catch (err: unknown) {
-    const errorMessage = err instanceof Error ? err.message : "Authentication error occurred.";
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    console.error("Login API error:", err);
+    return NextResponse.json({ error: "Unable to sign in right now. Please try again." }, { status: 500 });
   }
 }
