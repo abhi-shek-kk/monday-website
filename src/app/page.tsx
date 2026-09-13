@@ -100,19 +100,19 @@ export default async function HomePage() {
 
             {/* Right Campus Visual Showcase */}
             <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-xl lg:max-w-none bg-white p-3 sm:p-3.5 rounded-3xl border border-[#EFEAE3] shadow-sm">
+              <div
+                tabIndex={0}
+                className="group relative mx-auto max-w-xl lg:max-w-none bg-white p-3 sm:p-3.5 rounded-3xl border border-[#EFEAE3] shadow-sm cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.03] hover:shadow-xl active:-translate-y-1.5 active:scale-[1.03] active:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#FDB27C]/50"
+              >
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
                   <Image
                     src="/images/home/sb-college-centre.jpg"
-                    alt="St. Berchmans College campus"
+                    alt="St. Berchmans College campus infrastructure"
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                    className="object-cover object-center contrast-[1.02] hover:scale-103 transition-transform duration-700 ease-out"
+                    className="object-cover object-center contrast-[1.02] transition-transform duration-300 ease-out group-hover:scale-105 group-active:scale-105"
                   />
-                  <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 bg-[#1C1917]/75 backdrop-blur-md text-[#EFEAE3] text-[10px] sm:text-[11px] font-medium tracking-[0.18em] uppercase px-3.5 py-1.5 rounded-full border border-white/10 shadow-xs z-10">
-                    ST. BERCHMANS · CHANGANASSERY
-                  </div>
                 </div>
               </div>
             </div>
@@ -185,13 +185,15 @@ export default async function HomePage() {
 
       {/* CAMPUS SHOWCASE SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full h-72 sm:h-96 rounded-3xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] shadow-sm">
+        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[3/1] rounded-3xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] shadow-sm">
           <Image
             src="/images/home/sb-college-centre.jpg"
             alt="St. Berchmans College campus building and grounds"
             fill
+            priority
+            quality={95}
             sizes="(max-width: 1280px) 100vw, 1280px"
-            className="object-cover hover:scale-105 transition-transform duration-700"
+            className="object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
           />
         </div>
       </section>
