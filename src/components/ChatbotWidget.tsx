@@ -201,15 +201,10 @@ export default function ChatbotWidget() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Department AI Assistant"
-        className="pointer-events-auto p-4 rounded-2xl bg-[#1C1917] text-white shadow-xl hover:bg-[#231F1C] transition-all hover:scale-105 active:scale-95 flex items-center gap-2 border border-[#231F1C] group"
+        className="pointer-events-auto w-12 h-12 rounded-full bg-[#1C1917] text-white shadow-lg border border-[#38332E] hover:bg-[#282421] hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center relative focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:ring-offset-2 focus:ring-offset-[#1C1917] group"
       >
-        <div className="relative">
-          <Bot className="w-6 h-6 text-[#FDB27C] group-hover:rotate-12 transition-transform" />
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-[#1C1917]"></span>
-        </div>
-        <span className="text-xs font-bold font-heading hidden sm:inline text-white">
-          AI Assistant
-        </span>
+        <Sparkles className="w-5 h-5 text-[#FDB27C] group-hover:rotate-12 transition-transform duration-300" />
+        <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-[#1C1917]"></span>
       </button>
     </div>
   );

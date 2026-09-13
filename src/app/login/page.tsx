@@ -4,7 +4,7 @@ import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { User, Lock, AlertCircle, ArrowRight, Clock } from "lucide-react";
+import { User, Lock, AlertCircle, ArrowRight, Clock, Eye, EyeOff } from "lucide-react";
 
 function LoginForm() {
   const router = useRouter();
@@ -14,6 +14,7 @@ function LoginForm() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(initialError || null);
   const [isPendingNotice, setIsPendingNotice] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -125,13 +126,21 @@ function LoginForm() {
               <Lock className="w-4 h-4" />
             </div>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:border-transparent text-[#1C1917]"
+              className="w-full pl-10 pr-10 py-2.5 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:border-transparent text-[#1C1917]"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#756860] hover:text-[#1C1917] transition-colors focus:outline-none"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
           </div>
         </div>
 
@@ -174,29 +183,18 @@ export default function LoginPage() {
           </Suspense>
         </div>
 
-        {/* Right Column: Elegant Architectural Tower Sketch */}
-        <div className="lg:col-span-6 hidden lg:block">
-          <div className="relative bg-white p-6 sm:p-8 rounded-3xl border border-[#EFEAE3] shadow-xs space-y-4">
-            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] flex items-center justify-center p-4">
+        {/* Right Column: Pure Architectural Tower Sketch Image */}
+        <div className="lg:col-span-6 hidden lg:block h-full">
+          <div className="relative h-full w-full bg-white p-6 sm:p-8 rounded-3xl border border-[#EFEAE3] shadow-xs flex items-center justify-center overflow-hidden min-h-[440px] lg:min-h-[520px]">
+            <div className="relative w-full h-full max-w-sm aspect-[3/4] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] p-6 flex items-center justify-center">
               <Image
                 src="/images/login/sb-tower-sketch.png"
-                alt="Illustration of the St. Berchmans College tower"
+                alt="St. Berchmans College Tower"
                 fill
                 priority
                 sizes="(max-width: 1200px) 50vw, 40vw"
-                className="object-contain p-2 hover:scale-[1.02] transition-transform duration-500"
+                className="object-contain p-4 hover:scale-[1.03] transition-transform duration-500"
               />
-            </div>
-            <div className="text-center space-y-1 pt-1">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
-                Architectural Heritage
-              </p>
-              <p className="text-sm font-bold text-[#1C1917] font-heading">
-                St. Berchmans College Tower Sketch
-              </p>
-              <p className="text-xs text-[#756860]">
-                Changanassery, Kerala &bull; Department of AI & Data Science
-              </p>
             </div>
           </div>
         </div>

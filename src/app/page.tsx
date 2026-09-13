@@ -39,7 +39,6 @@ export default async function HomePage() {
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold tracking-wide">
-                <Sparkles className="w-3.5 h-3.5 text-[#756860]" />
                 First Batch: 2026–2030 &bull; Changanassery, Kerala
               </div>
 
@@ -49,7 +48,7 @@ export default async function HomePage() {
                 </h2>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-[#1C1917] tracking-tight leading-[1.15]">
                   Department of <br />
-                  <span className="text-[#1C1917] underline decoration-[#FDB27C]/60 decoration-wavy decoration-2">
+                  <span className="text-[#1C1917] no-underline">
                     Artificial Intelligence
                   </span>{" "}
                   & Data Science
@@ -196,65 +195,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ACADEMICS & CO-CURRICULAR HIGHLIGHTS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#EFEAE3] pb-4">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
-              Academic & Community Wings
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917]">
-              Co-Curricular Organizations
-            </h2>
-          </div>
-          <Link
-            href="/academics"
-            className="text-sm font-semibold text-[#1C1917] hover:text-[#756860] inline-flex items-center gap-1 transition-colors"
-          >
-            View Academic Framework <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-2">
-            <span className="px-2.5 py-1 rounded-md bg-[#FDB27C]/20 text-[#1C1917] text-xs font-bold inline-block">
-              NSS WING
-            </span>
-            <h3 className="text-base font-bold text-[#1C1917]">Community Service</h3>
-            <p className="text-xs text-[#756860]">
-              Active community engagement, social responsibility, and outreach programs.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-2">
-            <span className="px-2.5 py-1 rounded-md bg-[#EFEAE3] text-[#1C1917] text-xs font-bold inline-block">
-              TECH TEAM
-            </span>
-            <h3 className="text-base font-bold text-[#1C1917]">Development Wing</h3>
-            <p className="text-xs text-[#756860]">
-              Student-led technical initiatives, software projects, and hackathons.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-2">
-            <span className="px-2.5 py-1 rounded-md bg-[#FDB27C]/20 text-[#1C1917] text-xs font-bold inline-block">
-              SPORTS WING
-            </span>
-            <h3 className="text-base font-bold text-[#1C1917]">Athletics & Sports</h3>
-            <p className="text-xs text-[#756860]">
-              Promoting physical fitness, team discipline, and collegiate sports competitions.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-2">
-            <span className="px-2.5 py-1 rounded-md bg-[#EFEAE3] text-[#1C1917] text-xs font-bold inline-block">
-              NCC WING
-            </span>
-            <h3 className="text-base font-bold text-[#1C1917]">Leadership & Cadets</h3>
-            <p className="text-xs text-[#756860]">
-              Building character, national service discipline, and leadership excellence.
-            </p>
-          </div>
+      {/* CAMPUS SHOWCASE SECTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative w-full h-72 sm:h-96 rounded-3xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] shadow-sm">
+          <Image
+            src="/images/home/sb-college-centre.jpg"
+            alt="St. Berchmans College campus building and grounds"
+            fill
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            className="object-cover hover:scale-105 transition-transform duration-700"
+          />
         </div>
       </section>
 

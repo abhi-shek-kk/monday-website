@@ -102,8 +102,6 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
                           {profile.fullName}
                         </h2>
                         <div className="flex items-center gap-2 text-xs font-semibold text-[#756860] mt-0.5">
-                          <span>Batch {profile.batch}</span>
-                          <span>&bull;</span>
                           <span className="font-mono">{profile.registerNumber}</span>
                         </div>
                       </div>

@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import Navbar from "@/components/Navbar";
 import FooterClient from "@/components/FooterClient";
 import ChatbotWidget from "@/components/ChatbotWidget";
+import WebsiteWatermark from "@/components/WebsiteWatermark";
 
 export const metadata: Metadata = {
   title: "St. Berchmans College | Department of AI & Data Science",
@@ -31,13 +32,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased bg-[#FBF9F7] text-[#1C1917] font-sans flex flex-col min-h-screen">
+      <body className="antialiased bg-[#FBF9F7] text-[#1C1917] font-sans flex flex-col min-h-screen relative overflow-x-hidden">
+        <WebsiteWatermark />
         <Navbar />
-        <div className="flex-grow">{children}</div>
+        <div className="flex-grow relative z-10">{children}</div>
         <FooterClient />
         <ChatbotWidget />
       </body>
     </html>
   );
 }
+
 
