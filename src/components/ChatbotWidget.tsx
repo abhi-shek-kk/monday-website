@@ -15,12 +15,13 @@ import {
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error, reload } =
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error, reload, append } =
     useChat({
       api: "/api/chat",
-      body: { sessionId },
+      body: sessionId ? { sessionId } : undefined,
       onResponse: (response: Response) => {
         const sid = response.headers.get("x-chat-session-id");
         if (sid) setSessionId(sid);
@@ -35,7 +36,7 @@ export default function ChatbotWidget() {
     if (isOpen) {
       scrollToBottom();
     }
-  }, [messages, isLoading, isOpen]);
+  }, [messages, isLoading, isOpen, validationError]);
 
   const quickPrompts = [
     "What courses are offered in Semester 1?",
@@ -45,17 +46,36 @@ export default function ChatbotWidget() {
   ];
 
   const handlePromptClick = (promptText: string) => {
-    const fakeEvent = {
-      preventDefault: () => {},
-    } as unknown as React.FormEvent<HTMLFormElement>;
+    if (!promptText.trim()) return;
+    setValidationError(null);
+    append({ role: "user", content: promptText.trim() });
+  };
 
-    handleInputChange({
-      target: { value: promptText },
-    } as React.ChangeEvent<HTMLInputElement>);
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim()) {
+      setValidationError("Please enter a question.");
+      return;
+    }
+    setValidationError(null);
+    handleSubmit(e);
+  };
 
-    setTimeout(() => {
-      handleSubmit(fakeEvent);
-    }, 50);
+  const handleInputChangeWithClear = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (validationError) setValidationError(null);
+    handleInputChange(e);
+  };
+
+  const getErrorMessage = (err: Error) => {
+    try {
+      const parsed = JSON.parse(err.message);
+      if (parsed && typeof parsed.error === "string") {
+        return parsed.error;
+      }
+    } catch {
+      // not json
+    }
+    return err.message || "Something went wrong. Please try again.";
   };
 
   return (
@@ -71,7 +91,7 @@ export default function ChatbotWidget() {
               </div>
               <div>
                 <h3 className="text-sm font-bold font-heading flex items-center gap-1.5">
-                  SB AI Assistant
+                  Rep
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </h3>
                 <p className="text-[11px] text-[#756860] flex items-center gap-1">
@@ -81,7 +101,7 @@ export default function ChatbotWidget() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              aria-label="Close AI Assistant"
+              aria-label="Close Rep"
               className="p-1.5 rounded-xl hover:bg-white/10 text-[#756860] hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
@@ -99,7 +119,7 @@ export default function ChatbotWidget() {
                     Welcome to Dept of AI & Data Science
                   </div>
                   <p className="text-xs text-[#756860] leading-relaxed">
-                    Ask me about our curriculum, subject codes, faculty directory, co-curricular wings, or published events.
+                    Ask Rep about our curriculum, subject codes, faculty directory, co-curricular wings, or published events.
                   </p>
                 </div>
 
@@ -155,10 +175,17 @@ export default function ChatbotWidget() {
               </div>
             )}
 
+            {/* VALIDATION ERROR STATE */}
+            {validationError && (
+              <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs space-y-1">
+                <p>{validationError}</p>
+              </div>
+            )}
+
             {/* ERROR STATE */}
             {error && (
               <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs space-y-2">
-                <p>Unable to process request. {error.message}</p>
+                <p>Unable to process request. {getErrorMessage(error)}</p>
                 <button
                   onClick={() => reload()}
                   className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-900 underline"
@@ -173,16 +200,16 @@ export default function ChatbotWidget() {
 
           {/* INPUT FORM */}
           <form
-            onSubmit={handleSubmit}
-            className="p-3 bg-white border-t border-[#EFEAE3] flex items-center gap-2"
+            onSubmit={handleFormSubmit}
+            className="p-3 bg-[#FFFFFF] border-t border-[#EFEAE3] flex items-center gap-2"
           >
             <input
               type="text"
               value={input}
-              onChange={handleInputChange}
-              placeholder="Ask about courses, faculty, events..."
+              onChange={handleInputChangeWithClear}
+              placeholder="Ask Rep about courses, faculty, events..."
               disabled={isLoading}
-              aria-label="Type your message to AI Assistant"
+              aria-label="Type your message to Rep"
               className="flex-grow px-3.5 py-2.5 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] text-xs text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#1C1917] disabled:opacity-50"
             />
             <button
@@ -200,7 +227,7 @@ export default function ChatbotWidget() {
       {/* FLOATING ACTION BUTTON */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle Department AI Assistant"
+        aria-label="Toggle Rep AI Assistant"
         className="pointer-events-auto w-12 h-12 rounded-full bg-[#1C1917] text-white shadow-lg border border-[#38332E] hover:bg-[#282421] hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center relative focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:ring-offset-2 focus:ring-offset-[#1C1917] group"
       >
         <Sparkles className="w-5 h-5 text-[#FDB27C] group-hover:rotate-12 transition-transform duration-300" />

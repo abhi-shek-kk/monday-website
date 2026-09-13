@@ -4,7 +4,7 @@ import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { User, Lock, AlertCircle, ArrowRight, Clock, Eye, EyeOff } from "lucide-react";
+import { User, Lock, AlertCircle, ArrowRight, Clock, Eye, EyeOff, Info } from "lucide-react";
 
 function LoginForm() {
   const router = useRouter();
@@ -16,12 +16,14 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(initialError || null);
+  const [forgotNotice, setForgotNotice] = useState<string | null>(null);
   const [isPendingNotice, setIsPendingNotice] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setForgotNotice(null);
     setIsPendingNotice(false);
     setIsSubmitting(true);
 
@@ -52,51 +54,78 @@ function LoginForm() {
     }
   };
 
+  const handleForgotPassword = () => {
+    setForgotNotice(
+      "To reset your account password, please contact the Department Administration or IT Office."
+    );
+  };
+
   return (
-    <div className="w-full bg-white p-6 sm:p-8 rounded-3xl border border-[#EFEAE3] shadow-sm space-y-6">
-      <div className="text-center space-y-2">
-        <div className="inline-flex items-center justify-center p-2 rounded-2xl bg-[#FBF9F7] border border-[#EFEAE3] shadow-xs mb-1">
-          <Image
-            src="/images/branding/sb-college-logo.jpg"
-            alt="St. Berchmans College Logo"
-            width={48}
-            height={48}
-            className="w-12 h-12 object-contain rounded-xl"
-          />
+    <div className="w-full space-y-6">
+      {/* Header & Typography Hierarchy */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-3">
+          <div className="p-1.5 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] shadow-2xs shrink-0">
+            <Image
+              src="/images/branding/sb-college-logo.jpg"
+              alt="St. Berchmans College Logo"
+              width={36}
+              height={36}
+              className="w-9 h-9 object-contain rounded-lg"
+            />
+          </div>
+          <div>
+            <span className="block text-[11px] font-bold uppercase tracking-widest text-[#756860]">
+              STUDENT PORTAL
+            </span>
+            <span className="text-xs text-[#756860]">
+              St. Berchmans College • Dept of AI & Data Science
+            </span>
+          </div>
         </div>
-        <span className="block text-xs font-semibold uppercase tracking-wider text-[#756860]">
-          St. Berchmans College
-        </span>
-        <h1 className="text-2xl font-bold tracking-tight text-[#1C1917] font-heading">
-          Department Portal Sign In
-        </h1>
-        <p className="text-xs text-[#756860]">
-          Department of Artificial Intelligence & Data Science
-        </p>
+
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#1C1917] font-heading">
+            Welcome Back
+          </h1>
+          <p className="text-xs sm:text-sm text-[#756860] mt-1">
+            Sign in to access your department portal.
+          </p>
+        </div>
       </div>
 
+      {/* Auth Error Banner */}
       {error && (
         <div
-          className={`p-4 rounded-xl border flex items-start gap-3 text-sm ${
+          className={`p-3.5 rounded-xl border flex items-start gap-3 text-xs sm:text-sm ${
             isPendingNotice
-              ? "bg-amber-50 border-amber-200 text-amber-900"
-              : "bg-red-50 border-red-200 text-red-900"
+              ? "bg-amber-50/90 border-amber-200 text-amber-900"
+              : "bg-red-50/90 border-red-200 text-red-900"
           }`}
         >
           {isPendingNotice ? (
-            <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+            <Clock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
           ) : (
-            <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
           )}
           <div>
             <p className="font-semibold">
               {isPendingNotice ? "Registration Pending" : "Authentication Notice"}
             </p>
-            <p className="mt-0.5">{error}</p>
+            <p className="mt-0.5 leading-relaxed">{error}</p>
           </div>
         </div>
       )}
 
+      {/* Forgot Password Notice Banner */}
+      {forgotNotice && (
+        <div className="p-3.5 rounded-xl bg-stone-100 border border-stone-200 text-[#1C1917] text-xs sm:text-sm flex items-start gap-2.5">
+          <Info className="w-4 h-4 text-[#756860] shrink-0 mt-0.5" />
+          <div className="leading-relaxed">{forgotNotice}</div>
+        </div>
+      )}
+
+      {/* Login Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-1.5">
@@ -112,7 +141,7 @@ function LoginForm() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
-              className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:border-transparent text-[#1C1917]"
+              className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917]/20 focus:border-[#1C1917] text-[#1C1917] transition-all placeholder:text-[#9A8F86]"
             />
           </div>
         </div>
@@ -131,7 +160,7 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full pl-10 pr-10 py-2.5 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:border-transparent text-[#1C1917]"
+              className="w-full pl-10 pr-10 py-2.5 sm:py-3 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917]/20 focus:border-[#1C1917] text-[#1C1917] transition-all placeholder:text-[#9A8F86]"
             />
             <button
               type="button"
@@ -142,12 +171,22 @@ function LoginForm() {
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
+
+          <div className="flex justify-end mt-1.5">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="text-xs text-[#756860] hover:text-[#1C1917] hover:underline transition-colors font-medium"
+            >
+              Forgot password?
+            </button>
+          </div>
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full mt-2 py-3 px-4 bg-[#1C1917] hover:bg-[#231F1C] text-white font-medium text-sm rounded-xl transition-all shadow-sm hover:shadow flex items-center justify-center gap-2 disabled:opacity-50"
+          className="w-full mt-2 py-3 px-4 bg-[#1C1917] hover:bg-[#231F1C] active:scale-[0.99] text-white font-medium text-sm rounded-xl transition-all shadow-sm hover:shadow flex items-center justify-center gap-2 disabled:opacity-50"
         >
           {isSubmitting ? (
             "Signing in..."
@@ -159,6 +198,7 @@ function LoginForm() {
         </button>
       </form>
 
+      {/* Registration Footer Link */}
       <div className="pt-4 border-t border-[#EFEAE3] text-center text-xs text-[#756860]">
         Are you a student without an account?{" "}
         <Link
@@ -175,27 +215,26 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#FBF9F7] text-[#1C1917]">
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left Column: Login Form */}
-        <div className="lg:col-span-6 w-full max-w-md mx-auto">
-          <Suspense fallback={<div className="text-sm text-[#756860] text-center">Loading sign in form...</div>}>
+      {/* Unified Single Composition Container */}
+      <div className="w-full max-w-5xl bg-white rounded-3xl sm:rounded-[2rem] border border-[#EFEAE3] shadow-lg sm:shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[540px] sm:min-h-[580px]">
+        {/* Left Column: Vertically Centered Login Form (~50%) */}
+        <div className="lg:col-span-6 flex flex-col justify-center p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#EFEAE3]/80 order-1">
+          <Suspense fallback={<div className="text-sm text-[#756860] text-center py-8">Loading sign in form...</div>}>
             <LoginForm />
           </Suspense>
         </div>
 
-        {/* Right Column: Pure Architectural Tower Sketch Image */}
-        <div className="lg:col-span-6 hidden lg:block h-full">
-          <div className="relative h-full w-full bg-white p-6 sm:p-8 rounded-3xl border border-[#EFEAE3] shadow-xs flex items-center justify-center overflow-hidden min-h-[440px] lg:min-h-[520px]">
-            <div className="relative w-full h-full max-w-sm aspect-[3/4] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] p-6 flex items-center justify-center">
-              <Image
-                src="/images/login/sb-tower-sketch.png"
-                alt="St. Berchmans College Tower"
-                fill
-                priority
-                sizes="(max-width: 1200px) 50vw, 40vw"
-                className="object-contain p-4 hover:scale-[1.03] transition-transform duration-500"
-              />
-            </div>
+        {/* Right Column: Architectural Tower Sketch Visual Panel (~50%) */}
+        <div className="lg:col-span-6 bg-[#F6F3EE] flex items-center justify-center p-6 sm:p-8 relative min-h-[320px] sm:min-h-[420px] lg:min-h-full order-2">
+          <div className="relative w-full h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] flex items-center justify-center">
+            <Image
+              src="/images/login/sb-tower-sketch.png"
+              alt="St. Berchmans College Architectural Sketch"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-contain p-2 sm:p-4 hover:scale-[1.02] transition-transform duration-700 drop-shadow-xs"
+            />
           </div>
         </div>
       </div>

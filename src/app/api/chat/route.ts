@@ -11,10 +11,10 @@ const chatRequestSchema = z.object({
   messages: z.array(
     z.object({
       role: z.enum(["user", "assistant", "system"]),
-      content: z.string().min(1).max(2000),
+      content: z.string().min(1, "Message content cannot be empty").max(2000, "Message too long"),
     })
-  ).min(1),
-  sessionId: z.string().optional(),
+  ).min(1, "At least one message is required"),
+  sessionId: z.string().nullable().optional(),
 });
 
 // Rate limiting map per IP (max 12 requests per minute)
@@ -123,8 +123,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Last message must be from user." }, { status: 400 });
     }
 
+    const trimmedUserMessage = lastUserMessage.content.trim();
+    if (!trimmedUserMessage) {
+      return NextResponse.json({ error: "Please enter a question." }, { status: 400 });
+    }
+
     // 3. User Session Verification (Authoritative RBAC)
-    const authSession = await getSession();
+    const authSession = await getSession().catch(() => null);
     const currentUserId = authSession?.userId;
     const isApprovedUser = authSession && authSession.status === "APPROVED";
 
@@ -135,12 +140,12 @@ export async function POST(request: Request) {
       activeSessionId = newSession.id;
     }
 
-    await addChatMessage(activeSessionId, "user", lastUserMessage.content).catch((e) =>
+    await addChatMessage(activeSessionId, "user", trimmedUserMessage).catch((e) =>
       console.error("Failed to save user message:", e)
     );
 
     // 5. Pre-grounding security check against forbidden data requests
-    const securityCheck = checkPrivateDataRequest(lastUserMessage.content);
+    const securityCheck = checkPrivateDataRequest(trimmedUserMessage);
     if (securityCheck.forbidden && securityCheck.responseMessage) {
       await addChatMessage(activeSessionId, "assistant", securityCheck.responseMessage).catch(() => {});
       return NextResponse.json({
@@ -240,7 +245,7 @@ ${
 ==================================================
 `;
 
-    const systemPrompt = `You are the official AI Information Assistant for the Department of Artificial Intelligence & Data Science at St. Berchmans College, Changanassery.
+    const systemPrompt = `You are Rep, the official AI Information Assistant for the Department of Artificial Intelligence & Data Science at St. Berchmans College, Changanassery.
 
 RESTRICTED KNOWLEDGE BOUNDARIES:
 - Your knowledge is STRICTLY restricted to:
@@ -258,13 +263,41 @@ ${allowlistContext}`;
 
     // 7. Call Gemini AI API via SDK
     const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      const fallbackMsg =
-        "I am the Department AI Assistant. Currently, the AI service gateway is in safe maintenance mode. Please browse the Academics and Courses pages directly.";
-      await addChatMessage(activeSessionId, "assistant", fallbackMsg).catch(() => {});
+    if (!apiKey || apiKey === "demo_gemini_key") {
+      const q = trimmedUserMessage.toLowerCase();
+      let responseContent = "";
+
+      if (q.includes("course") || q.includes("semester") || q.includes("sem") || q.includes("subject")) {
+        if (subjects.length > 0) {
+          const sem1Subjects = subjects.filter((s: { semester: number }) => s.semester === 1);
+          if (q.includes("1") || q.includes("first") || q.includes("semester 1")) {
+            responseContent = `The courses offered in Semester 1 are:\n` +
+              sem1Subjects.map((s: { code: string; name: string; description: string | null }) => `- **${s.code}**: ${s.name}${s.description ? ` — ${s.description}` : ""}`).join("\n");
+          } else {
+            responseContent = `The Department of AI & Data Science offers the following courses across semesters:\n` +
+              subjects.map((s: { semester: number; code: string; name: string }) => `- Sem ${s.semester} | **${s.code}**: ${s.name}`).join("\n");
+          }
+        } else {
+          responseContent = "Our 4-Year BSc AI & Data Science curriculum covers fundamental mathematics, programming, machine learning, and data analytics across 8 semesters.";
+        }
+      } else if (q.includes("department") || q.includes("about") || q.includes("ai & data science") || q.includes("st. berchmans")) {
+        responseContent = "The Department of Artificial Intelligence & Data Science at St. Berchmans College, Changanassery offers a modern 4-year degree (8 semesters) designed to prepare students for cutting-edge careers in AI, machine learning, and analytics.";
+      } else if (q.includes("event")) {
+        responseContent = eventsList.length > 0
+          ? `Upcoming department events:\n` + eventsList.map((e: { title: string; eventDate: Date; description: string }) => `- **${e.title}** (${new Date(e.eventDate).toLocaleDateString()}): ${e.description}`).join("\n")
+          : "No published events at present. Please check back soon!";
+      } else if (q.includes("wing") || q.includes("club") || q.includes("co-curricular")) {
+        responseContent = wingsList.length > 0
+          ? `Co-curricular wings active in the department:\n` + wingsList.map((w: { name: string; type: string; description: string | null }) => `- **${w.name}** (${w.type}): ${w.description || "Active organization"}`).join("\n")
+          : "Active co-curricular wings include NSS Wing, Tech Team, Sports Wing, and NCC Wing.";
+      } else {
+        responseContent = "Hello! I am Rep, your Department AI Assistant. How can I help you with our curriculum, subject codes, faculty, events, or student wings today?";
+      }
+
+      await addChatMessage(activeSessionId, "assistant", responseContent).catch(() => {});
       return NextResponse.json({
         role: "assistant",
-        content: fallbackMsg,
+        content: responseContent,
         sessionId: activeSessionId,
       });
     }
