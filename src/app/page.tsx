@@ -184,17 +184,19 @@ export default async function HomePage() {
       </section>
 
       {/* CAMPUS SHOWCASE SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[3/1] rounded-3xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] shadow-sm">
-          <Image
-            src="/images/home/sb-college-centre.jpg"
-            alt="St. Berchmans College campus building and grounds"
-            fill
-            priority
-            quality={95}
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            className="object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
-          />
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white p-3 sm:p-4 rounded-3xl border border-[#EFEAE3] shadow-sm">
+          <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
+            <Image
+              src="/images/home/sb-college-centre.jpg"
+              alt="St. Berchmans College campus building and grounds"
+              fill
+              priority
+              quality={95}
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              className="object-cover object-center transition-transform duration-700 hover:scale-[1.01]"
+            />
+          </div>
         </div>
       </section>
 
