@@ -100,7 +100,7 @@ export default async function HomePage() {
 
             {/* Right Campus Visual Showcase */}
             <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none bg-white p-4 sm:p-5 rounded-3xl border border-[#EFEAE3] shadow-sm space-y-4">
+              <div className="relative mx-auto max-w-xl lg:max-w-none bg-white p-3 sm:p-3.5 rounded-3xl border border-[#EFEAE3] shadow-sm">
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
                   <Image
                     src="/images/home/sb-college-centre.jpg"
@@ -108,22 +108,10 @@ export default async function HomePage() {
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    className="object-cover object-center contrast-[1.02] hover:scale-103 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute top-3 left-3 bg-[#1C1917]/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    St. Berchmans Campus
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] space-y-1">
-                    <span className="font-bold text-[#1C1917] block">Program Degree</span>
-                    <span className="text-[#756860]">BSc AI & Data Science</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] space-y-1">
-                    <span className="font-bold text-[#1C1917] block">Duration</span>
-                    <span className="text-[#756860]">4 Years / 8 Semesters</span>
+                  <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 bg-[#1C1917]/75 backdrop-blur-md text-[#EFEAE3] text-[10px] sm:text-[11px] font-medium tracking-[0.18em] uppercase px-3.5 py-1.5 rounded-full border border-white/10 shadow-xs z-10">
+                    ST. BERCHMANS · CHANGANASSERY
                   </div>
                 </div>
               </div>
