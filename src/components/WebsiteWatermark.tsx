@@ -25,15 +25,15 @@ export default function WebsiteWatermark() {
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center select-none"
     >
       <div
-        className={`relative w-full h-full max-w-[1400px] mx-auto flex items-center justify-center transition-opacity duration-300 ${opacityClass} mix-blend-multiply`}
+        className={`relative w-[90vw] sm:w-[80vw] md:w-[75vw] lg:w-[70vw] max-w-[1400px] aspect-[1652/952] transition-opacity duration-300 ${opacityClass} mix-blend-multiply`}
       >
         <Image
           src="/images/branding/watermark.png"
           alt=""
           fill
           priority
-          sizes="100vw"
-          className="object-contain object-center p-4 sm:p-8 md:p-12"
+          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 80vw, 70vw"
+          className="object-contain object-center"
         />
       </div>
     </div>
