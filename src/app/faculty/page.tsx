@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getPublicFacultyProfiles } from "@/lib/services/faculty.service";
-import { Users, Sparkles } from "lucide-react";
+import { Users } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Faculty Directory | St. Berchmans College AI & Data Science",
@@ -16,7 +16,6 @@ export default async function FacultyPage() {
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-[#756860]" />
           Department Directory &bull; St. Berchmans College
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">

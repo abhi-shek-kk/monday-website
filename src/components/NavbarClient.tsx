@@ -11,7 +11,6 @@ import {
   UserCheck,
   Shield,
   GraduationCap,
-  Sparkles,
   LogOut,
   ChevronDown,
 } from "lucide-react";

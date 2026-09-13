@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Mail, Shield, GraduationCap, Sparkles } from "lucide-react";
+import { MapPin, Mail, Shield, GraduationCap } from "lucide-react";
 
 export default function Footer() {
   return (

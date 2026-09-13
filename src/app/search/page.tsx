@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import SearchClient from "./SearchClient";
-import { Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Search Department | St. Berchmans College AI & Data Science",
@@ -14,7 +13,6 @@ export default function SearchPage() {
       {/* HERO HEADER */}
       <section className="space-y-3 sm:space-y-4 max-w-3xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold shadow-2xs">
-          <Sparkles className="w-3.5 h-3.5 text-[#756860]" />
           Global Search &bull; St. Berchmans College
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">

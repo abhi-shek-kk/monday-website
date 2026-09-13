@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Sparkles,
   ArrowRight,
   MapPin,
   BrainCircuit,
@@ -26,7 +25,6 @@ export default function AboutPage() {
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-[#756860]" />
           About Department &bull; St. Berchmans College
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">

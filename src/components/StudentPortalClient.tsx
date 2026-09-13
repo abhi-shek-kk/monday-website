@@ -14,7 +14,6 @@ import {
   FolderKanban,
   FileText,
   Users,
-  Sparkles,
   Edit3,
   Plus,
   Trash2,
@@ -465,7 +464,7 @@ export default function StudentPortalClient({
                   : "border-transparent text-[#756860] hover:text-[#1C1917]"
               }`}
             >
-              <Sparkles className="w-4 h-4" /> Dashboard Overview
+              Dashboard Overview
             </button>
 
             <button

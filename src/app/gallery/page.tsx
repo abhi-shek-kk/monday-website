@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { getPublicGalleryItems } from "@/lib/services/gallery.service";
-import { Sparkles, Camera } from "lucide-react";
+import { Camera } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Department Gallery | St. Berchmans College AI & Data Science",
@@ -36,7 +36,6 @@ export default async function GalleryPage() {
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-[#756860]" />
           Media Showcase &bull; St. Berchmans College
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">

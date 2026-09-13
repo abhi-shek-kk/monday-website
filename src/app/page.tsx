@@ -8,7 +8,6 @@ import { getPublicEvents } from "@/lib/services/event.service";
 import { getFeaturedProjects } from "@/lib/services/project.service";
 import { getPublicGalleryItems } from "@/lib/services/gallery.service";
 import {
-  Sparkles,
   ArrowRight,
   Shield,
   GraduationCap,
@@ -56,7 +55,7 @@ export default async function HomePage() {
           <div className="max-w-3xl space-y-6">
             {/* Batch Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDB27C]/30 backdrop-blur-sm border border-[#FDB27C]/50 text-[#1C1917] text-xs font-bold uppercase tracking-wider shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#EA580C]" /> FIRST BATCH 2026–2030 &bull; CHANGANASSERY, KERALA
+              FIRST BATCH 2026–2030 &bull; CHANGANASSERY, KERALA
             </div>
 
             {/* Title */}
@@ -201,18 +200,62 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* CAMPUS SHOWCASE SECTION */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white p-3 sm:p-4 rounded-3xl border border-[#EFEAE3] shadow-sm">
-          <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
+      {/* 100 YEARS OF ST BERCHMANS SECTION */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-3xl border border-[#EFEAE3] shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
+          {/* LEFT CONTENT COLUMN */}
+          <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 flex flex-col justify-between space-y-8">
+            <div className="space-y-6">
+              <div>
+                <span className="inline-block px-4 py-1.5 rounded-full border border-[#756860]/30 text-[#574E46] text-xs font-semibold uppercase tracking-wider">
+                  ABOUT THE COLLEGE
+                </span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1C1917] tracking-tight leading-[1.15]">
+                100 Years of <br />
+                <span className="text-[#FDB27C]">St Berchmans</span>
+              </h2>
+
+              <div className="space-y-4 text-sm sm:text-base text-[#574E46] leading-relaxed font-normal">
+                <p>
+                  The year was 1922 and the occasion a momentous one. V.V. John, former Vice Chancellor of the Jodhpur university, had just enrolled in a junior intermediate class of 125 students that functioned from a multi-storey building in the vicinity of the Parayil Church in Changanassery. Feeling slightly nervous, he proceeded straight to a classroom where a man called Kulandaiswami Pillai was teaching English. “We admit boys till the benches break,” remarked Mr. Pillai, welcoming the youngster to his class.
+                </p>
+                <p>
+                  The occasion marked the beginning of the iconic St. Berchmans College, which has lived through a century to emerge as a premier institution of higher education in Central Kerala. Calls for a college by the Catholics in Travancore were growing when Monsignor Charles Lavigne of France, the first resident Bishop (Vicar Apostolic) of the Syrian Catholic diocese of Changanacherry, laid its foundation stone in 1895. However, it took 25 years before Bishop Mar Thomas Kurialacherry, the first native Bishop of the Syro-Malabar church, opened the institution on June 19, 1922. Rev. Mathew Purackal, the first postgraduate from the diocese of Changanacherry, was appointed the first principal.
+                </p>
+                <p>
+                  Over the years, it has undergone several progressive changes to become the first college in the State to secure autonomous status in 2014. The institution now offers as many as 19 Post-Graduate courses, 17 undergraduate courses, M.Phil in three departments and doctoral programmes in 10 departments. It currently hosts about 3,200 students and 170 teachers across 18 departments, besides 80 non-teaching staff.
+                </p>
+                <p>
+                  To date, it has produced two Chief Ministers, Oommen Chandy and P.K. Vasudevan Nair, a number of writers and artists, including Muttathu Varkey, Vishnu Narayanan Namboothiri and Prem Nazir, besides a long list of legal luminaries, bureaucrats and academicians such as Justice Syriac Joseph, C.V. Ananda Bose, Raju Narayana Swami, Jancy James and B. Ekbal.
+                </p>
+                <p>
+                  Marking the beginning of the institution's centenary celebrations, Metropolitan Archbishop Mar Joseph Perumthottam blessed the ceremony. Higher Education Minister R. Bindu inaugurated the one-year-long celebrations. Meanwhile, the college management intends to roll out a slew of programmes in the centenary year, including scholarship for 100 students and adoption of five villages in Changanassery taluk, besides opening an interdisciplinary research department. The plans also include renovation of the Kavukattu Hall (the heritage auditorium), upgrading classrooms with digital technology, building a centenary hostel among others.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/about"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#FDB27C] text-[#1C1917] font-semibold text-sm hover:bg-[#fc9c54] transition-all shadow-xs hover:-translate-y-0.5"
+              >
+                Learn More <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+          {/* RIGHT IMAGE COLUMN */}
+          <div className="lg:col-span-5 relative min-h-[400px] lg:min-h-[650px] w-full bg-[#FBF9F7] overflow-hidden">
             <Image
-              src="/images/home/sb-college-centre.jpg"
-              alt="St. Berchmans College campus building and grounds"
+              src="/images/home/IMG_04.jpg"
+              alt="100 Years of St Berchmans College Tower"
               fill
               priority
               quality={95}
-              sizes="(max-width: 1024px) 100vw, 1024px"
-              className="object-cover object-center transition-transform duration-700 hover:scale-[1.01]"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { MapPin, Mail, Sparkles, Clock, Building2 } from "lucide-react";
+import { MapPin, Mail, Clock, Building2 } from "lucide-react";
 import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
@@ -14,7 +14,6 @@ export default function ContactPage() {
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-[#756860]" />
           Department Contact &bull; St. Berchmans College
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">
