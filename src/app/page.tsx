@@ -106,7 +106,7 @@ export default async function HomePage() {
               >
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
                   <Image
-                    src="/images/home/sb-college-centre.jpg"
+                    src="/images/home/IMG_04.jpg"
                     alt="St. Berchmans College campus infrastructure"
                     fill
                     priority
