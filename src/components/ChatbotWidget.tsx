@@ -9,6 +9,7 @@ import {
   Sparkles,
   Loader2,
   RefreshCw,
+  RotateCcw,
   ShieldCheck,
 } from "lucide-react";
 
@@ -18,7 +19,7 @@ export default function ChatbotWidget() {
   const [validationError, setValidationError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error, reload, append } =
+  const { messages, setMessages, input, handleInputChange, handleSubmit, isLoading, error, reload, append } =
     useChat({
       api: "/api/chat",
       body: sessionId ? { sessionId } : undefined,
@@ -40,8 +41,8 @@ export default function ChatbotWidget() {
 
   const quickPrompts = [
     "What courses are offered in Semester 1?",
+    "What is machine learning?",
     "Who are the department faculty members?",
-    "What co-curricular wings are active?",
     "What upcoming events are scheduled?",
   ];
 
@@ -49,6 +50,12 @@ export default function ChatbotWidget() {
     if (!promptText.trim()) return;
     setValidationError(null);
     append({ role: "user", content: promptText.trim() });
+  };
+
+  const handleNewChat = () => {
+    setMessages([]);
+    setSessionId(null);
+    setValidationError(null);
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -91,21 +98,31 @@ export default function ChatbotWidget() {
               </div>
               <div>
                 <h3 className="text-sm font-bold font-heading flex items-center gap-1.5">
-                  Melbin
+                  Mr. Melbin
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </h3>
                 <p className="text-[11px] text-[#756860] flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-[#FDB27C]" /> Grounded in Department Data
+                  <ShieldCheck className="w-3 h-3 text-[#FDB27C]" /> Grounded in Dept Data & AI Knowledge
                 </p>
               </div>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              aria-label="Close Melbin"
-              className="p-1.5 rounded-xl hover:bg-white/10 text-[#756860] hover:text-white transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handleNewChat}
+                title="Start New Chat"
+                aria-label="Start New Chat"
+                className="p-1.5 rounded-xl hover:bg-white/10 text-[#756860] hover:text-white transition-colors"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setIsOpen(false)}
+                aria-label="Close Mr. Melbin"
+                className="p-1.5 rounded-xl hover:bg-white/10 text-[#756860] hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* MESSAGES AREA */}
@@ -119,7 +136,7 @@ export default function ChatbotWidget() {
                     Welcome to Dept of AI & Data Science
                   </div>
                   <p className="text-xs text-[#756860] leading-relaxed">
-                    Ask Melbin about our curriculum, subject codes, faculty directory, co-curricular wings, or published events.
+                    Ask Mr. Melbin about our curriculum, faculty directory, semester subjects, published events, student wings, or any general AI/technology question.
                   </p>
                 </div>
 
@@ -156,7 +173,7 @@ export default function ChatbotWidget() {
                 )}
 
                 <div
-                  className={`max-w-[80%] p-3.5 rounded-2xl text-xs leading-relaxed space-y-1 ${
+                  className={`max-w-[85%] p-3.5 rounded-2xl text-xs leading-relaxed space-y-1 ${
                     m.role === "user"
                       ? "bg-[#1C1917] text-white rounded-br-none shadow-xs"
                       : "bg-white text-[#1C1917] border border-[#EFEAE3] rounded-bl-none shadow-xs"
@@ -171,7 +188,7 @@ export default function ChatbotWidget() {
             {isLoading && (
               <div className="flex items-center gap-2 text-xs text-[#756860] p-2">
                 <Loader2 className="w-4 h-4 animate-spin text-[#1C1917]" />
-                Searching official department records...
+                Searching official department records & AI knowledge...
               </div>
             )}
 
@@ -207,9 +224,9 @@ export default function ChatbotWidget() {
               type="text"
               value={input}
               onChange={handleInputChangeWithClear}
-              placeholder="Ask Melbin about courses, faculty, events..."
+              placeholder="Ask Mr. Melbin a question..."
               disabled={isLoading}
-              aria-label="Type your message to Melbin"
+              aria-label="Type your message to Mr. Melbin"
               className="flex-grow px-3.5 py-2.5 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] text-xs text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#1C1917] disabled:opacity-50"
             />
             <button
@@ -227,7 +244,7 @@ export default function ChatbotWidget() {
       {/* FLOATING ACTION BUTTON */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle Melbin AI Assistant"
+        aria-label="Toggle Mr. Melbin AI Assistant"
         className="pointer-events-auto w-12 h-12 rounded-full bg-[#1C1917] text-white shadow-lg border border-[#38332E] hover:bg-[#282421] hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center relative focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:ring-offset-2 focus:ring-offset-[#1C1917] group"
       >
         <Sparkles className="w-5 h-5 text-[#FDB27C] group-hover:rotate-12 transition-transform duration-300" />
