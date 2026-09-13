@@ -134,22 +134,42 @@ export async function getSession(): Promise<{
 
 export async function authenticateUser(usernameInput: string, passwordInput: string) {
   const username = usernameInput.trim();
-  const user = await db.user.findUnique({
-    where: { username },
-    select: {
-      id: true,
-      username: true,
-      passwordHash: true,
-      role: true,
-      status: true,
-    },
-  });
+  
+  console.log("[LOGIN_DIAGNOSTIC] LOGIN_STAGE=user_lookup querying DB...");
+  let user;
+  try {
+    user = await db.user.findUnique({
+      where: { username },
+      select: {
+        id: true,
+        username: true,
+        passwordHash: true,
+        role: true,
+        status: true,
+      },
+    });
+    console.log("[LOGIN_DIAGNOSTIC] LOGIN_STAGE=user_lookup query finished. User found:", Boolean(user));
+  } catch (dbErr: any) {
+    console.error(
+      `[LOGIN_DIAGNOSTIC_ERROR] LOGIN_STAGE=user_lookup DB errorType=${dbErr?.name || "DBError"} errorCode=${dbErr?.code || "N/A"} errorMessage=${dbErr?.message}`
+    );
+    throw dbErr;
+  }
 
   if (!user) {
     return { success: false as const, error: "Invalid username or password." };
   }
 
-  const isValidPassword = await bcrypt.compare(passwordInput, user.passwordHash);
+  console.log("[LOGIN_DIAGNOSTIC] LOGIN_STAGE=password_verify comparing password hash...");
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(passwordInput, user.passwordHash);
+    console.log("[LOGIN_DIAGNOSTIC] LOGIN_STAGE=password_verify completed. Match:", isValidPassword);
+  } catch (pwdErr: any) {
+    console.error("[LOGIN_DIAGNOSTIC_ERROR] LOGIN_STAGE=password_verify error:", pwdErr?.message);
+    throw pwdErr;
+  }
+
   if (!isValidPassword) {
     return { success: false as const, error: "Invalid username or password." };
   }
@@ -185,7 +205,15 @@ export async function authenticateUser(usernameInput: string, passwordInput: str
     status: user.status,
   };
 
-  const token = await createSessionToken(sessionPayload);
+  console.log("[LOGIN_DIAGNOSTIC] LOGIN_STAGE=jwt_token_sign signing session JWT token...");
+  let token: string;
+  try {
+    token = await createSessionToken(sessionPayload);
+    console.log("[LOGIN_DIAGNOSTIC] LOGIN_STAGE=jwt_token_sign completed successfully.");
+  } catch (jwtErr: any) {
+    console.error("[LOGIN_DIAGNOSTIC_ERROR] LOGIN_STAGE=jwt_token_sign error:", jwtErr?.message);
+    throw jwtErr;
+  }
 
   return {
     success: true as const,
