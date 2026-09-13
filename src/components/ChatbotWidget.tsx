@@ -91,7 +91,7 @@ export default function ChatbotWidget() {
               </div>
               <div>
                 <h3 className="text-sm font-bold font-heading flex items-center gap-1.5">
-                  Rep
+                  Melbin
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </h3>
                 <p className="text-[11px] text-[#756860] flex items-center gap-1">
@@ -101,7 +101,7 @@ export default function ChatbotWidget() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              aria-label="Close Rep"
+              aria-label="Close Melbin"
               className="p-1.5 rounded-xl hover:bg-white/10 text-[#756860] hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
@@ -119,7 +119,7 @@ export default function ChatbotWidget() {
                     Welcome to Dept of AI & Data Science
                   </div>
                   <p className="text-xs text-[#756860] leading-relaxed">
-                    Ask Rep about our curriculum, subject codes, faculty directory, co-curricular wings, or published events.
+                    Ask Melbin about our curriculum, subject codes, faculty directory, co-curricular wings, or published events.
                   </p>
                 </div>
 
@@ -207,9 +207,9 @@ export default function ChatbotWidget() {
               type="text"
               value={input}
               onChange={handleInputChangeWithClear}
-              placeholder="Ask Rep about courses, faculty, events..."
+              placeholder="Ask Melbin about courses, faculty, events..."
               disabled={isLoading}
-              aria-label="Type your message to Rep"
+              aria-label="Type your message to Melbin"
               className="flex-grow px-3.5 py-2.5 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] text-xs text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#1C1917] disabled:opacity-50"
             />
             <button
@@ -227,7 +227,7 @@ export default function ChatbotWidget() {
       {/* FLOATING ACTION BUTTON */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle Rep AI Assistant"
+        aria-label="Toggle Melbin AI Assistant"
         className="pointer-events-auto w-12 h-12 rounded-full bg-[#1C1917] text-white shadow-lg border border-[#38332E] hover:bg-[#282421] hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center relative focus:outline-none focus:ring-2 focus:ring-[#FDB27C] focus:ring-offset-2 focus:ring-offset-[#1C1917] group"
       >
         <Sparkles className="w-5 h-5 text-[#FDB27C] group-hover:rotate-12 transition-transform duration-300" />

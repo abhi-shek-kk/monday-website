@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { streamText } from "ai";
+import { streamText, createDataStreamResponse } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
 import { db } from "@/lib/db";
@@ -147,11 +147,15 @@ export async function POST(request: Request) {
     // 5. Pre-grounding security check against forbidden data requests
     const securityCheck = checkPrivateDataRequest(trimmedUserMessage);
     if (securityCheck.forbidden && securityCheck.responseMessage) {
-      await addChatMessage(activeSessionId, "assistant", securityCheck.responseMessage).catch(() => {});
-      return NextResponse.json({
-        role: "assistant",
-        content: securityCheck.responseMessage,
-        sessionId: activeSessionId,
+      const msg = securityCheck.responseMessage;
+      await addChatMessage(activeSessionId, "assistant", msg).catch(() => {});
+      return createDataStreamResponse({
+        execute: (dataStream) => {
+          dataStream.write(`0:${JSON.stringify(msg)}\n`);
+        },
+        headers: {
+          "x-chat-session-id": activeSessionId,
+        },
       });
     }
 
@@ -245,7 +249,7 @@ ${
 ==================================================
 `;
 
-    const systemPrompt = `You are Rep, the official AI Information Assistant for the Department of Artificial Intelligence & Data Science at St. Berchmans College, Changanassery.
+    const systemPrompt = `You are Melbin, the official AI Information Assistant for the Department of Artificial Intelligence & Data Science at St. Berchmans College, Changanassery.
 
 RESTRICTED KNOWLEDGE BOUNDARIES:
 - Your knowledge is STRICTLY restricted to:
@@ -291,14 +295,17 @@ ${allowlistContext}`;
           ? `Co-curricular wings active in the department:\n` + wingsList.map((w: { name: string; type: string; description: string | null }) => `- **${w.name}** (${w.type}): ${w.description || "Active organization"}`).join("\n")
           : "Active co-curricular wings include NSS Wing, Tech Team, Sports Wing, and NCC Wing.";
       } else {
-        responseContent = "Hello! I am Rep, your Department AI Assistant. How can I help you with our curriculum, subject codes, faculty, events, or student wings today?";
+        responseContent = "Hello! I am Melbin, your Department AI Assistant. How can I help you with our curriculum, subject codes, faculty, events, or student wings today?";
       }
 
       await addChatMessage(activeSessionId, "assistant", responseContent).catch(() => {});
-      return NextResponse.json({
-        role: "assistant",
-        content: responseContent,
-        sessionId: activeSessionId,
+      return createDataStreamResponse({
+        execute: (dataStream) => {
+          dataStream.write(`0:${JSON.stringify(responseContent)}\n`);
+        },
+        headers: {
+          "x-chat-session-id": activeSessionId,
+        },
       });
     }
 

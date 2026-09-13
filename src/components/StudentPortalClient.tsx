@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import LogoutButton from "@/components/LogoutButton";
 import {
   GraduationCap,
@@ -420,19 +422,27 @@ export default function StudentPortalClient({
       {/* HEADER */}
       <header className="bg-white border-b border-[#EFEAE3] sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#FDB27C]/20 flex items-center justify-center text-[#1C1917]">
-              <GraduationCap className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[10px] font-bold text-[#756860] uppercase tracking-wider block leading-none">
+          <Link
+            href="/"
+            title="Go to St. Berchmans College Home Page"
+            className="flex items-center gap-3 group transition-transform"
+          >
+            <Image
+              src="/images/branding/sb-college-logo.jpg"
+              alt="St. Berchmans College Logo"
+              width={44}
+              height={44}
+              className="w-10 h-10 sm:w-11 sm:h-11 object-contain rounded-xl shadow-2xs group-hover:scale-105 transition-transform bg-white p-0.5 border border-[#EFEAE3] shrink-0"
+            />
+            <div className="flex flex-col justify-center">
+              <span className="text-[10px] font-bold text-[#756860] uppercase tracking-wider block leading-none group-hover:text-[#1C1917] transition-colors">
                 Student Portal
               </span>
-              <span className="text-sm font-bold font-heading text-[#1C1917]">
+              <span className="text-xs sm:text-sm font-bold font-heading text-[#1C1917] group-hover:text-[#756860] transition-colors mt-0.5 leading-tight">
                 St. Berchmans College — AI & DS
               </span>
             </div>
-          </div>
+          </Link>
 
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-2 text-xs bg-[#FBF9F7] px-3 py-1.5 rounded-full border border-[#EFEAE3]">
