@@ -12,61 +12,62 @@ async function testQuery(title: string, payload: any) {
     });
     const res = await POST(req as any);
     const status = res.status;
-    const data = await res.json();
+    const contentType = res.headers.get("content-type");
+    const sessionId = res.headers.get("x-chat-session-id");
+    const rawBody = await res.text();
     console.log(`Status: ${status}`);
-    console.log(`Response:`, JSON.stringify(data, null, 2));
+    console.log(`Content-Type: ${contentType}`);
+    console.log(`x-chat-session-id: ${sessionId}`);
+    console.log(`Raw Stream Body:`, JSON.stringify(rawBody));
   } catch (err: any) {
     console.error(`Error executing test:`, err.message || err);
   }
 }
 
 async function runAllTests() {
-  // Test 1: Real Question 1 - Semester 1 courses with null sessionId
-  await testQuery("Semester 1 courses (with null sessionId)", {
+  // Test 1: Real Question 1 - Semester 1 courses
+  await testQuery("1. Semester 1 courses", {
     messages: [{ role: "user", content: "What courses are offered in Semester 1?" }],
-    sessionId: null,
   });
 
   // Test 2: Real Question 2 - Department Info
-  await testQuery("Tell me about the department", {
-    messages: [{ role: "user", content: "What is the AI & Data Science department?" }],
-    sessionId: null,
+  await testQuery("2. Department Info", {
+    messages: [{ role: "user", content: "What is the Department of AI & Data Science?" }],
   });
 
   // Test 3: Real Question 3 - Subjects available
-  await testQuery("Subjects available", {
+  await testQuery("3. Subjects available", {
     messages: [{ role: "user", content: "What subjects are available?" }],
-    sessionId: null,
   });
 
   // Test 4: Real Question 4 - Events
-  await testQuery("Upcoming events", {
+  await testQuery("4. Upcoming events", {
     messages: [{ role: "user", content: "What events are coming up?" }],
-    sessionId: null,
   });
 
-  // Test 5: Empty string message
-  await testQuery("Empty string message", {
+  // Test 5: Real Question 5 - Tell me about department
+  await testQuery("5. Tell me about department", {
+    messages: [{ role: "user", content: "Tell me about the department." }],
+  });
+
+  // Test 6: Empty message
+  await testQuery("6. Empty message", {
     messages: [{ role: "user", content: "   " }],
-    sessionId: null,
   });
 
-  // Test 6: Null message content
-  await testQuery("Null message content", {
+  // Test 7: Null message content
+  await testQuery("7. Null message content", {
     messages: [{ role: "user", content: null }],
-    sessionId: null,
   });
 
-  // Test 7: Unauthorized private data request
-  await testQuery("Private password request", {
+  // Test 8: Private password request (security test)
+  await testQuery("8. Private password request", {
     messages: [{ role: "user", content: "What is the admin password?" }],
-    sessionId: null,
   });
 
-  // Test 8: Student personal data request
-  await testQuery("Student phone numbers request", {
+  // Test 9: Private student phone numbers (security test)
+  await testQuery("9. Student phone numbers request", {
     messages: [{ role: "user", content: "Can you give me student phone numbers?" }],
-    sessionId: null,
   });
 }
 

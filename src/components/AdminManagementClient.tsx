@@ -141,9 +141,32 @@ interface NoteItem {
   createdAt: string;
 }
 
+interface CleanupProfileItem {
+  id: string;
+  username: string;
+  email: string | null;
+  role: "STUDENT" | "FACULTY" | "ADMIN";
+  status: "PENDING" | "APPROVED" | "REJECTED";
+  createdAt: string;
+  profileId?: string;
+  fullName: string;
+  registerNumber?: string | null;
+  batch?: string | null;
+  designation?: string | null;
+  qualification?: string | null;
+  reasons: { category: "DUPLICATE" | "DEMO_TEST" | "INCOMPLETE" | "UNUSED"; description: string }[];
+  linkedItemsCount: {
+    projects: number;
+    notes: number;
+    events: number;
+    gallery: number;
+    wings: number;
+  };
+}
+
 export default function AdminManagementClient() {
   const [activeTab, setActiveTab] = useState<
-    "overview" | "students" | "faculty" | "subjects" | "projects" | "events" | "gallery" | "wings" | "notes"
+    "overview" | "students" | "faculty" | "subjects" | "projects" | "events" | "gallery" | "wings" | "notes" | "cleanup"
   >("overview");
 
   // State
@@ -180,6 +203,14 @@ export default function AdminManagementClient() {
 
   const [notes, setNotes] = useState<NoteItem[]>([]);
   const [isLoadingNotes, setIsLoadingNotes] = useState(false);
+
+  // Profile Cleanup States
+  const [cleanupItems, setCleanupItems] = useState<CleanupProfileItem[]>([]);
+  const [isLoadingCleanup, setIsLoadingCleanup] = useState(false);
+  const [cleanupCategoryFilter, setCleanupCategoryFilter] = useState<string>("ALL");
+  const [selectedCleanupDetail, setSelectedCleanupDetail] = useState<CleanupProfileItem | null>(null);
+  const [deleteCleanupTarget, setDeleteCleanupTarget] = useState<CleanupProfileItem | null>(null);
+  const [isDeletingCleanup, setIsDeletingCleanup] = useState(false);
 
   // Form States
   // Provision Faculty Form
@@ -297,10 +328,51 @@ export default function AdminManagementClient() {
       fetchWings();
     } else if (activeTab === "notes") {
       fetchNotes();
+    } else if (activeTab === "cleanup") {
+      fetchCleanup();
     }
   }, [activeTab]);
 
   // Handlers
+  const fetchCleanup = async () => {
+    setIsLoadingCleanup(true);
+    try {
+      const res = await fetch("/api/admin/cleanup");
+      const data = await res.json();
+      if (res.ok) setCleanupItems(data.cleanupItems || []);
+    } catch {
+      setGlobalError("Failed to load profile cleanup data.");
+    } finally {
+      setIsLoadingCleanup(false);
+    }
+  };
+
+  const executeDeleteCleanup = async () => {
+    if (!deleteCleanupTarget) return;
+    setIsDeletingCleanup(true);
+
+    try {
+      const res = await fetch(`/api/admin/cleanup/${deleteCleanupTarget.id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setGlobalError(data.error || "Failed to delete profile.");
+      } else {
+        setGlobalSuccess(data.message || "Profile deleted successfully!");
+        setDeleteCleanupTarget(null);
+        setSelectedCleanupDetail(null);
+        fetchCleanup();
+        fetchStats();
+      }
+    } catch {
+      setGlobalError("Network error while deleting profile.");
+    } finally {
+      setIsDeletingCleanup(false);
+    }
+  };
+
   const fetchStudents = async () => {
     setIsLoadingStudents(true);
     try {
@@ -834,6 +906,22 @@ export default function AdminManagementClient() {
           }`}
         >
           <FileText className="w-3.5 h-3.5" /> Study Notes
+        </button>
+
+        <button
+          onClick={() => setActiveTab("cleanup")}
+          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all shrink-0 ${
+            activeTab === "cleanup"
+              ? "bg-red-900 text-white shadow-sm"
+              : "text-red-700 bg-red-50 hover:bg-red-100 hover:text-red-900 border border-red-200"
+          }`}
+        >
+          <Trash2 className="w-3.5 h-3.5 text-red-500" /> Profile Cleanup
+          {cleanupItems.length > 0 ? (
+            <span className="px-1.5 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-bold">
+              {cleanupItems.length}
+            </span>
+          ) : null}
         </button>
       </div>
 
@@ -2060,6 +2148,197 @@ export default function AdminManagementClient() {
         </div>
       )}
 
+      {/* TAB 10: PROFILE CLEANUP */}
+      {activeTab === "cleanup" && (
+        <div className="space-y-6">
+          <div className="bg-white p-6 rounded-2xl border border-red-200 shadow-sm space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#EFEAE3]">
+              <div>
+                <h2 className="text-lg font-bold text-[#1C1917] flex items-center gap-2">
+                  <Trash2 className="w-5 h-5 text-red-600" /> Unwanted Profile & Duplicate Record Cleanup
+                </h2>
+                <p className="text-xs text-[#756860] mt-0.5">
+                  Scan, inspect, and permanently remove demo profiles, test accounts, duplicate entries, and incomplete records.
+                </p>
+              </div>
+              <button
+                onClick={fetchCleanup}
+                disabled={isLoadingCleanup}
+                className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-700 text-xs font-semibold rounded-xl border border-red-200 flex items-center gap-1.5 transition-all shrink-0"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoadingCleanup ? "animate-spin" : ""}`} /> Rescan Profiles
+              </button>
+            </div>
+
+            {/* Metrics Overview */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              <div className="bg-[#FBF9F7] p-3 rounded-xl border border-[#EFEAE3]">
+                <div className="text-[10px] font-semibold text-[#756860] uppercase">Total Flagged</div>
+                <div className="text-2xl font-bold text-red-700">{cleanupItems.length}</div>
+              </div>
+              <div className="bg-amber-50/50 p-3 rounded-xl border border-amber-200">
+                <div className="text-[10px] font-semibold text-amber-900 uppercase">Duplicates</div>
+                <div className="text-2xl font-bold text-amber-800">
+                  {cleanupItems.filter((item) => item.reasons.some((r) => r.category === "DUPLICATE")).length}
+                </div>
+              </div>
+              <div className="bg-purple-50/50 p-3 rounded-xl border border-purple-200">
+                <div className="text-[10px] font-semibold text-purple-900 uppercase">Demo / Test</div>
+                <div className="text-2xl font-bold text-purple-800">
+                  {cleanupItems.filter((item) => item.reasons.some((r) => r.category === "DEMO_TEST")).length}
+                </div>
+              </div>
+              <div className="bg-blue-50/50 p-3 rounded-xl border border-blue-200">
+                <div className="text-[10px] font-semibold text-blue-900 uppercase">Incomplete</div>
+                <div className="text-2xl font-bold text-blue-800">
+                  {cleanupItems.filter((item) => item.reasons.some((r) => r.category === "INCOMPLETE")).length}
+                </div>
+              </div>
+              <div className="bg-gray-50 p-3 rounded-xl border border-gray-200">
+                <div className="text-[10px] font-semibold text-gray-700 uppercase">Unused / Old</div>
+                <div className="text-2xl font-bold text-gray-800">
+                  {cleanupItems.filter((item) => item.reasons.some((r) => r.category === "UNUSED")).length}
+                </div>
+              </div>
+            </div>
+
+            {/* Category Filter Tabs */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-2">
+              <span className="text-xs font-semibold text-[#756860] mr-2">Filter:</span>
+              {[
+                { id: "ALL", label: "All Flagged" },
+                { id: "DUPLICATE", label: "Potential Duplicates" },
+                { id: "DEMO_TEST", label: "Demo / Test Accounts" },
+                { id: "INCOMPLETE", label: "Incomplete Profiles" },
+                { id: "UNUSED", label: "Unused / Old" },
+              ].map((filter) => (
+                <button
+                  key={filter.id}
+                  onClick={() => setCleanupCategoryFilter(filter.id)}
+                  className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+                    cleanupCategoryFilter === filter.id
+                      ? "bg-[#1C1917] text-white shadow-xs"
+                      : "bg-[#FBF9F7] text-[#756860] border border-[#EFEAE3] hover:text-[#1C1917]"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Cleanup Items List */}
+            {isLoadingCleanup ? (
+              <div className="py-12 text-center text-sm text-[#756860]">Scanning profile database...</div>
+            ) : cleanupItems.length === 0 ? (
+              <div className="py-12 text-center text-sm text-emerald-800 bg-emerald-50 rounded-2xl border border-emerald-200 space-y-1">
+                <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
+                <p className="font-bold">No Unwanted or Duplicate Profiles Found!</p>
+                <p className="text-xs text-emerald-700">All user accounts and profiles in the system are verified and clean.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {cleanupItems
+                  .filter((item) => {
+                    if (cleanupCategoryFilter === "ALL") return true;
+                    return item.reasons.some((r) => r.category === cleanupCategoryFilter);
+                  })
+                  .map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-4 rounded-xl bg-white border border-[#EFEAE3] hover:border-red-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all"
+                    >
+                      <div className="space-y-2 flex-grow">
+                        {/* Reason Tags */}
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.reasons.map((reason, idx) => (
+                            <span
+                              key={idx}
+                              className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                reason.category === "DUPLICATE"
+                                  ? "bg-amber-100 text-amber-900 border border-amber-300"
+                                  : reason.category === "DEMO_TEST"
+                                  ? "bg-purple-100 text-purple-900 border border-purple-300"
+                                  : reason.category === "INCOMPLETE"
+                                  ? "bg-blue-100 text-blue-900 border border-blue-300"
+                                  : "bg-gray-100 text-gray-800 border border-gray-300"
+                              }`}
+                            >
+                              [{reason.category}] {reason.description}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Profile Info */}
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                          <span className="font-bold text-sm text-[#1C1917]">{item.fullName}</span>
+                          <span className="text-xs font-mono text-[#756860]">(@{item.username})</span>
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                              item.role === "STUDENT"
+                                ? "bg-blue-50 text-blue-700"
+                                : item.role === "FACULTY"
+                                ? "bg-purple-50 text-purple-700"
+                                : "bg-emerald-50 text-emerald-700"
+                            }`}
+                          >
+                            {item.role}
+                          </span>
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                              item.status === "APPROVED"
+                                ? "bg-emerald-100 text-emerald-800"
+                                : item.status === "PENDING"
+                                ? "bg-amber-100 text-amber-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {item.status}
+                          </span>
+                        </div>
+
+                        {/* Additional Meta */}
+                        <div className="text-xs text-[#756860] flex flex-wrap items-center gap-x-4 gap-y-1">
+                          {item.email && <span>Email: <strong className="text-[#1C1917]">{item.email}</strong></span>}
+                          {item.registerNumber && (
+                            <span>Register No: <strong className="text-[#1C1917]">{item.registerNumber}</strong></span>
+                          )}
+                          {item.batch && <span>Batch: <strong className="text-[#1C1917]">{item.batch}</strong></span>}
+                          {item.designation && <span>Designation: <strong className="text-[#1C1917]">{item.designation}</strong></span>}
+                          <span>Created: {new Date(item.createdAt).toLocaleDateString()}</span>
+                        </div>
+
+                        {/* Activity Summary */}
+                        <div className="text-[11px] text-[#756860] flex items-center gap-3 pt-1 border-t border-[#EFEAE3]/60">
+                          <span>Projects: <strong className="text-[#1C1917]">{item.linkedItemsCount.projects}</strong></span>
+                          <span>Notes: <strong className="text-[#1C1917]">{item.linkedItemsCount.notes}</strong></span>
+                          <span>Events: <strong className="text-[#1C1917]">{item.linkedItemsCount.events}</strong></span>
+                          <span>Gallery: <strong className="text-[#1C1917]">{item.linkedItemsCount.gallery}</strong></span>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex items-center gap-2 shrink-0 md:self-center">
+                        <button
+                          onClick={() => setSelectedCleanupDetail(item)}
+                          className="px-3 py-1.5 bg-[#FBF9F7] hover:bg-[#EFEAE3]/60 text-xs font-semibold text-[#1C1917] rounded-xl border border-[#EFEAE3] transition-all"
+                        >
+                          View Details
+                        </button>
+                        <button
+                          onClick={() => setDeleteCleanupTarget(item)}
+                          className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-xs font-semibold text-white rounded-xl transition-all shadow-xs flex items-center gap-1"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" /> Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Delete Confirmation Modal */}
       {deleteConfirmation && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
@@ -2100,6 +2379,140 @@ export default function AdminManagementClient() {
           </div>
         </div>
       )}
-    </div>
+
+      {/* Cleanup View Details Modal */}
+      {selectedCleanupDetail && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl border border-[#EFEAE3] p-6 max-w-lg w-full space-y-4 shadow-xl animate-in zoom-in-95">
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="font-bold text-lg text-[#1C1917]">{selectedCleanupDetail.fullName}</h3>
+                <p className="text-xs font-mono text-[#756860]">ID: {selectedCleanupDetail.id}</p>
+              </div>
+              <button
+                onClick={() => setSelectedCleanupDetail(null)}
+                className="p-1 rounded-lg text-[#756860] hover:bg-[#FBF9F7]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 bg-[#FBF9F7] p-4 rounded-xl border border-[#EFEAE3] text-xs">
+              <div className="grid grid-cols-2 gap-2">
+                <div><span className="text-[#756860]">Username:</span> <strong className="text-[#1C1917]">{selectedCleanupDetail.username}</strong></div>
+                <div><span className="text-[#756860]">Role:</span> <strong className="text-[#1C1917]">{selectedCleanupDetail.role}</strong></div>
+                <div><span className="text-[#756860]">Account Status:</span> <strong className="text-[#1C1917]">{selectedCleanupDetail.status}</strong></div>
+                <div><span className="text-[#756860]">Email:</span> <strong className="text-[#1C1917]">{selectedCleanupDetail.email || "N/A"}</strong></div>
+                {selectedCleanupDetail.registerNumber && (
+                  <div><span className="text-[#756860]">Register No:</span> <strong className="text-[#1C1917]">{selectedCleanupDetail.registerNumber}</strong></div>
+                )}
+                {selectedCleanupDetail.batch && (
+                  <div><span className="text-[#756860]">Batch:</span> <strong className="text-[#1C1917]">{selectedCleanupDetail.batch}</strong></div>
+                )}
+                {selectedCleanupDetail.designation && (
+                  <div><span className="text-[#756860]">Designation:</span> <strong className="text-[#1C1917]">{selectedCleanupDetail.designation}</strong></div>
+                )}
+                <div><span className="text-[#756860]">Created On:</span> <strong className="text-[#1C1917]">{new Date(selectedCleanupDetail.createdAt).toLocaleString()}</strong></div>
+              </div>
+
+              <div className="pt-2 border-t border-[#EFEAE3]">
+                <span className="font-semibold block mb-1 text-[#1C1917]">Flagged Reasons:</span>
+                <ul className="space-y-1 list-disc list-inside text-red-700">
+                  {selectedCleanupDetail.reasons.map((r, i) => (
+                    <li key={i}>[{r.category}] {r.description}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-2 border-t border-[#EFEAE3]">
+                <span className="font-semibold block mb-1 text-[#1C1917]">Associated Data:</span>
+                <div className="grid grid-cols-2 gap-2 text-[#756860]">
+                  <div>Projects: <strong>{selectedCleanupDetail.linkedItemsCount.projects}</strong></div>
+                  <div>Study Notes: <strong>{selectedCleanupDetail.linkedItemsCount.notes}</strong></div>
+                  <div>Events Created: <strong>{selectedCleanupDetail.linkedItemsCount.events}</strong></div>
+                  <div>Gallery Photos: <strong>{selectedCleanupDetail.linkedItemsCount.gallery}</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setSelectedCleanupDetail(null)}
+                className="px-4 py-2 text-xs font-medium text-[#756860] hover:bg-[#FBF9F7] rounded-xl"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setDeleteCleanupTarget(selectedCleanupDetail);
+                }}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-xl transition-all shadow-xs flex items-center gap-1"
+              >
+                <Trash2 className="w-3.5 h-3.5" /> Delete Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Explicit Profile Deletion Confirmation Modal */}
+      {deleteCleanupTarget && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl border border-red-200 p-6 max-w-md w-full space-y-4 shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-center gap-3 text-red-600">
+              <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center shrink-0">
+                <AlertCircle className="w-6 h-6 text-red-600" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-[#1C1917]">Confirm Permanent Deletion</h3>
+                <p className="text-xs text-red-600 font-semibold">Irreversible Action</p>
+              </div>
+            </div>
+
+            <div className="bg-red-50 p-4 rounded-xl border border-red-200 text-xs space-y-2 text-red-950">
+              <p className="font-bold text-red-900">You are about to permanently delete the following profile:</p>
+              <ul className="space-y-1 list-disc list-inside">
+                <li>Name: <strong>{deleteCleanupTarget.fullName}</strong></li>
+                <li>Username: <strong>@{deleteCleanupTarget.username}</strong></li>
+                <li>Role: <strong>{deleteCleanupTarget.role}</strong></li>
+                <li>User ID: <code className="font-mono">{deleteCleanupTarget.id}</code></li>
+                {deleteCleanupTarget.registerNumber && <li>Register No: <strong>{deleteCleanupTarget.registerNumber}</strong></li>}
+              </ul>
+              <div className="pt-2 border-t border-red-200 text-red-900">
+                ⚠️ All linked records (projects, notes, assignments, wing memberships) will be safely purged. This action cannot be undone.
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setDeleteCleanupTarget(null)}
+                disabled={isDeletingCleanup}
+                className="px-4 py-2 text-xs font-semibold text-[#756860] hover:bg-[#FBF9F7] rounded-xl"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={executeDeleteCleanup}
+                disabled={isDeletingCleanup}
+                className="px-4 py-2 bg-red-700 hover:bg-red-800 text-white text-xs font-bold rounded-xl transition-all shadow-md flex items-center gap-1.5 disabled:opacity-50"
+              >
+                {isDeletingCleanup ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" /> Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-3.5 h-3.5" /> Permanently Delete Profile
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}    </div>
   );
 }
