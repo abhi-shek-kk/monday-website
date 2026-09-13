@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Mail, Shield, GraduationCap, Sparkles } from "lucide-react";
 
 export default function Footer() {
@@ -9,9 +10,13 @@ export default function Footer() {
           {/* Brand & Identity */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#FDB27C] text-[#1C1917] flex items-center justify-center font-serif font-bold text-xl">
-                SB
-              </div>
+              <Image
+                src="/images/branding/sb-college-logo.jpg"
+                alt="St. Berchmans College Logo"
+                width={44}
+                height={44}
+                className="w-11 h-11 object-contain rounded-xl bg-white p-0.5 border border-[#756860]/30"
+              />
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-[#FDB27C]">
                   St. Berchmans College

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Menu,
@@ -70,9 +71,13 @@ export default function NavbarClient({ session }: NavbarClientProps) {
         <div className="flex items-center justify-between h-20">
           {/* Brand / Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-[#1C1917] text-[#FDB27C] flex items-center justify-center font-serif font-bold text-xl shadow-sm group-hover:scale-105 transition-transform">
-              SB
-            </div>
+            <Image
+              src="/images/branding/sb-college-logo.jpg"
+              alt="St. Berchmans College Logo"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform bg-white p-0.5 border border-[#EFEAE3]"
+            />
             <div className="flex flex-col">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#756860]">
                 St. Berchmans College

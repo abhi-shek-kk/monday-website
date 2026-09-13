@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     "Changanassery",
     "Kerala Education",
   ],
+  icons: {
+    icon: "/images/branding/college-icon.png",
+    shortcut: "/images/branding/college-icon.png",
+    apple: "/images/branding/college-icon.png",
+  },
 };
 
 export default function RootLayout({

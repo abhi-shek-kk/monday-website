@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { getPublicGalleryItems } from "@/lib/services/gallery.service";
 import { Sparkles, Camera } from "lucide-react";
 
@@ -8,8 +9,27 @@ export const metadata: Metadata = {
     "Photo gallery and media showcase for the Department of Artificial Intelligence & Data Science at St. Berchmans College.",
 };
 
+const staticGalleryItems = [
+  {
+    id: "static-1",
+    imageUrl: "/images/gallery/campus-activity-1.jpg",
+    caption: "St. Berchmans College Campus Activity",
+  },
+  {
+    id: "static-2",
+    imageUrl: "/images/gallery/campus-activity-2.jpg",
+    caption: "Academic Department Showcase",
+  },
+  {
+    id: "static-3",
+    imageUrl: "/images/gallery/campus-activity-3.jpg",
+    caption: "Department Campus Snapshot",
+  },
+];
+
 export default async function GalleryPage() {
-  const galleryItems = await getPublicGalleryItems().catch(() => []);
+  const dbGalleryItems = await getPublicGalleryItems().catch(() => []);
+  const allGalleryItems = [...staticGalleryItems, ...dbGalleryItems];
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
@@ -29,18 +49,20 @@ export default async function GalleryPage() {
 
       {/* GALLERY GRID */}
       <section>
-        {galleryItems.length > 0 ? (
+        {allGalleryItems.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {galleryItems.map((item: { id: string; imageUrl: string; caption: string | null }) => (
+            {allGalleryItems.map((item: { id: string; imageUrl: string; caption: string | null }) => (
               <div
                 key={item.id}
                 className="bg-white rounded-3xl border border-[#EFEAE3] shadow-xs overflow-hidden group space-y-3 p-3"
               >
                 <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#FBF9F7]">
-                  <img
+                  <Image
                     src={item.imageUrl}
                     alt={item.caption || "Department Gallery Item"}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 {item.caption && (

@@ -2,8 +2,9 @@
 
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ShieldCheck, User, Lock, AlertCircle, ArrowRight, Clock } from "lucide-react";
+import { User, Lock, AlertCircle, ArrowRight, Clock } from "lucide-react";
 
 function LoginForm() {
   const router = useRouter();
@@ -51,25 +52,31 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md bg-white p-8 rounded-2xl border border-[#EFEAE3] shadow-sm">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#FDB27C]/20 text-[#1C1917] mb-3">
-          <ShieldCheck className="w-6 h-6 text-[#1C1917]" />
+    <div className="w-full bg-white p-6 sm:p-8 rounded-3xl border border-[#EFEAE3] shadow-sm space-y-6">
+      <div className="text-center space-y-2">
+        <div className="inline-flex items-center justify-center p-2 rounded-2xl bg-[#FBF9F7] border border-[#EFEAE3] shadow-xs mb-1">
+          <Image
+            src="/images/branding/sb-college-logo.jpg"
+            alt="St. Berchmans College Logo"
+            width={48}
+            height={48}
+            className="w-12 h-12 object-contain rounded-xl"
+          />
         </div>
-        <span className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-1">
+        <span className="block text-xs font-semibold uppercase tracking-wider text-[#756860]">
           St. Berchmans College
         </span>
-        <h1 className="text-2xl font-bold tracking-tight text-[#1C1917]">
+        <h1 className="text-2xl font-bold tracking-tight text-[#1C1917] font-heading">
           Department Portal Sign In
         </h1>
-        <p className="text-sm text-[#756860] mt-1">
+        <p className="text-xs text-[#756860]">
           Department of Artificial Intelligence & Data Science
         </p>
       </div>
 
       {error && (
         <div
-          className={`p-4 rounded-xl border mb-6 flex items-start gap-3 text-sm ${
+          className={`p-4 rounded-xl border flex items-start gap-3 text-sm ${
             isPendingNotice
               ? "bg-amber-50 border-amber-200 text-amber-900"
               : "bg-red-50 border-red-200 text-red-900"
@@ -89,9 +96,9 @@ function LoginForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-2">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-1.5">
             Username
           </label>
           <div className="relative">
@@ -110,7 +117,7 @@ function LoginForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-2">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-1.5">
             Password
           </label>
           <div className="relative">
@@ -143,7 +150,7 @@ function LoginForm() {
         </button>
       </form>
 
-      <div className="mt-8 pt-6 border-t border-[#EFEAE3] text-center text-sm text-[#756860]">
+      <div className="pt-4 border-t border-[#EFEAE3] text-center text-xs text-[#756860]">
         Are you a student without an account?{" "}
         <Link
           href="/signup"
@@ -158,10 +165,42 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center p-4 sm:p-6 bg-[#FBF9F7] text-[#1C1917]">
-      <Suspense fallback={<div className="text-sm text-[#756860]">Loading sign in form...</div>}>
-        <LoginForm />
-      </Suspense>
+    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#FBF9F7] text-[#1C1917]">
+      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Left Column: Login Form */}
+        <div className="lg:col-span-6 w-full max-w-md mx-auto">
+          <Suspense fallback={<div className="text-sm text-[#756860] text-center">Loading sign in form...</div>}>
+            <LoginForm />
+          </Suspense>
+        </div>
+
+        {/* Right Column: Elegant Architectural Tower Sketch */}
+        <div className="lg:col-span-6 hidden lg:block">
+          <div className="relative bg-white p-6 sm:p-8 rounded-3xl border border-[#EFEAE3] shadow-xs space-y-4">
+            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] flex items-center justify-center p-4">
+              <Image
+                src="/images/login/sb-tower-sketch.png"
+                alt="Illustration of the St. Berchmans College tower"
+                fill
+                priority
+                sizes="(max-width: 1200px) 50vw, 40vw"
+                className="object-contain p-2 hover:scale-[1.02] transition-transform duration-500"
+              />
+            </div>
+            <div className="text-center space-y-1 pt-1">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
+                Architectural Heritage
+              </p>
+              <p className="text-sm font-bold text-[#1C1917] font-heading">
+                St. Berchmans College Tower Sketch
+              </p>
+              <p className="text-xs text-[#756860]">
+                Changanassery, Kerala &bull; Department of AI & Data Science
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

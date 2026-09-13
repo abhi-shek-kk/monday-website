@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Sparkles,
   ArrowRight,
@@ -37,18 +38,33 @@ export default function AboutPage() {
       </section>
 
       {/* INSTITUTIONAL CONTEXT & HERITAGE */}
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-        <div className="md:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#EFEAE3] shadow-xs space-y-4 flex flex-col justify-between">
-          <div className="space-y-3">
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
-              Institutional Heritage
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917]">
-              St. Berchmans College, Changanassery
-            </h2>
-            <p className="text-sm sm:text-base text-[#756860] leading-relaxed">
-              St. Berchmans College is a premier higher education institution situated in Changanassery, Kottayam District, Kerala. Renowned for academic excellence, moral integrity, and community service, the college continuously expands its academic frontiers to incorporate cutting-edge technologies.
-            </p>
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#EFEAE3] shadow-xs space-y-6 flex flex-col justify-between">
+          <div className="space-y-4">
+            <div className="relative w-full h-64 rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
+              <Image
+                src="/images/home/sb-college-centre.jpg"
+                alt="St. Berchmans College campus"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute bottom-3 left-3 bg-[#1C1917]/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/10">
+                Main Campus View
+              </div>
+            </div>
+            <div className="space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
+                Institutional Heritage
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917]">
+                St. Berchmans College, Changanassery
+              </h2>
+              <p className="text-sm sm:text-base text-[#756860] leading-relaxed">
+                St. Berchmans College is a premier higher education institution situated in Changanassery, Kottayam District, Kerala. Renowned for academic excellence, moral integrity, and community service, the college continuously expands its academic frontiers to incorporate cutting-edge technologies.
+              </p>
+            </div>
           </div>
           <div className="pt-4 flex items-center gap-2 text-xs font-bold text-[#1C1917] border-t border-[#EFEAE3]">
             <MapPin className="w-4 h-4 text-[#FDB27C]" />
@@ -56,23 +72,38 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="md:col-span-5 bg-[#1C1917] text-white p-8 sm:p-10 rounded-3xl border border-[#231F1C] space-y-6 flex flex-col justify-between">
-          <div className="space-y-3">
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#FDB27C]">
-              Department Identity
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-heading">
-              BSc AI & Data Science
-            </h2>
-            <p className="text-sm text-[#756860] leading-relaxed">
-              Our degree program offers comprehensive training across foundational mathematics, algorithms, machine learning models, statistical inference, and responsible AI governance.
-            </p>
+        <div className="lg:col-span-5 flex flex-col gap-8">
+          <div className="bg-[#1C1917] text-white p-8 rounded-3xl border border-[#231F1C] space-y-6 flex-1 flex flex-col justify-between">
+            <div className="space-y-3">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#FDB27C]">
+                Department Identity
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold font-heading">
+                BSc AI & Data Science
+              </h2>
+              <p className="text-sm text-[#756860] leading-relaxed">
+                Our degree program offers comprehensive training across foundational mathematics, algorithms, machine learning models, statistical inference, and responsible AI governance.
+              </p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+              <span className="text-xs text-[#756860] font-semibold uppercase tracking-wider block">
+                Inaugural Cohort
+              </span>
+              <span className="text-sm font-bold text-[#FDB27C]">First Batch: 2026–2030</span>
+            </div>
           </div>
-          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-            <span className="text-xs text-[#756860] font-semibold uppercase tracking-wider block">
-              Inaugural Cohort
-            </span>
-            <span className="text-sm font-bold text-[#FDB27C]">First Batch: 2026–2030</span>
+
+          <div className="relative w-full h-56 rounded-3xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3] shadow-xs">
+            <Image
+              src="/images/home/sb-college-left.jpg"
+              alt="View of St. Berchmans College campus"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute bottom-3 left-3 bg-[#1C1917]/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/10">
+              Campus Environment
+            </div>
           </div>
         </div>
       </section>

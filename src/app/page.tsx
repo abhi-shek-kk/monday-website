@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getSession } from "@/lib/auth";
 import { getPublicFacultyProfiles } from "@/lib/services/faculty.service";
 import { getPublicEvents } from "@/lib/services/event.service";
@@ -98,44 +99,25 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Right Graphic Node Motif */}
+            {/* Right Campus Visual Showcase */}
             <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none bg-white p-8 sm:p-10 rounded-3xl border border-[#EFEAE3] shadow-sm space-y-6">
-                <div className="flex items-center justify-between border-b border-[#EFEAE3] pb-4">
-                  <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-[#756860] uppercase">
-                    <BrainCircuit className="w-4 h-4 text-[#1C1917]" />
-                    Academic Core Architecture
+              <div className="relative mx-auto max-w-md lg:max-w-none bg-white p-4 sm:p-5 rounded-3xl border border-[#EFEAE3] shadow-sm space-y-4">
+                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
+                  <Image
+                    src="/images/home/sb-college-centre.jpg"
+                    alt="St. Berchmans College campus"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                    className="object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#1C1917]/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/10 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    St. Berchmans Campus
                   </div>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 </div>
 
-                {/* SVG Connected Node Motif */}
-                <div className="relative py-4 flex justify-center items-center">
-                  <svg className="w-full h-44 text-[#1C1917]" viewBox="0 0 400 180" fill="none">
-                    {/* Node lines */}
-                    <line x1="60" y1="90" x2="160" y2="40" stroke="#EFEAE3" strokeWidth="2" strokeDasharray="4 4" />
-                    <line x1="60" y1="90" x2="160" y2="140" stroke="#EFEAE3" strokeWidth="2" />
-                    <line x1="160" y1="40" x2="260" y2="90" stroke="#EFEAE3" strokeWidth="2" />
-                    <line x1="160" y1="140" x2="260" y2="90" stroke="#EFEAE3" strokeWidth="2" strokeDasharray="4 4" />
-                    <line x1="260" y1="90" x2="340" y2="90" stroke="#EFEAE3" strokeWidth="2" />
-
-                    {/* Nodes */}
-                    <circle cx="60" cy="90" r="16" fill="#1C1917" />
-                    <circle cx="160" cy="40" r="14" fill="#FDB27C" />
-                    <circle cx="160" cy="140" r="14" fill="#756860" />
-                    <circle cx="260" cy="90" r="18" fill="#1C1917" />
-                    <circle cx="340" cy="90" r="12" fill="#FDB27C" />
-
-                    {/* Node Icons / Labels */}
-                    <text x="60" y="94" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">DATA</text>
-                    <text x="160" y="44" textAnchor="middle" fill="#1C1917" fontSize="10" fontWeight="bold">ML</text>
-                    <text x="160" y="144" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">ALG</text>
-                    <text x="260" y="94" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="bold">AI</text>
-                    <text x="340" y="94" textAnchor="middle" fill="#1C1917" fontSize="9" fontWeight="bold">OUT</text>
-                  </svg>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
+                <div className="grid grid-cols-2 gap-3 text-xs">
                   <div className="p-3 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] space-y-1">
                     <span className="font-bold text-[#1C1917] block">Program Degree</span>
                     <span className="text-[#756860]">BSc AI & Data Science</span>
@@ -154,16 +136,30 @@ export default async function HomePage() {
       {/* DEPARTMENT INTRODUCTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#EFEAE3] shadow-sm space-y-8">
-          <div className="max-w-3xl space-y-3">
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
-              Department Identity
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-[#1C1917]">
-              Educating Technological Visionaries with Ethical Purpose
-            </h2>
-            <p className="text-base text-[#756860] leading-relaxed">
-              Established under St. Berchmans College, Changanassery, the Department of Artificial Intelligence & Data Science prepares students to navigate the rapidly evolving domain of intelligent computing, statistical modeling, machine learning, and ethical data science.
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 space-y-3">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
+                Department Identity
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-[#1C1917]">
+                Educating Technological Visionaries with Ethical Purpose
+              </h2>
+              <p className="text-base text-[#756860] leading-relaxed">
+                Established under St. Berchmans College, Changanassery, the Department of Artificial Intelligence & Data Science prepares students to navigate the rapidly evolving domain of intelligent computing, statistical modeling, machine learning, and ethical data science.
+              </p>
+            </div>
+            <div className="lg:col-span-5 relative w-full h-56 rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
+              <Image
+                src="/images/home/sb-college-left.jpg"
+                alt="View of St. Berchmans College campus"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-cover hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute bottom-3 left-3 bg-[#1C1917]/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/10">
+                Campus View
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
