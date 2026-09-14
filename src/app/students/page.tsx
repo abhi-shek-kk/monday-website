@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getPublicStudentProfiles, getStudentBatches } from "@/lib/services/faculty.service";
-import { GraduationCap, Github, Linkedin, Globe } from "lucide-react";
+import { GraduationCap } from "lucide-react";
+import StudentProfileCard from "@/components/StudentProfileCard";
 
 export const metadata: Metadata = {
   title: "Student Showcase | St. Berchmans College AI & Data Science",
@@ -74,99 +75,9 @@ export default async function StudentsPage({ searchParams }: StudentsPageProps) 
       <section>
         {students.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {students.map((userItem: any) => {
-              const profile = userItem.studentProfile;
-              if (!profile) return null;
-
-              return (
-                <div
-                  key={userItem.id}
-                  className="bg-white rounded-3xl border border-[#EFEAE3] shadow-xs p-8 space-y-6 flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      {profile.profilePhotoUrl ? (
-                        <img
-                          src={profile.profilePhotoUrl}
-                          alt={profile.fullName}
-                          className="w-16 h-16 rounded-2xl object-cover border border-[#EFEAE3]"
-                        />
-                      ) : (
-                        <div className="w-16 h-16 rounded-2xl bg-[#1C1917] text-white flex items-center justify-center font-serif text-2xl font-bold shrink-0">
-                          {profile.fullName.charAt(0)}
-                        </div>
-                      )}
-                      <div>
-                        <h2 className="text-xl font-bold font-heading text-[#1C1917]">
-                          {profile.fullName}
-                        </h2>
-                        <div className="flex items-center gap-2 text-xs font-semibold text-[#756860] mt-0.5">
-                          <span className="font-mono">{profile.registerNumber}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {profile.bio && (
-                      <p className="text-xs text-[#756860] leading-relaxed border-t border-[#EFEAE3] pt-3">
-                        {profile.bio}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Wings & Public Social Links */}
-                  <div className="pt-4 border-t border-[#EFEAE3] space-y-3">
-                    {profile.wingMemberships && profile.wingMemberships.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5">
-                        {profile.wingMemberships.map((m: any) => (
-                          <span
-                            key={m.id}
-                            className="px-2 py-0.5 rounded-md bg-[#EFEAE3] text-[#1C1917] text-[10px] font-bold"
-                          >
-                            {m.wing.name}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    <div className="flex items-center gap-3 pt-1 text-[#756860]">
-                      {profile.githubUrl && (
-                        <a
-                          href={profile.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-[#1C1917] transition-colors p-1"
-                          aria-label="GitHub Profile"
-                        >
-                          <Github className="w-4 h-4" />
-                        </a>
-                      )}
-                      {profile.linkedinUrl && (
-                        <a
-                          href={profile.linkedinUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-[#1C1917] transition-colors p-1"
-                          aria-label="LinkedIn Profile"
-                        >
-                          <Linkedin className="w-4 h-4" />
-                        </a>
-                      )}
-                      {profile.websiteUrl && (
-                        <a
-                          href={profile.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-[#1C1917] transition-colors p-1"
-                          aria-label="Personal Website"
-                        >
-                          <Globe className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {students.map((userItem: any) => (
+              <StudentProfileCard key={userItem.id} userItem={userItem} />
+            ))}
           </div>
         ) : (
           <div className="p-12 sm:p-16 rounded-3xl bg-white border border-[#EFEAE3] text-center space-y-4 max-w-2xl mx-auto">

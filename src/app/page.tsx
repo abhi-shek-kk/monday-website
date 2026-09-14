@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getSession } from "@/lib/auth";
 import { getPublicFacultyProfiles } from "@/lib/services/faculty.service";
+import FacultyProfileCard from "@/components/FacultyProfileCard";
 import { getPublicEvents } from "@/lib/services/event.service";
 import { getFeaturedProjects } from "@/lib/services/project.service";
 import { getPublicGalleryItems } from "@/lib/services/gallery.service";
@@ -283,19 +284,7 @@ export default async function HomePage() {
         {facultyList.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {facultyList.slice(0, 3).map((item: any) => (
-              <div
-                key={item.id}
-                className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-3"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#1C1917] text-white flex items-center justify-center font-serif text-lg font-bold">
-                  {item.facultyProfile?.fullName.charAt(0) || "F"}
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-[#1C1917]">{item.facultyProfile?.fullName}</h3>
-                  <p className="text-xs font-semibold text-[#756860]">{item.facultyProfile?.designation}</p>
-                </div>
-                <p className="text-xs text-[#756860] line-clamp-2">{item.facultyProfile?.qualification}</p>
-              </div>
+              <FacultyProfileCard key={item.id} userItem={item} />
             ))}
           </div>
         ) : (
