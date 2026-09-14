@@ -432,7 +432,7 @@ export default function StudentPortalClient({
     <div className="min-h-screen bg-[#FBF9F7] dark:bg-[#141210] text-[#1C1917] dark:text-[#FBF9F7]">
       {/* HEADER */}
       <header className="bg-white dark:bg-[#1C1917] border-b border-[#EFEAE3] dark:border-[#38322D] sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link
             href="/"
             title="Go to St. Berchmans College Home Page"
@@ -467,7 +467,7 @@ export default function StudentPortalClient({
         </div>
 
         {/* NAVIGATION TABS */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
+        <div className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
           <nav className="flex space-x-1 sm:space-x-4 border-t border-[#EFEAE3] dark:border-[#38322D] pt-1">
             <button
               onClick={() => setActiveTab("overview")}
@@ -528,7 +528,7 @@ export default function StudentPortalClient({
       </header>
 
       {/* MAIN CONTAINER */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ==================== TAB 1: OVERVIEW ==================== */}
         {activeTab === "overview" && (
           <div className="space-y-6">

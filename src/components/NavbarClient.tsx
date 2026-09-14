@@ -74,7 +74,7 @@ export default function NavbarClient({ session }: NavbarClientProps) {
 
   return (
     <header className="sticky top-0 z-50 bg-[#FBF9F7]/90 dark:bg-[#141210]/90 backdrop-blur-md border-b border-[#EFEAE3] dark:border-[#282420] transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Brand / Logo */}
           <Link href="/" className="flex items-center gap-3 group">

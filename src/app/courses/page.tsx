@@ -27,7 +27,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <main className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] dark:bg-[#28231D] text-[#1C1917] dark:text-[#E6DFD5] text-xs font-semibold">

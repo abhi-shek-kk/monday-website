@@ -25,7 +25,7 @@ export default function WebsiteWatermark() {
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center select-none"
     >
       <div
-        className={`relative w-[96vw] sm:w-[90vw] md:w-[85vw] lg:w-[80vw] max-w-[1600px] aspect-[1652/952] transition-all duration-300 ${opacityClass} mix-blend-multiply filter contrast-[1.2] brightness-[0.9]`}
+        className={`relative w-[96vw] max-w-none aspect-[1652/952] transition-all duration-300 ${opacityClass} mix-blend-multiply filter contrast-[1.2] brightness-[0.9]`}
       >
         <Image
           src="/images/branding/watermark.png"

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function SearchPage() {
   return (
-    <main className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8 sm:space-y-10">
+    <main className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8 sm:space-y-10">
       {/* HERO HEADER */}
       <section className="space-y-3 sm:space-y-4 max-w-3xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFEAE3] dark:bg-[#282420] text-[#1C1917] dark:text-white text-xs font-semibold shadow-2xs">

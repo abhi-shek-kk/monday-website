@@ -16,7 +16,7 @@ export default async function AdminDashboardPage() {
     <div className="min-h-screen bg-[#FBF9F7] dark:bg-[#141210] text-[#1C1917] dark:text-[#FBF9F7]">
       {/* Header */}
       <header className="bg-white dark:bg-[#1C1917] border-b border-[#EFEAE3] dark:border-[#38322D] sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-[#FDB27C]/20 flex items-center justify-center text-[#1C1917] dark:text-[#FDB27C]">
               <ShieldCheck className="w-5 h-5" />
@@ -44,7 +44,7 @@ export default async function AdminDashboardPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <main className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Welcome Banner */}
         <div className="bg-white dark:bg-[#1C1917] p-6 sm:p-8 rounded-2xl border border-[#EFEAE3] dark:border-[#38322D] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>

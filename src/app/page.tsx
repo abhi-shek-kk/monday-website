@@ -52,7 +52,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/30 dark:from-[#141210] dark:via-transparent dark:to-[#141210]/40" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-6">
             {/* Batch Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDB27C]/30 backdrop-blur-sm border border-[#FDB27C]/50 text-[#1C1917] dark:text-[#FDB27C] text-xs font-bold uppercase tracking-wider shadow-xs">
@@ -139,7 +139,7 @@ export default async function HomePage() {
       </section>
 
       {/* DEPARTMENT INTRODUCTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/85 backdrop-blur-md rounded-3xl p-8 sm:p-12 border border-[#EFEAE3] shadow-sm space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-3">
@@ -202,7 +202,7 @@ export default async function HomePage() {
       </section>
 
       {/* 100 YEARS OF ST BERCHMANS SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-[#1C1917] rounded-3xl border border-[#EFEAE3] dark:border-[#282420] shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
           {/* LEFT CONTENT COLUMN */}
           <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 flex flex-col justify-between space-y-8">
@@ -263,7 +263,7 @@ export default async function HomePage() {
       </section>
 
       {/* FACULTY PREVIEW (DB BACKED WITH HONEST EMPTY STATE) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex items-center justify-between border-b border-[#EFEAE3] dark:border-[#282420] pb-4">
           <div>
             <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
@@ -301,7 +301,7 @@ export default async function HomePage() {
       </section>
 
       {/* EVENTS PREVIEW (DB BACKED WITH HONEST EMPTY STATE) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex items-center justify-between border-b border-[#EFEAE3] dark:border-[#282420] pb-4">
           <div>
             <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
@@ -349,7 +349,7 @@ export default async function HomePage() {
       </section>
 
       {/* FEATURED PROJECTS PREVIEW (DB BACKED WITH HONEST EMPTY STATE) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex items-center justify-between border-b border-[#EFEAE3] dark:border-[#282420] pb-4">
           <div>
             <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
@@ -396,7 +396,7 @@ export default async function HomePage() {
       </section>
 
       {/* LOCATION & PORTAL CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#1C1917] dark:bg-[#1C1917] text-white rounded-3xl p-8 sm:p-12 space-y-8 border border-[#231F1C] dark:border-[#282420]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
