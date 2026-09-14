@@ -328,7 +328,7 @@ export default function StudentSignupPage() {
         </div>
 
         {/* Right Column: Architectural Tower Sketch Visual Panel (~50%) */}
-        <div className="lg:col-span-6 bg-[#F6F3EE] flex items-center justify-center p-6 sm:p-8 relative min-h-[360px] sm:min-h-[440px] lg:min-h-full order-2">
+        <div className="lg:col-span-6 bg-[#F6F3EE] flex items-center justify-center p-3 sm:p-4 relative min-h-[360px] sm:min-h-[440px] lg:min-h-full order-2 overflow-hidden">
           <div className="relative w-full h-full min-h-[340px] sm:min-h-[420px] lg:min-h-[560px] flex items-center justify-center">
             <Image
               src="/images/login/sb-tower-sketch.png"
@@ -336,7 +336,7 @@ export default function StudentSignupPage() {
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain p-2 sm:p-4 hover:scale-[1.02] transition-transform duration-700 drop-shadow-xs"
+              className="object-contain scale-[1.10] sm:scale-[1.14] hover:scale-[1.16] transition-transform duration-700 drop-shadow-xs"
             />
           </div>
         </div>
