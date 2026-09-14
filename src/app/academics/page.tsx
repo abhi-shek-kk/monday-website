@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Shield,
   Layers,
+  Calendar,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -78,6 +79,28 @@ export default async function AcademicsPage() {
             <p>Natural Language Processing, Computer Vision, AI Ethics, Capstone Research, and Project Deployment.</p>
           </div>
         </div>
+      </section>
+
+      {/* FEATURED CLASS TIMETABLE CARD */}
+      <section className="bg-gradient-to-br from-[#1C1917] via-[#2A2421] to-[#1C1917] text-white p-8 sm:p-10 rounded-3xl border border-[#332D29] shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-200 text-xs font-semibold backdrop-blur-md border border-white/10">
+            <Calendar className="w-3.5 h-3.5 text-amber-300" />
+            Academic Schedule &bull; Department of AI & DS
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white">
+            Class Timetable
+          </h2>
+          <p className="text-sm text-stone-300 leading-relaxed font-light">
+            View the verified weekly order day schedule (Day 1 – Day 5) and period matrices for BSc Artificial Intelligence & Data Science.
+          </p>
+        </div>
+        <Link
+          href="/academics/timetable"
+          className="px-6 py-3 rounded-2xl bg-white text-[#1C1917] font-bold text-sm hover:bg-[#EFEAE3] transition-all duration-300 shadow-sm flex items-center gap-2 shrink-0"
+        >
+          View Timetable <ArrowRight className="w-4 h-4" />
+        </Link>
       </section>
 
       {/* SEMESTER SUBJECT MATRIX */}
