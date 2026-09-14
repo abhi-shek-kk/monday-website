@@ -385,3 +385,74 @@ export async function deleteNoteAdmin(noteId: string) {
     where: { id: noteId },
   });
 }
+
+// 11. Blood Groups Management
+const STANDARD_BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+
+export async function getAdminBloodGroupsData() {
+  const students = await db.studentProfile.findMany({
+    select: {
+      id: true,
+      fullName: true,
+      registerNumber: true,
+      batch: true,
+      bloodGroup: true,
+    },
+  });
+
+  const groupMap: Record<
+    string,
+    { id: string; fullName: string; registerNumber: string; batch: string }[]
+  > = {};
+
+  STANDARD_BLOOD_GROUPS.forEach((bg) => {
+    groupMap[bg] = [];
+  });
+  groupMap["Not Specified"] = [];
+
+  students.forEach((student: { id: string; fullName: string; registerNumber: string; batch: string; bloodGroup: string | null }) => {
+    const rawBg = student.bloodGroup ? student.bloodGroup.trim().toUpperCase() : "";
+    const matchedGroup = STANDARD_BLOOD_GROUPS.find(
+      (bg) => bg.toUpperCase() === rawBg
+    );
+
+    const studentData = {
+      id: student.id,
+      fullName: student.fullName,
+      registerNumber: student.registerNumber,
+      batch: student.batch,
+    };
+
+    if (matchedGroup) {
+      groupMap[matchedGroup].push(studentData);
+    } else {
+      groupMap["Not Specified"].push(studentData);
+    }
+  });
+
+  const result = STANDARD_BLOOD_GROUPS.map((group) => {
+    const groupStudents = groupMap[group].sort((a, b) =>
+      a.fullName.localeCompare(b.fullName, undefined, { sensitivity: "base" })
+    );
+    return {
+      group,
+      count: groupStudents.length,
+      students: groupStudents,
+    };
+  });
+
+  const notSpecifiedStudents = groupMap["Not Specified"].sort((a, b) =>
+    a.fullName.localeCompare(b.fullName, undefined, { sensitivity: "base" })
+  );
+
+  if (notSpecifiedStudents.length > 0) {
+    result.push({
+      group: "Not Specified",
+      count: notSpecifiedStudents.length,
+      students: notSpecifiedStudents,
+    });
+  }
+
+  return result;
+}
+

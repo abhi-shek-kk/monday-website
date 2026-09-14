@@ -23,6 +23,7 @@ import {
   AlertCircle,
   ShieldCheck,
   CheckCircle2,
+  Heart,
 } from "lucide-react";
 
 interface AdminStats {
@@ -38,7 +39,19 @@ interface AdminStats {
   wingCount: number;
 }
 
+interface BloodGroupItem {
+  group: string;
+  count: number;
+  students: {
+    id: string;
+    fullName: string;
+    registerNumber: string;
+    batch: string;
+  }[];
+}
+
 interface StudentItem {
+
   id: string;
   username: string;
   email: string | null;
@@ -168,7 +181,7 @@ interface CleanupProfileItem {
 
 export default function AdminManagementClient() {
   const [activeTab, setActiveTab] = useState<
-    "overview" | "students" | "faculty" | "subjects" | "projects" | "events" | "gallery" | "wings" | "notes" | "cleanup"
+    "overview" | "students" | "blood-groups" | "faculty" | "subjects" | "projects" | "events" | "gallery" | "wings" | "notes" | "cleanup"
   >("overview");
 
   // State
@@ -184,6 +197,9 @@ export default function AdminManagementClient() {
   const [studentSearch, setStudentSearch] = useState("");
   const [studentStatusFilter, setStudentStatusFilter] = useState<string>("ALL");
   const [isLoadingStudents, setIsLoadingStudents] = useState(false);
+
+  const [bloodGroups, setBloodGroups] = useState<BloodGroupItem[]>([]);
+  const [isLoadingBloodGroups, setIsLoadingBloodGroups] = useState(false);
 
   const [facultyList, setFacultyList] = useState<FacultyItem[]>([]);
   const [isLoadingFaculty, setIsLoadingFaculty] = useState(false);
@@ -315,6 +331,8 @@ export default function AdminManagementClient() {
       fetchStats();
     } else if (activeTab === "students") {
       fetchStudents();
+    } else if (activeTab === "blood-groups") {
+      fetchBloodGroups();
     } else if (activeTab === "faculty") {
       fetchFaculty();
     } else if (activeTab === "subjects") {
@@ -334,6 +352,22 @@ export default function AdminManagementClient() {
       fetchCleanup();
     }
   }, [activeTab]);
+
+  const fetchBloodGroups = async () => {
+    setIsLoadingBloodGroups(true);
+    try {
+      const res = await fetch("/api/admin/blood-groups");
+      const data = await res.json();
+      if (res.ok) {
+        setBloodGroups(data.bloodGroups || []);
+      }
+    } catch {
+      setGlobalError("Failed to load blood groups directory.");
+    } finally {
+      setIsLoadingBloodGroups(false);
+    }
+  };
+
 
   // Handlers
   const fetchCleanup = async () => {
@@ -834,6 +868,17 @@ export default function AdminManagementClient() {
         </button>
 
         <button
+          onClick={() => setActiveTab("blood-groups")}
+          className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all shrink-0 ${
+            activeTab === "blood-groups"
+              ? "bg-[#1C1917] text-white shadow-sm"
+              : "text-[#756860] hover:bg-[#FBF9F7] hover:text-[#1C1917]"
+          }`}
+        >
+          <Heart className="w-3.5 h-3.5 text-rose-500" /> Blood Groups
+        </button>
+
+        <button
           onClick={() => setActiveTab("faculty")}
           className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all shrink-0 ${
             activeTab === "faculty"
@@ -907,7 +952,7 @@ export default function AdminManagementClient() {
               : "text-[#756860] hover:bg-[#FBF9F7] hover:text-[#1C1917]"
           }`}
         >
-          <FileText className="w-3.5 h-3.5" /> Study Notes
+          <FileText className="w-3.5 h-3.5" /> Notes
         </button>
 
         <button
@@ -994,12 +1039,13 @@ export default function AdminManagementClient() {
             </div>
 
             <div className="bg-white p-5 rounded-2xl border border-[#EFEAE3] shadow-xs space-y-1">
-              <div className="text-xs font-semibold text-[#756860] uppercase tracking-wider">Study Notes</div>
+              <div className="text-xs font-semibold text-[#756860] uppercase tracking-wider">Notes</div>
               <div className="text-3xl font-bold text-[#1C1917]">{stats?.notesCount ?? 0}</div>
               <div className="text-[11px] text-[#756860] pt-1 border-t border-[#EFEAE3] mt-2">
                 Faculty Learning Resources
               </div>
             </div>
+
 
             <div className="bg-white p-5 rounded-2xl border border-[#EFEAE3] shadow-xs space-y-1">
               <div className="text-xs font-semibold text-[#756860] uppercase tracking-wider">Department Wings</div>
@@ -1169,6 +1215,72 @@ export default function AdminManagementClient() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB: BLOOD GROUPS */}
+      {activeTab === "blood-groups" && (
+        <div className="space-y-6">
+          <div className="bg-white p-6 rounded-2xl border border-[#EFEAE3] shadow-sm space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#EFEAE3]">
+              <div>
+                <h2 className="text-lg font-bold text-[#1C1917] flex items-center gap-2">
+                  <Heart className="w-5 h-5 text-rose-500 fill-rose-500/20" /> Student Blood Groups Directory
+                </h2>
+                <p className="text-xs text-[#756860] mt-0.5">
+                  Quick oversight of student profiles categorized by blood group distribution.
+                </p>
+              </div>
+
+              <button
+                onClick={fetchBloodGroups}
+                disabled={isLoadingBloodGroups}
+                className="px-3 py-1.5 bg-white hover:bg-[#FBF9F7] text-xs font-medium rounded-xl border border-[#EFEAE3] flex items-center gap-1.5 transition-all shadow-xs self-start md:self-auto"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoadingBloodGroups ? "animate-spin" : ""}`} /> Refresh Directory
+              </button>
+            </div>
+
+            {isLoadingBloodGroups ? (
+              <div className="py-12 text-center text-sm text-[#756860]">Loading blood groups directory...</div>
+            ) : bloodGroups.length === 0 ? (
+              <div className="py-12 text-center text-sm text-[#756860]">No blood group data available.</div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {bloodGroups.map((bgItem) => (
+                  <div
+                    key={bgItem.group}
+                    className="bg-white p-5 rounded-2xl border border-[#EFEAE3] shadow-xs flex flex-col justify-between space-y-3"
+                  >
+                    <div className="flex items-center justify-between border-b border-[#EFEAE3] pb-2.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                        <h3 className="font-bold text-base text-[#1C1917]">{bgItem.group}</h3>
+                      </div>
+                      <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 text-xs font-bold border border-rose-200">
+                        {bgItem.count}
+                      </span>
+                    </div>
+
+                    <div className="flex-1 space-y-1.5 min-h-[60px]">
+                      {bgItem.students.length === 0 ? (
+                        <p className="text-xs text-[#756860] italic py-2">No students</p>
+                      ) : (
+                        <ul className="space-y-1.5">
+                          {bgItem.students.map((student) => (
+                            <li key={student.id} className="text-xs text-[#1C1917] font-medium flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#756860]/40 shrink-0"></span>
+                              <span className="truncate">{student.fullName}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -2097,17 +2209,17 @@ export default function AdminManagementClient() {
           <div className="bg-white p-6 rounded-2xl border border-[#EFEAE3] shadow-sm space-y-4">
             <div className="pb-4 border-b border-[#EFEAE3]">
               <h2 className="text-lg font-bold text-[#1C1917] flex items-center gap-2">
-                <FileText className="w-5 h-5 text-purple-600" /> Faculty Study Notes Oversight
+                <FileText className="w-5 h-5 text-purple-600" /> Faculty Notes Oversight
               </h2>
               <p className="text-xs text-[#756860] mt-0.5">
-                Review and moderate academic study materials published by department faculty.
+                Review and moderate academic materials published by department faculty.
               </p>
             </div>
 
             {isLoadingNotes ? (
-              <div className="py-8 text-center text-sm text-[#756860]">Loading study notes...</div>
+              <div className="py-8 text-center text-sm text-[#756860]">Loading notes...</div>
             ) : notes.length === 0 ? (
-              <div className="py-8 text-center text-sm text-[#756860]">No faculty study notes uploaded yet.</div>
+              <div className="py-8 text-center text-sm text-[#756860]">No faculty notes uploaded yet.</div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
@@ -2440,7 +2552,7 @@ export default function AdminManagementClient() {
                 <span className="font-semibold block mb-1 text-[#1C1917]">Associated Data:</span>
                 <div className="grid grid-cols-2 gap-2 text-[#756860]">
                   <div>Projects: <strong>{selectedCleanupDetail.linkedItemsCount.projects}</strong></div>
-                  <div>Study Notes: <strong>{selectedCleanupDetail.linkedItemsCount.notes}</strong></div>
+                  <div>Notes: <strong>{selectedCleanupDetail.linkedItemsCount.notes}</strong></div>
                   <div>Events Created: <strong>{selectedCleanupDetail.linkedItemsCount.events}</strong></div>
                   <div>Gallery Photos: <strong>{selectedCleanupDetail.linkedItemsCount.gallery}</strong></div>
                 </div>
