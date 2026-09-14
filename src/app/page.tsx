@@ -35,8 +35,8 @@ export default async function HomePage() {
   return (
     <main className="space-y-20 pb-20">
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden min-h-[85vh] flex items-center pt-16 sm:pt-24 pb-16 border-b border-[#EFEAE3]">
-        {/* Background Image IMG_04.jpg */}
+      <section className="relative overflow-hidden min-h-[85vh] flex items-center pt-12 sm:pt-20 pb-16 border-b border-[#EFEAE3]">
+        {/* Background Image IMG_04.jpg with subtle ambient styling */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/home/IMG_04.jpg"
@@ -47,93 +47,159 @@ export default async function HomePage() {
             sizes="100vw"
             className="object-cover object-center contrast-[1.02]"
           />
-          {/* Subtle Gradient Overlays for High Legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/45 md:to-white/35" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/30" />
+          {/* Subtle Gradient Overlays for High Legibility & Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FBF9F7]/98 via-[#FBF9F7]/92 to-[#FBF9F7]/65 lg:to-[#FBF9F7]/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#FBF9F7] via-transparent to-[#FBF9F7]/30" />
+          {/* Minimal Academic Fine Dot Texture */}
+          <div 
+            className="absolute inset-0 opacity-[0.025] pointer-events-none"
+            style={{
+              backgroundImage: `radial-gradient(#1C1917 1px, transparent 1px)`,
+              backgroundSize: '24px 24px'
+            }}
+          />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="max-w-3xl space-y-6">
-            {/* Batch Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDB27C]/30 backdrop-blur-sm border border-[#FDB27C]/50 text-[#1C1917] text-xs font-bold uppercase tracking-wider shadow-xs">
-              FIRST BATCH 2026–2030 &bull; CHANGANASSERY, KERALA
-            </div>
-
-            {/* Title */}
-            <div className="space-y-1">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-[#1C1917] tracking-tight leading-[1.12]">
-                BSc. Artificial Intelligence <br />
-                <span className="text-[#EA580C] sm:inline block">
-                  & Data Science
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            
+            {/* LEFT COLUMN: TEXT CONTENT & HIERARCHY */}
+            <div className="lg:col-span-7 space-y-6 sm:space-y-7">
+              {/* Batch Badge (Tertiary element) */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FDB27C]/20 backdrop-blur-md border border-[#FDB27C]/40 text-[#1C1917]/90 text-[11px] sm:text-xs font-semibold uppercase tracking-wider shadow-2xs">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EA580C] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#EA580C]"></span>
                 </span>
-              </h1>
-            </div>
+                FIRST BATCH 2026–2030 &bull; CHANGANASSERY, KERALA
+              </div>
 
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-[#574E46] leading-relaxed max-w-2xl font-medium">
-              Department of AI & Data Science at <strong className="text-[#1C1917] font-semibold">St. Berchmans College</strong>, Changanassery &mdash; shaping the future of technology, one mind at a time.
-            </p>
+              {/* Primary Heading (Strongest element) */}
+              <div className="space-y-1">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading text-[#1C1917] tracking-tight leading-[1.08] sm:leading-[1.1]">
+                  BSc. Artificial Intelligence <br />
+                  <span className="text-[#EA580C] sm:inline block">
+                    & Data Science
+                  </span>
+                </h1>
+              </div>
 
-            {/* Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              {session ? (
-                <Link
-                  href={
-                    session.role === "ADMIN"
-                      ? "/dashboard/admin"
-                      : session.role === "FACULTY"
-                      ? "/dashboard/faculty"
-                      : "/dashboard/student"
-                  }
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
-                >
-                  Go to {session.role.toLowerCase()} Dashboard <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
-                </Link>
-              ) : (
-                <>
+              {/* Subheading (Secondary element) */}
+              <p className="text-base sm:text-lg lg:text-xl text-[#574E46] leading-relaxed max-w-xl font-normal">
+                Department of AI & Data Science at <strong className="text-[#1C1917] font-semibold">St. Berchmans College</strong>, Changanassery &mdash; shaping the future of technology, one mind at a time.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                {session ? (
                   <Link
-                    href="/login"
+                    href={
+                      session.role === "ADMIN"
+                        ? "/dashboard/admin"
+                        : session.role === "FACULTY"
+                        ? "/dashboard/faculty"
+                        : "/dashboard/student"
+                    }
                     className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                   >
-                    Explore Program <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
+                    Go to {session.role.toLowerCase()} Dashboard <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
                   </Link>
-                  <Link
-                    href="/about"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/70 backdrop-blur-md text-[#1C1917] border border-white/80 font-medium text-sm hover:bg-white transition-all shadow-xs hover:-translate-y-0.5"
-                  >
-                    About the Department
-                  </Link>
-                </>
-              )}
-              <Link
-                href="/academics"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-[#574E46] font-medium text-sm hover:text-[#1C1917] transition-colors"
-              >
-                Explore Academics <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+                ) : (
+                  <>
+                    <Link
+                      href="/courses"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                    >
+                      Explore Program <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
+                    </Link>
+                    <Link
+                      href="/about"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/80 backdrop-blur-md text-[#1C1917] border border-[#EFEAE3] font-medium text-sm hover:bg-white transition-all shadow-2xs hover:-translate-y-0.5"
+                    >
+                      About the Department
+                    </Link>
+                  </>
+                )}
+                <Link
+                  href="/academics"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-[#574E46] font-medium text-sm hover:text-[#1C1917] transition-colors"
+                >
+                  Explore Academics <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
 
-            {/* Statistics Bar */}
-            <div className="pt-4">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 sm:p-5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 shadow-sm max-w-2xl">
-                <div className="text-center space-y-0.5">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">4</div>
-                  <div className="text-xs font-medium text-[#756860]">Year Program</div>
-                </div>
-                <div className="text-center space-y-0.5 border-l border-[#EFEAE3]">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">2026</div>
-                  <div className="text-xs font-medium text-[#756860]">Established</div>
-                </div>
-                <div className="text-center space-y-0.5 sm:border-l border-[#EFEAE3]">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">40+</div>
-                  <div className="text-xs font-medium text-[#756860]">Students</div>
-                </div>
-                <div className="text-center space-y-0.5 border-l border-[#EFEAE3]">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">6</div>
-                  <div className="text-xs font-medium text-[#756860]">Core Subjects</div>
+              {/* Statistics Bar (Subtle supporting information) */}
+              <div className="pt-2">
+                <div className="grid grid-cols-2 gap-3 p-3.5 sm:p-4 rounded-xl bg-white/50 backdrop-blur-sm border border-[#EFEAE3]/80 shadow-2xs max-w-xs sm:max-w-sm">
+                  <div className="text-center space-y-0.5">
+                    <div className="text-xl sm:text-2xl font-bold font-heading text-[#EA580C]">4</div>
+                    <div className="text-[11px] font-medium text-[#756860]">Year Program</div>
+                  </div>
+                  <div className="text-center space-y-0.5 border-l border-[#EFEAE3]">
+                    <div className="text-xl sm:text-2xl font-bold font-heading text-[#EA580C]">2026</div>
+                    <div className="text-[11px] font-medium text-[#756860]">Established</div>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* RIGHT COLUMN: ARCHITECTURAL VISUAL FOCAL POINT */}
+            <div className="lg:col-span-5">
+              <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+                {/* Soft Subtle Ambient Glow */}
+                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#EA580C]/15 via-[#FDB27C]/15 to-transparent blur-lg opacity-40 group-hover:opacity-70 transition duration-500 pointer-events-none" />
+
+                {/* Glass Container */}
+                <div className="group relative rounded-3xl bg-white/70 backdrop-blur-md border border-[#EFEAE3] shadow-lg p-4 sm:p-5 transition-all duration-300 hover:shadow-xl overflow-hidden">
+                  
+                  {/* Ultra-subtle Geometric SVG Data Pattern */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-10" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <pattern id="hero-grid-subtle" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#EA580C" strokeWidth="0.5" strokeDasharray="1,4" />
+                        <circle cx="40" cy="40" r="1" fill="#EA580C" />
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#hero-grid-subtle)" />
+                  </svg>
+
+                  {/* Architectural Sketch Frame */}
+                  <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#FBF9F7] to-[#F4EFEA]/70 border border-[#EFEAE3] aspect-[4/5] sm:aspect-[1/1] lg:aspect-[4/5] flex items-center justify-center p-3">
+                    
+                    {/* Architectural Sketch Image */}
+                    <Image
+                      src="/images/login/sb-tower-sketch.png"
+                      alt="St. Berchmans College Architectural Sketch Tower"
+                      fill
+                      priority
+                      quality={95}
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-contain object-center p-2 transition-transform duration-500 ease-out group-hover:scale-102 motion-reduce:transform-none"
+                    />
+
+                    {/* Top Identity Tag Overlay */}
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#574E46] text-[11px] font-medium border border-[#EFEAE3] shadow-xs">
+                      <BrainCircuit className="w-3.5 h-3.5 text-[#EA580C]" />
+                      <span>Historic Legacy &bull; Future AI</span>
+                    </div>
+
+                    {/* Subtle AI Data Overlay Pill at bottom */}
+                    <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-20 p-2.5 rounded-xl bg-white/90 backdrop-blur-md border border-[#EFEAE3] shadow-xs flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#EA580C]" />
+                        <span className="text-xs font-semibold text-[#1C1917]">
+                          St. Berchmans College
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#FDB27C]/20 text-[#EA580C]">
+                        Est. 1922
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
