@@ -66,21 +66,21 @@ export default function TimetableClient() {
     <div className="space-y-8">
       {/* HEADER SECTION */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] dark:bg-[#282420] text-[#1C1917] dark:text-white text-xs font-semibold">
           <Calendar className="w-3.5 h-3.5" />
           Academic Schedule &bull; St. Berchmans College
         </div>
-        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">
+        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] dark:text-white tracking-tight">
           Class Timetable
         </h1>
-        <p className="text-lg text-[#756860] leading-relaxed">
+        <p className="text-lg text-[#756860] dark:text-[#A89F91] leading-relaxed">
           Official academic schedule and weekly lecture matrix for the Department of Artificial Intelligence & Data Science.
         </p>
       </div>
 
       {/* SEMESTER TAB CONTROLS */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#EFEAE3] pb-6">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#756860] mr-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#EFEAE3] dark:border-[#282420] pb-6">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#756860] dark:text-[#A89F91] mr-2">
           Select Semester:
         </span>
         {Object.keys(TIMETABLE_DATA).map((sem) => {
@@ -94,15 +94,15 @@ export default function TimetableClient() {
               disabled={!isAvail}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
                 isCurrent
-                  ? "bg-[#1C1917] text-white shadow-xs"
+                  ? "bg-[#1C1917] dark:bg-[#FDB27C] text-white dark:text-[#1C1917] shadow-xs"
                   : isAvail
-                  ? "bg-white text-[#756860] border border-[#EFEAE3] hover:bg-[#EFEAE3]/50 cursor-pointer"
-                  : "bg-[#FBF9F7] text-[#756860]/50 border border-[#EFEAE3]/60 cursor-not-allowed"
+                  ? "bg-white dark:bg-[#1C1917] text-[#756860] dark:text-[#A89F91] border border-[#EFEAE3] dark:border-[#38322D] hover:bg-[#EFEAE3]/50 dark:hover:bg-[#282420] cursor-pointer"
+                  : "bg-[#FBF9F7] dark:bg-[#141210] text-[#756860]/50 dark:text-[#A89F91]/50 border border-[#EFEAE3]/60 dark:border-[#38322D]/60 cursor-not-allowed"
               }`}
             >
               <span>{sem}</span>
               {!isAvail && (
-                <span className="px-1.5 py-0.5 rounded bg-[#EFEAE3] text-[9px] font-mono text-[#756860] uppercase">
+                <span className="px-1.5 py-0.5 rounded bg-[#EFEAE3] dark:bg-[#282420] text-[9px] font-mono text-[#756860] dark:text-[#A89F91] uppercase">
                   Coming Soon
                 </span>
               )}
@@ -112,19 +112,19 @@ export default function TimetableClient() {
       </div>
 
       {/* MAIN TIMETABLE CONTAINER CARD */}
-      <div className="bg-[#FBF9F7] rounded-3xl border border-[#EFEAE3] shadow-xs p-6 sm:p-8 space-y-6 relative overflow-hidden">
+      <div className="bg-[#FBF9F7] dark:bg-[#1C1917] rounded-3xl border border-[#EFEAE3] dark:border-[#282420] shadow-xs p-6 sm:p-8 space-y-6 relative overflow-hidden">
         {/* Card Sub-Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EFEAE3] pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EFEAE3] dark:border-[#282420] pb-6">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#756860] block">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#756860] dark:text-[#A89F91] block">
               Schedule Matrix
             </span>
-            <h2 className="text-2xl font-bold font-heading text-[#1C1917]">
+            <h2 className="text-2xl font-bold font-heading text-[#1C1917] dark:text-white">
               {activeTimetable.title}
             </h2>
           </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-[#EFEAE3] text-xs font-bold text-[#1C1917] self-start sm:self-auto">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] text-xs font-bold text-[#1C1917] dark:text-white self-start sm:self-auto">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             Verified Order Days (Day 1 – Day 5)
           </div>
         </div>
@@ -134,27 +134,27 @@ export default function TimetableClient() {
           <table className="w-full min-w-[800px] border-collapse">
             <thead>
               <tr>
-                <th className="sticky left-0 z-20 bg-[#FBF9F7] p-3 text-left text-xs font-bold font-heading uppercase tracking-wider text-[#1C1917] border-b-2 border-[#EFEAE3] w-28">
+                <th className="sticky left-0 z-20 bg-[#FBF9F7] dark:bg-[#1C1917] p-3 text-left text-xs font-bold font-heading uppercase tracking-wider text-[#1C1917] dark:text-white border-b-2 border-[#EFEAE3] dark:border-[#38322D] w-28">
                   DAY
                 </th>
                 {periods.map((p) => (
                   <th
                     key={p}
-                    className="p-3 text-center text-xs font-bold font-mono uppercase tracking-wider text-[#1C1917] border-b-2 border-[#EFEAE3] min-w-[130px]"
+                    className="p-3 text-center text-xs font-bold font-mono uppercase tracking-wider text-[#1C1917] dark:text-white border-b-2 border-[#EFEAE3] dark:border-[#38322D] min-w-[130px]"
                   >
                     PERIOD {p}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#EFEAE3]">
+            <tbody className="divide-y divide-[#EFEAE3] dark:divide-[#282420]">
               {activeTimetable.schedule.map((daySchedule) => (
-                <tr key={daySchedule.day} className="group/row hover:bg-white/40 transition-colors">
+                <tr key={daySchedule.day} className="group/row hover:bg-white/40 dark:hover:bg-[#231F1C]/40 transition-colors">
                   {/* Sticky Day Column */}
-                  <td className="sticky left-0 z-10 bg-[#FBF9F7] group-hover/row:bg-[#F8F5F1] p-3 text-sm font-bold font-heading text-[#1C1917] border-r border-[#EFEAE3]">
+                  <td className="sticky left-0 z-10 bg-[#FBF9F7] dark:bg-[#1C1917] group-hover/row:bg-[#F8F5F1] dark:group-hover/row:bg-[#231F1C] p-3 text-sm font-bold font-heading text-[#1C1917] dark:text-white border-r border-[#EFEAE3] dark:border-[#38322D]">
                     <div className="flex flex-col">
                       <span>{daySchedule.day}</span>
-                      <span className="text-[10px] font-mono text-[#756860] font-normal">
+                      <span className="text-[10px] font-mono text-[#756860] dark:text-[#A89F91] font-normal">
                         {daySchedule.label}
                       </span>
                     </div>
@@ -221,7 +221,7 @@ export default function TimetableClient() {
                 <span className="text-stone-400">&bull;</span>
                 <span className="font-bold">{hoveredCell.cell.name}</span>
               </div>
-              <p className="text-[#756860] text-[11px]">
+              <p className="text-[#A89F91] text-[11px]">
                 {hoveredCell.day} &bull; Period {hoveredCell.cell.period}
                 {hoveredCell.cell.span && hoveredCell.cell.span > 1
                   ? ` to Period ${hoveredCell.cell.period + hoveredCell.cell.span - 1}`
@@ -233,8 +233,8 @@ export default function TimetableClient() {
             </span>
           </div>
         ) : (
-          <div className="p-3 rounded-2xl bg-white border border-[#EFEAE3] text-[#756860] text-xs flex items-center gap-2">
-            <Info className="w-4 h-4 text-[#1C1917] shrink-0" />
+          <div className="p-3 rounded-2xl bg-white dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] text-[#756860] dark:text-[#A89F91] text-xs flex items-center gap-2">
+            <Info className="w-4 h-4 text-[#1C1917] dark:text-[#FDB27C] shrink-0" />
             <span>Hover or tap on any timetable cell to inspect course details and period spans.</span>
           </div>
         )}

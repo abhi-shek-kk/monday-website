@@ -65,7 +65,7 @@ function LoginForm() {
       {/* Header & Typography Hierarchy */}
       <div className="space-y-3">
         <div className="flex items-center gap-3">
-          <div className="p-1.5 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] shadow-2xs shrink-0">
+          <div className="p-1.5 rounded-xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] shadow-2xs shrink-0">
             <Image
               src="/images/branding/sb-college-logo.jpg"
               alt="St. Berchmans College Logo"
@@ -75,20 +75,20 @@ function LoginForm() {
             />
           </div>
           <div>
-            <span className="block text-[11px] font-bold uppercase tracking-widest text-[#756860]">
+            <span className="block text-[11px] font-bold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
               STUDENT PORTAL
             </span>
-            <span className="text-xs text-[#756860]">
+            <span className="text-xs text-[#756860] dark:text-[#A89F91]">
               St. Berchmans College • Dept of AI & Data Science
             </span>
           </div>
         </div>
 
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#1C1917] font-heading">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#1C1917] dark:text-white font-heading">
             Welcome Back
           </h1>
-          <p className="text-xs sm:text-sm text-[#756860] mt-1">
+          <p className="text-xs sm:text-sm text-[#756860] dark:text-[#A89F91] mt-1">
             Sign in to access your department portal.
           </p>
         </div>
@@ -99,14 +99,14 @@ function LoginForm() {
         <div
           className={`p-3.5 rounded-xl border flex items-start gap-3 text-xs sm:text-sm ${
             isPendingNotice
-              ? "bg-amber-50/90 border-amber-200 text-amber-900"
-              : "bg-red-50/90 border-red-200 text-red-900"
+              ? "bg-amber-50/90 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200"
+              : "bg-red-50/90 dark:bg-red-950/40 border-red-200 dark:border-red-800 text-red-900 dark:text-red-200"
           }`}
         >
           {isPendingNotice ? (
-            <Clock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           ) : (
-            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+            <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
           )}
           <div>
             <p className="font-semibold">
@@ -119,8 +119,8 @@ function LoginForm() {
 
       {/* Forgot Password Notice Banner */}
       {forgotNotice && (
-        <div className="p-3.5 rounded-xl bg-stone-100 border border-stone-200 text-[#1C1917] text-xs sm:text-sm flex items-start gap-2.5">
-          <Info className="w-4 h-4 text-[#756860] shrink-0 mt-0.5" />
+        <div className="p-3.5 rounded-xl bg-stone-100 dark:bg-[#231F1C] border border-stone-200 dark:border-[#38322D] text-[#1C1917] dark:text-white text-xs sm:text-sm flex items-start gap-2.5">
+          <Info className="w-4 h-4 text-[#756860] dark:text-[#A89F91] shrink-0 mt-0.5" />
           <div className="leading-relaxed">{forgotNotice}</div>
         </div>
       )}
@@ -128,11 +128,11 @@ function LoginForm() {
       {/* Login Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-1.5">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] dark:text-[#A89F91] mb-1.5">
             Username
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#756860]">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#756860] dark:text-[#A89F91]">
               <User className="w-4 h-4" />
             </div>
             <input
@@ -141,17 +141,17 @@ function LoginForm() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
-              className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917]/20 focus:border-[#1C1917] text-[#1C1917] transition-all placeholder:text-[#9A8F86]"
+              className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917]/20 dark:focus:ring-[#FDB27C]/30 focus:border-[#1C1917] dark:focus:border-[#FDB27C] text-[#1C1917] dark:text-white transition-all placeholder:text-[#9A8F86] dark:placeholder:text-[#A89F91]/70"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] mb-1.5">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-[#756860] dark:text-[#A89F91] mb-1.5">
             Password
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#756860]">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#756860] dark:text-[#A89F91]">
               <Lock className="w-4 h-4" />
             </div>
             <input
@@ -160,13 +160,13 @@ function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full pl-10 pr-10 py-2.5 sm:py-3 bg-[#FBF9F7] border border-[#EFEAE3] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917]/20 focus:border-[#1C1917] text-[#1C1917] transition-all placeholder:text-[#9A8F86]"
+              className="w-full pl-10 pr-10 py-2.5 sm:py-3 bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1C1917]/20 dark:focus:ring-[#FDB27C]/30 focus:border-[#1C1917] dark:focus:border-[#FDB27C] text-[#1C1917] dark:text-white transition-all placeholder:text-[#9A8F86] dark:placeholder:text-[#A89F91]/70"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}
-              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#756860] hover:text-[#1C1917] transition-colors focus:outline-none"
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#756860] dark:text-[#A89F91] hover:text-[#1C1917] dark:hover:text-white transition-colors focus:outline-none"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -176,7 +176,7 @@ function LoginForm() {
             <button
               type="button"
               onClick={handleForgotPassword}
-              className="text-xs text-[#756860] hover:text-[#1C1917] hover:underline transition-colors font-medium"
+              className="text-xs text-[#756860] dark:text-[#A89F91] hover:text-[#1C1917] dark:hover:text-[#FDB27C] hover:underline transition-colors font-medium"
             >
               Forgot password?
             </button>
@@ -186,24 +186,24 @@ function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full mt-2 py-3 px-4 bg-[#1C1917] hover:bg-[#231F1C] active:scale-[0.99] text-white font-medium text-sm rounded-xl transition-all shadow-sm hover:shadow flex items-center justify-center gap-2 disabled:opacity-50"
+          className="w-full mt-2 py-3 px-4 bg-[#1C1917] dark:bg-[#FDB27C] hover:bg-[#231F1C] dark:hover:bg-[#fca562] active:scale-[0.99] text-white dark:text-[#1C1917] font-medium text-sm rounded-xl transition-all shadow-sm hover:shadow flex items-center justify-center gap-2 disabled:opacity-50 font-bold"
         >
           {isSubmitting ? (
             "Signing in..."
           ) : (
             <>
-              Sign In <ArrowRight className="w-4 h-4" />
+              Sign In <ArrowRight className="w-4 h-4 text-[#FDB27C] dark:text-[#1C1917]" />
             </>
           )}
         </button>
       </form>
 
       {/* Registration Footer Link */}
-      <div className="pt-4 border-t border-[#EFEAE3] text-center text-xs text-[#756860]">
+      <div className="pt-4 border-t border-[#EFEAE3] dark:border-[#282420] text-center text-xs text-[#756860] dark:text-[#A89F91]">
         Are you a student without an account?{" "}
         <Link
           href="/signup"
-          className="font-semibold text-[#1C1917] hover:underline underline-offset-4"
+          className="font-semibold text-[#1C1917] dark:text-[#FDB27C] hover:underline underline-offset-4"
         >
           Register for Student Portal
         </Link>
@@ -214,18 +214,18 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#FBF9F7] text-[#1C1917]">
+    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#FBF9F7] dark:bg-[#141210] text-[#1C1917] dark:text-white">
       {/* Unified Single Composition Container */}
-      <div className="w-full max-w-5xl bg-white rounded-3xl sm:rounded-[2rem] border border-[#EFEAE3] shadow-lg sm:shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[540px] sm:min-h-[580px]">
+      <div className="w-full max-w-5xl bg-white dark:bg-[#1C1917] rounded-3xl sm:rounded-[2rem] border border-[#EFEAE3] dark:border-[#282420] shadow-lg sm:shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[540px] sm:min-h-[580px]">
         {/* Left Column: Vertically Centered Login Form (~50%) */}
-        <div className="lg:col-span-6 flex flex-col justify-center p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#EFEAE3]/80 order-1">
-          <Suspense fallback={<div className="text-sm text-[#756860] text-center py-8">Loading sign in form...</div>}>
+        <div className="lg:col-span-6 flex flex-col justify-center p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#EFEAE3]/80 dark:border-[#282420] order-1">
+          <Suspense fallback={<div className="text-sm text-[#756860] dark:text-[#A89F91] text-center py-8">Loading sign in form...</div>}>
             <LoginForm />
           </Suspense>
         </div>
 
         {/* Right Column: Architectural Tower Sketch Visual Panel (~50%) */}
-        <div className="lg:col-span-6 bg-[#F6F3EE] flex items-center justify-center p-3 sm:p-4 relative min-h-[320px] sm:min-h-[420px] lg:min-h-full order-2 overflow-hidden">
+        <div className="lg:col-span-6 bg-[#F6F3EE] dark:bg-[#231F1C] flex items-center justify-center p-3 sm:p-4 relative min-h-[320px] sm:min-h-[420px] lg:min-h-full order-2 overflow-hidden">
           <div className="relative w-full h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] flex items-center justify-center">
             <Image
               src="/images/login/sb-tower-sketch.png"
@@ -233,7 +233,7 @@ export default function LoginPage() {
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain scale-[1.10] sm:scale-[1.14] hover:scale-[1.16] transition-transform duration-700 drop-shadow-xs"
+              className="object-contain scale-[1.10] sm:scale-[1.14] hover:scale-[1.16] transition-transform duration-700 drop-shadow-xs dark:invert-[0.9] dark:hue-rotate-180"
             />
           </div>
         </div>

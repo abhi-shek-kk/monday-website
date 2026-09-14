@@ -35,13 +35,13 @@ export default async function GalleryPage() {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] dark:bg-[#28231D] text-[#1C1917] dark:text-[#E6DFD5] text-xs font-semibold">
           Media Showcase &bull; St. Berchmans College
         </div>
-        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">
+        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7] tracking-tight">
           Department Gallery
         </h1>
-        <p className="text-lg text-[#756860] leading-relaxed">
+        <p className="text-lg text-[#756860] dark:text-[#A89F91] leading-relaxed">
           Visual record of academic lectures, lab activities, technical workshops, and department highlights.
         </p>
       </section>
@@ -53,9 +53,9 @@ export default async function GalleryPage() {
             {allGalleryItems.map((item: { id: string; imageUrl: string; caption: string | null }) => (
               <div
                 key={item.id}
-                className="bg-white rounded-3xl border border-[#EFEAE3] shadow-xs overflow-hidden group space-y-3 p-3"
+                className="bg-white dark:bg-[#1C1917] rounded-3xl border border-[#EFEAE3] dark:border-[#38322D] shadow-xs overflow-hidden group space-y-3 p-3"
               >
-                <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#FBF9F7]">
+                <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#FBF9F7] dark:bg-[#141210]">
                   <Image
                     src={item.imageUrl}
                     alt={item.caption || "Department Gallery Item"}
@@ -65,7 +65,7 @@ export default async function GalleryPage() {
                   />
                 </div>
                 {item.caption && (
-                  <p className="text-xs text-[#1C1917] font-medium px-2 pb-1">
+                  <p className="text-xs text-[#1C1917] dark:text-[#FBF9F7] font-medium px-2 pb-1">
                     {item.caption}
                   </p>
                 )}
@@ -73,19 +73,19 @@ export default async function GalleryPage() {
             ))}
           </div>
         ) : (
-          <div className="p-12 sm:p-16 rounded-3xl bg-white border border-[#EFEAE3] text-center space-y-4 max-w-2xl mx-auto">
-            <div className="w-16 h-16 rounded-2xl bg-[#FBF9F7] border border-[#EFEAE3] text-[#756860] flex items-center justify-center mx-auto">
+          <div className="p-12 sm:p-16 rounded-3xl bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#38322D] text-center space-y-4 max-w-2xl mx-auto">
+            <div className="w-16 h-16 rounded-2xl bg-[#FBF9F7] dark:bg-[#141210] border border-[#EFEAE3] dark:border-[#38322D] text-[#756860] dark:text-[#A89F91] flex items-center justify-center mx-auto">
               <Camera className="w-8 h-8 opacity-50" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-xl font-bold font-heading text-[#1C1917]">
+              <h2 className="text-xl font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7]">
                 Gallery Updating
               </h2>
-              <p className="text-sm text-[#756860]">
+              <p className="text-sm text-[#756860] dark:text-[#A89F91]">
                 Gallery content will appear here as department activities and photos are added.
               </p>
             </div>
-            <p className="text-xs text-[#756860] bg-[#FBF9F7] p-3 rounded-xl border border-[#EFEAE3]">
+            <p className="text-xs text-[#756860] dark:text-[#A89F91] bg-[#FBF9F7] dark:bg-[#141210] p-3 rounded-xl border border-[#EFEAE3] dark:border-[#38322D]">
               Photo uploads are managed by approved students, faculty, and administrators.
             </p>
           </div>

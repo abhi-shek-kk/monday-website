@@ -48,6 +48,8 @@ interface StudentItem {
     fullName: string;
     registerNumber: string;
     batch: string;
+    bloodGroup?: string | null;
+    dateOfBirth?: string | Date | null;
     projects?: { id: string; title: string }[];
     wingMemberships?: { wing: { name: string; type: string } }[];
   } | null;
@@ -1079,10 +1081,20 @@ export default function AdminManagementClient() {
                     {students.map((student) => (
                       <tr key={student.id} className="hover:bg-[#FBF9F7]/50">
                         <td className="p-3.5">
-                          <div className="font-semibold text-[#1C1917]">
-                            {student.studentProfile?.fullName || "Unset Profile"}
+                          <div className="font-semibold text-[#1C1917] flex items-center gap-2">
+                            <span>{student.studentProfile?.fullName || "Unset Profile"}</span>
+                            {student.studentProfile?.bloodGroup && (
+                              <span className="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-mono font-bold">
+                                {student.studentProfile.bloodGroup}
+                              </span>
+                            )}
                           </div>
-                          <div className="text-xs text-[#756860]">{student.email || "No email"}</div>
+                          <div className="text-xs text-[#756860]">
+                            {student.email || "No email"}
+                            {student.studentProfile?.dateOfBirth && (
+                              <span> &bull; DOB: {new Date(student.studentProfile.dateOfBirth).toLocaleDateString("en-GB")}</span>
+                            )}
+                          </div>
                         </td>
                         <td className="p-3.5">
                           <div className="font-mono text-xs text-[#1C1917]">{student.username}</div>

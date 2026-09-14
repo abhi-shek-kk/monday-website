@@ -47,6 +47,8 @@ export const facultyProvisionSchema = z.object({
 // Profile Schemas
 export const updateStudentProfileSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters").optional(),
+  bloodGroup: z.string().optional().or(z.literal("")),
+  dateOfBirth: z.string().optional().or(z.literal("")),
   bio: z.string().max(1000, "Bio max 1000 characters").optional(),
   profilePhotoUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   githubUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),

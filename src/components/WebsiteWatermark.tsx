@@ -9,15 +9,15 @@ export default function WebsiteWatermark() {
   const isAuthPage = pathname === "/login" || pathname === "/signup";
   const isDashboardPage = pathname?.startsWith("/dashboard");
 
-  // Visual opacity fine-tuning:
-  // - Login/Register: 2.0% opacity (subtle, allows existing tower sketch to remain primary)
-  // - Dashboards: 2.5% opacity (clean, preserves table & form contrast)
-  // - Public Pages: 3.5% opacity (elegant, premium institutional branding)
+  // Visual opacity & boldness fine-tuning:
+  // - Login/Register: 5.0% opacity
+  // - Dashboards: 6.5% opacity
+  // - Public Pages: 8.5% opacity (prominent, readable institutional watermark)
   const opacityClass = isAuthPage
-    ? "opacity-[0.02]"
+    ? "opacity-[0.05]"
     : isDashboardPage
-    ? "opacity-[0.025]"
-    : "opacity-[0.035]";
+    ? "opacity-[0.065]"
+    : "opacity-[0.085]";
 
   return (
     <div
@@ -25,14 +25,14 @@ export default function WebsiteWatermark() {
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center select-none"
     >
       <div
-        className={`relative w-[90vw] sm:w-[80vw] md:w-[75vw] lg:w-[70vw] max-w-[1400px] aspect-[1652/952] transition-opacity duration-300 ${opacityClass} mix-blend-multiply`}
+        className={`relative w-[96vw] sm:w-[90vw] md:w-[85vw] lg:w-[80vw] max-w-[1600px] aspect-[1652/952] transition-all duration-300 ${opacityClass} mix-blend-multiply filter contrast-[1.2] brightness-[0.9]`}
       >
         <Image
           src="/images/branding/watermark.png"
           alt=""
           fill
           priority
-          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 80vw, 70vw"
+          sizes="(max-width: 640px) 96vw, (max-width: 1024px) 90vw, 80vw"
           className="object-contain object-center"
         />
       </div>

@@ -30,7 +30,16 @@ export async function getPublicFacultyProfiles() {
   });
 }
 
-export async function getPublicStudentProfiles(batchFilter?: string) {
+export async function getPublicStudentProfiles(
+  batchFilter?: string,
+  userRole?: string | Role | null
+) {
+  const normalizedRole = userRole ? String(userRole).toUpperCase() : null;
+  const allowedRoles = [Role.STUDENT, Role.FACULTY, Role.ADMIN];
+  if (!normalizedRole || !allowedRoles.includes(normalizedRole as Role)) {
+    return [];
+  }
+
   return db.user.findMany({
     where: {
       role: Role.STUDENT,
@@ -54,6 +63,8 @@ export async function getPublicStudentProfiles(batchFilter?: string) {
           fullName: true,
           registerNumber: true,
           batch: true,
+          bloodGroup: true,
+          dateOfBirth: true,
           bio: true,
           profilePhotoUrl: true,
           githubUrl: true,
@@ -88,7 +99,13 @@ export async function getPublicStudentProfiles(batchFilter?: string) {
   });
 }
 
-export async function getStudentBatches() {
+export async function getStudentBatches(userRole?: string | Role | null) {
+  const normalizedRole = userRole ? String(userRole).toUpperCase() : null;
+  const allowedRoles = [Role.STUDENT, Role.FACULTY, Role.ADMIN];
+  if (!normalizedRole || !allowedRoles.includes(normalizedRole as Role)) {
+    return [];
+  }
+
   const profiles = await db.studentProfile.findMany({
     select: {
       batch: true,

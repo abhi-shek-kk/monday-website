@@ -70,6 +70,8 @@ model StudentProfile {
   fullName        String
   registerNumber  String   @unique
   batch           String
+  bloodGroup      String?
+  dateOfBirth     DateTime?
   bio             String?  @db.Text
   profilePhotoUrl String?
   storageKey      String?

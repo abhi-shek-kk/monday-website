@@ -48,7 +48,7 @@ export interface SearchResults {
   }>;
 }
 
-export async function searchPublicContent(query: string): Promise<SearchResults> {
+export async function searchPublicContent(query: string, userRole?: string | null): Promise<SearchResults> {
   const q = query.trim();
 
   if (!q) {
@@ -61,6 +61,11 @@ export async function searchPublicContent(query: string): Promise<SearchResults>
       notes: [],
     };
   }
+
+  const normalizedRole = userRole ? String(userRole).toUpperCase() : null;
+  const canAccessStudentProfiles = Boolean(
+    normalizedRole && ["STUDENT", "FACULTY", "ADMIN"].includes(normalizedRole)
+  );
 
   const [courses, facultyProfiles, studentProfiles, projects, events, notes] = await Promise.all([
     // Courses / Subjects
@@ -91,21 +96,23 @@ export async function searchPublicContent(query: string): Promise<SearchResults>
       take: 10,
     }),
 
-    // Approved Student Profiles
-    db.studentProfile.findMany({
-      where: {
-        user: {
-          status: AccountStatus.APPROVED,
-        },
-        OR: [
-          { fullName: { contains: q, mode: "insensitive" } },
-          { registerNumber: { contains: q, mode: "insensitive" } },
-          { batch: { contains: q, mode: "insensitive" } },
-          { bio: { contains: q, mode: "insensitive" } },
-        ],
-      },
-      take: 10,
-    }),
+    // Approved Student Profiles (Restricted to STUDENT, FACULTY, ADMIN)
+    canAccessStudentProfiles
+      ? db.studentProfile.findMany({
+          where: {
+            user: {
+              status: AccountStatus.APPROVED,
+            },
+            OR: [
+              { fullName: { contains: q, mode: "insensitive" } },
+              { registerNumber: { contains: q, mode: "insensitive" } },
+              { batch: { contains: q, mode: "insensitive" } },
+              { bio: { contains: q, mode: "insensitive" } },
+            ],
+          },
+          take: 10,
+        })
+      : Promise.resolve([]),
 
     // Projects
     db.project.findMany({

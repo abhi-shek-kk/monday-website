@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LogoutButton from "@/components/LogoutButton";
+import ThemeToggle from "@/components/ThemeToggle";
 import {
   GraduationCap,
   User,
@@ -79,6 +80,8 @@ interface StudentPortalClientProps {
       fullName: string;
       registerNumber: string;
       batch: string;
+      bloodGroup?: string | null;
+      dateOfBirth?: string | Date | null;
       bio: string | null;
       profilePhotoUrl: string | null;
       githubUrl: string | null;
@@ -106,6 +109,11 @@ export default function StudentPortalClient({
   // Profile State
   const profile = user.studentProfile;
   const [fullName, setFullName] = useState(profile?.fullName || "");
+  const [bloodGroup, setBloodGroup] = useState(profile?.bloodGroup || "");
+  const initialDob = profile?.dateOfBirth
+    ? new Date(profile.dateOfBirth).toISOString().split("T")[0]
+    : "";
+  const [dateOfBirth, setDateOfBirth] = useState(initialDob);
   const [bio, setBio] = useState(profile?.bio || "");
   const [profilePhotoUrl, setProfilePhotoUrl] = useState(profile?.profilePhotoUrl || "");
   const [githubUrl, setGithubUrl] = useState(profile?.githubUrl || "");
@@ -225,6 +233,8 @@ export default function StudentPortalClient({
   // Calculation for profile completion
   const completionFields = [
     Boolean(fullName),
+    Boolean(bloodGroup),
+    Boolean(dateOfBirth),
     Boolean(bio),
     Boolean(profilePhotoUrl),
     Boolean(githubUrl || linkedinUrl || websiteUrl),
@@ -246,6 +256,8 @@ export default function StudentPortalClient({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
+          bloodGroup,
+          dateOfBirth,
           bio,
           profilePhotoUrl,
           githubUrl,
@@ -417,9 +429,9 @@ export default function StudentPortalClient({
   const joinedWingsCount = wings.filter((w) => w.isJoined).length;
 
   return (
-    <div className="min-h-screen bg-[#FBF9F7] text-[#1C1917]">
+    <div className="min-h-screen bg-[#FBF9F7] dark:bg-[#141210] text-[#1C1917] dark:text-[#FBF9F7]">
       {/* HEADER */}
-      <header className="bg-white border-b border-[#EFEAE3] sticky top-0 z-20">
+      <header className="bg-white dark:bg-[#1C1917] border-b border-[#EFEAE3] dark:border-[#38322D] sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link
             href="/"
@@ -434,34 +446,35 @@ export default function StudentPortalClient({
               className="w-10 h-10 sm:w-11 sm:h-11 object-contain rounded-xl shadow-2xs group-hover:scale-105 transition-transform bg-white p-0.5 border border-[#EFEAE3] shrink-0"
             />
             <div className="flex flex-col justify-center">
-              <span className="text-[10px] font-bold text-[#756860] uppercase tracking-wider block leading-none group-hover:text-[#1C1917] transition-colors">
+              <span className="text-[10px] font-bold text-[#756860] dark:text-[#A89F91] uppercase tracking-wider block leading-none group-hover:text-[#1C1917] dark:group-hover:text-[#FBF9F7] transition-colors">
                 Student Portal
               </span>
-              <span className="text-xs sm:text-sm font-bold font-heading text-[#1C1917] group-hover:text-[#756860] transition-colors mt-0.5 leading-tight">
+              <span className="text-xs sm:text-sm font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7] group-hover:text-[#756860] dark:group-hover:text-[#A89F91] transition-colors mt-0.5 leading-tight">
                 St. Berchmans College — AI & DS
               </span>
             </div>
           </Link>
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 text-xs bg-[#FBF9F7] px-3 py-1.5 rounded-full border border-[#EFEAE3]">
+            <div className="hidden sm:flex items-center gap-2 text-xs bg-[#FBF9F7] dark:bg-[#141210] px-3 py-1.5 rounded-full border border-[#EFEAE3] dark:border-[#38322D]">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span className="font-semibold text-[#1C1917]">{user.username}</span>
-              <span className="text-[#756860]">({user.role})</span>
+              <span className="font-semibold text-[#1C1917] dark:text-[#FBF9F7]">{user.username}</span>
+              <span className="text-[#756860] dark:text-[#A89F91]">({user.role})</span>
             </div>
+            <ThemeToggle />
             <LogoutButton />
           </div>
         </div>
 
         {/* NAVIGATION TABS */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
-          <nav className="flex space-x-1 sm:space-x-4 border-t border-[#EFEAE3] pt-1">
+          <nav className="flex space-x-1 sm:space-x-4 border-t border-[#EFEAE3] dark:border-[#38322D] pt-1">
             <button
               onClick={() => setActiveTab("overview")}
               className={`py-3 px-3.5 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "overview"
-                  ? "border-[#1C1917] text-[#1C1917]"
-                  : "border-transparent text-[#756860] hover:text-[#1C1917]"
+                  ? "border-[#1C1917] dark:border-[#FBF9F7] text-[#1C1917] dark:text-[#FBF9F7]"
+                  : "border-transparent text-[#756860] dark:text-[#A89F91] hover:text-[#1C1917] dark:hover:text-[#FBF9F7]"
               }`}
             >
               Dashboard Overview
@@ -471,8 +484,8 @@ export default function StudentPortalClient({
               onClick={() => setActiveTab("profile")}
               className={`py-3 px-3.5 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "profile"
-                  ? "border-[#1C1917] text-[#1C1917]"
-                  : "border-transparent text-[#756860] hover:text-[#1C1917]"
+                  ? "border-[#1C1917] dark:border-[#FBF9F7] text-[#1C1917] dark:text-[#FBF9F7]"
+                  : "border-transparent text-[#756860] dark:text-[#A89F91] hover:text-[#1C1917] dark:hover:text-[#FBF9F7]"
               }`}
             >
               <User className="w-4 h-4" /> Profile & Showcase
@@ -482,8 +495,8 @@ export default function StudentPortalClient({
               onClick={() => setActiveTab("projects")}
               className={`py-3 px-3.5 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "projects"
-                  ? "border-[#1C1917] text-[#1C1917]"
-                  : "border-transparent text-[#756860] hover:text-[#1C1917]"
+                  ? "border-[#1C1917] dark:border-[#FBF9F7] text-[#1C1917] dark:text-[#FBF9F7]"
+                  : "border-transparent text-[#756860] dark:text-[#A89F91] hover:text-[#1C1917] dark:hover:text-[#FBF9F7]"
               }`}
             >
               <FolderKanban className="w-4 h-4" /> Projects & Portfolio ({projects.length})
@@ -493,8 +506,8 @@ export default function StudentPortalClient({
               onClick={() => setActiveTab("wings")}
               className={`py-3 px-3.5 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "wings"
-                  ? "border-[#1C1917] text-[#1C1917]"
-                  : "border-transparent text-[#756860] hover:text-[#1C1917]"
+                  ? "border-[#1C1917] dark:border-[#FBF9F7] text-[#1C1917] dark:text-[#FBF9F7]"
+                  : "border-transparent text-[#756860] dark:text-[#A89F91] hover:text-[#1C1917] dark:hover:text-[#FBF9F7]"
               }`}
             >
               <Users className="w-4 h-4" /> Co-Curricular Wings ({joinedWingsCount})
@@ -504,8 +517,8 @@ export default function StudentPortalClient({
               onClick={() => setActiveTab("notes")}
               className={`py-3 px-3.5 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "notes"
-                  ? "border-[#1C1917] text-[#1C1917]"
-                  : "border-transparent text-[#756860] hover:text-[#1C1917]"
+                  ? "border-[#1C1917] dark:border-[#FBF9F7] text-[#1C1917] dark:text-[#FBF9F7]"
+                  : "border-transparent text-[#756860] dark:text-[#A89F91] hover:text-[#1C1917] dark:hover:text-[#FBF9F7]"
               }`}
             >
               <FileText className="w-4 h-4" /> Academic Notes ({notes.length})
@@ -627,6 +640,26 @@ export default function StudentPortalClient({
                     <div>
                       <div className="text-xs text-[#756860]">Batch</div>
                       <div className="font-semibold text-[#1C1917]">{profile?.batch}</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 rounded-full bg-red-100 text-red-700 text-[10px] font-bold flex items-center justify-center shrink-0">
+                      B
+                    </div>
+                    <div>
+                      <div className="text-xs text-[#756860]">Blood Group</div>
+                      <div className="font-semibold text-[#1C1917]">{bloodGroup || profile?.bloodGroup || "Not specified"}</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-4 h-4 text-[#756860] shrink-0" />
+                    <div>
+                      <div className="text-xs text-[#756860]">Date of Birth</div>
+                      <div className="font-semibold text-[#1C1917]">
+                        {dateOfBirth || (profile?.dateOfBirth ? new Date(profile.dateOfBirth).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "Not specified")}
+                      </div>
                     </div>
                   </div>
 
@@ -813,6 +846,42 @@ export default function StudentPortalClient({
                       disabled
                       value={profile?.batch || ""}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-[#EFEAE3] bg-[#EFEAE3]/50 text-[#756860] cursor-not-allowed"
+                    />
+                  </div>
+                </div>
+
+                {/* Blood Group and Date of Birth */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#1C1917] block">
+                      Blood Group
+                    </label>
+                    <select
+                      value={bloodGroup}
+                      onChange={(e) => setBloodGroup(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#EFEAE3] bg-[#FBF9F7] text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#1C1917]"
+                    >
+                      <option value="">Select Blood Group</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#1C1917] block">
+                      Date of Birth
+                    </label>
+                    <input
+                      type="date"
+                      value={dateOfBirth}
+                      onChange={(e) => setDateOfBirth(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#EFEAE3] bg-[#FBF9F7] text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#1C1917]"
                     />
                   </div>
                 </div>

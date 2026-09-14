@@ -13,13 +13,13 @@ export default function ContactPage() {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] dark:bg-[#28231D] text-[#1C1917] dark:text-[#E6DFD5] text-xs font-semibold">
           Department Contact &bull; St. Berchmans College
         </div>
-        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">
+        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7] tracking-tight">
           Get in Touch
         </h1>
-        <p className="text-lg text-[#756860] leading-relaxed">
+        <p className="text-lg text-[#756860] dark:text-[#A89F91] leading-relaxed">
           Have questions regarding the BSc AI & Data Science program, admissions, academic collaborations, or department activities? Reach out to us.
         </p>
       </section>
@@ -28,7 +28,7 @@ export default function ContactPage() {
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column - Verified Institutional Info */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-[#1C1917] text-white p-8 sm:p-10 rounded-3xl border border-[#231F1C] space-y-6">
+          <div className="bg-[#1C1917] dark:bg-[#1C1917] text-white p-8 sm:p-10 rounded-3xl border border-[#231F1C] dark:border-[#38322D] space-y-6">
             <div className="space-y-2">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#FDB27C]">
                 Official Address
@@ -46,7 +46,7 @@ export default function ContactPage() {
                 <MapPin className="w-5 h-5 text-[#FDB27C] shrink-0 mt-0.5" />
                 <span className="text-white">
                   Changanassery, Kottayam District, <br />
-                  Kerala, India — 686101
+                  Kerala, India &mdash; 686101
                 </span>
               </div>
 
@@ -70,12 +70,12 @@ export default function ContactPage() {
 
         {/* Right Column - Contact Inquiry Form UI */}
         <div className="lg:col-span-7">
-          <div className="bg-white p-8 sm:p-10 rounded-3xl border border-[#EFEAE3] shadow-xs space-y-6">
+          <div className="bg-white dark:bg-[#1C1917] p-8 sm:p-10 rounded-3xl border border-[#EFEAE3] dark:border-[#38322D] shadow-xs space-y-6">
             <div className="space-y-1">
-              <h2 className="text-2xl font-bold font-heading text-[#1C1917]">
+              <h2 className="text-2xl font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7]">
                 Send an Inquiry
               </h2>
-              <p className="text-xs text-[#756860]">
+              <p className="text-xs text-[#756860] dark:text-[#A89F91]">
                 Submit your inquiry and department representatives will respond.
               </p>
             </div>

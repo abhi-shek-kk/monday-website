@@ -11,6 +11,8 @@ interface StudentProfileCardProps {
       fullName: string;
       registerNumber: string;
       batch?: string;
+      bloodGroup?: string | null;
+      dateOfBirth?: string | Date | null;
       bio?: string | null;
       profilePhotoUrl?: string | null;
       githubUrl?: string | null;
@@ -52,15 +54,22 @@ export default function StudentProfileCard({ userItem }: StudentProfileCardProps
 
       {/* Top Header Floating Badges */}
       <div className="relative z-10 p-5 flex items-center justify-between w-full">
-        {profile.batch ? (
-          <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white/90 text-[11px] font-mono font-medium tracking-wide shadow-sm">
-            Batch {profile.batch}
-          </span>
-        ) : (
-          <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white/90 text-[11px] font-mono font-medium tracking-wide shadow-sm">
-            AI & DS
-          </span>
-        )}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {profile.batch ? (
+            <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white/90 text-[11px] font-mono font-medium tracking-wide shadow-sm">
+              Batch {profile.batch}
+            </span>
+          ) : (
+            <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white/90 text-[11px] font-mono font-medium tracking-wide shadow-sm">
+              AI & DS
+            </span>
+          )}
+          {profile.bloodGroup && (
+            <span className="px-2.5 py-1 rounded-full bg-rose-500/30 backdrop-blur-md border border-rose-400/40 text-rose-200 text-[10px] font-mono font-bold tracking-wide shadow-sm">
+              {profile.bloodGroup}
+            </span>
+          )}
+        </div>
         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/40 text-emerald-300 text-[10px] font-semibold tracking-wider uppercase">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           Verified
@@ -73,9 +82,14 @@ export default function StudentProfileCard({ userItem }: StudentProfileCardProps
           <h3 className="text-xl font-bold font-heading text-white tracking-tight leading-snug drop-shadow-sm">
             {profile.fullName}
           </h3>
-          <p className="text-xs font-mono text-white/75 mt-0.5 tracking-wider">
-            REG: {profile.registerNumber}
-          </p>
+          <div className="flex items-center justify-between text-xs font-mono text-white/75 mt-0.5 tracking-wider">
+            <span>REG: {profile.registerNumber}</span>
+            {profile.dateOfBirth && (
+              <span className="text-[11px] opacity-80">
+                DOB: {new Date(profile.dateOfBirth).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}
+              </span>
+            )}
+          </div>
         </div>
 
         {profile.bio && (

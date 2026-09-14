@@ -89,7 +89,7 @@ export default function ChatbotWidget() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
       {/* CHAT CONTAINER WINDOW */}
       {isOpen && (
-        <div className="pointer-events-auto mb-4 w-[90vw] sm:w-[380px] h-[520px] bg-white border border-[#EFEAE3] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div className="pointer-events-auto mb-4 w-[90vw] sm:w-[380px] h-[520px] bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#38322D] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
           {/* HEADER */}
           <div className="bg-[#1C1917] text-white p-4 flex items-center justify-between border-b border-[#231F1C]">
             <div className="flex items-center gap-3">
@@ -101,7 +101,7 @@ export default function ChatbotWidget() {
                   Mr. Melbin
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </h3>
-                <p className="text-[11px] text-[#756860] flex items-center gap-1">
+                <p className="text-[11px] text-[#A89F91] flex items-center gap-1">
                   <ShieldCheck className="w-3 h-3 text-[#FDB27C]" /> Grounded in Dept Data & AI Knowledge
                 </p>
               </div>
@@ -111,14 +111,14 @@ export default function ChatbotWidget() {
                 onClick={handleNewChat}
                 title="Start New Chat"
                 aria-label="Start New Chat"
-                className="p-1.5 rounded-xl hover:bg-white/10 text-[#756860] hover:text-white transition-colors"
+                className="p-1.5 rounded-xl hover:bg-white/10 text-[#A89F91] hover:text-white transition-colors"
               >
                 <RotateCcw className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
                 aria-label="Close Mr. Melbin"
-                className="p-1.5 rounded-xl hover:bg-white/10 text-[#756860] hover:text-white transition-colors"
+                className="p-1.5 rounded-xl hover:bg-white/10 text-[#A89F91] hover:text-white transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -126,23 +126,23 @@ export default function ChatbotWidget() {
           </div>
 
           {/* MESSAGES AREA */}
-          <div className="flex-grow p-4 overflow-y-auto space-y-4 bg-[#FBF9F7]">
+          <div className="flex-grow p-4 overflow-y-auto space-y-4 bg-[#FBF9F7] dark:bg-[#141210]">
             {/* WELCOME BANNER */}
             {messages.length === 0 && (
               <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#1C1917]">
+                <div className="p-4 rounded-2xl bg-white dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] shadow-xs space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#1C1917] dark:text-white">
                     <Sparkles className="w-4 h-4 text-[#FDB27C]" />
                     Welcome to Dept of AI & Data Science
                   </div>
-                  <p className="text-xs text-[#756860] leading-relaxed">
+                  <p className="text-xs text-[#756860] dark:text-[#A89F91] leading-relaxed">
                     Ask Mr. Melbin about our curriculum, faculty directory, semester subjects, published events, student wings, or any general AI/technology question.
                   </p>
                 </div>
 
                 {/* QUICK PROMPT SUGGESTIONS */}
                 <div className="space-y-1.5">
-                  <span className="text-[11px] font-semibold text-[#756860] uppercase tracking-wider block px-1">
+                  <span className="text-[11px] font-semibold text-[#756860] dark:text-[#A89F91] uppercase tracking-wider block px-1">
                     Suggested Questions:
                   </span>
                   <div className="flex flex-col gap-1.5">
@@ -150,7 +150,7 @@ export default function ChatbotWidget() {
                       <button
                         key={idx}
                         onClick={() => handlePromptClick(prompt)}
-                        className="text-left px-3.5 py-2 rounded-xl bg-white border border-[#EFEAE3] hover:border-[#1C1917] text-xs text-[#1C1917] font-medium transition-all hover:shadow-xs hover:-translate-y-0.5"
+                        className="text-left px-3.5 py-2 rounded-xl bg-white dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] hover:border-[#1C1917] dark:hover:border-[#FDB27C] text-xs text-[#1C1917] dark:text-[#FBF9F7] font-medium transition-all hover:shadow-xs hover:-translate-y-0.5"
                       >
                         {prompt}
                       </button>
@@ -175,8 +175,8 @@ export default function ChatbotWidget() {
                 <div
                   className={`max-w-[85%] p-3.5 rounded-2xl text-xs leading-relaxed space-y-1 ${
                     m.role === "user"
-                      ? "bg-[#1C1917] text-white rounded-br-none shadow-xs"
-                      : "bg-white text-[#1C1917] border border-[#EFEAE3] rounded-bl-none shadow-xs"
+                      ? "bg-[#1C1917] dark:bg-[#FDB27C] text-white dark:text-[#1C1917] rounded-br-none shadow-xs font-medium"
+                      : "bg-white dark:bg-[#231F1C] text-[#1C1917] dark:text-[#FBF9F7] border border-[#EFEAE3] dark:border-[#38322D] rounded-bl-none shadow-xs"
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{m.content}</p>
@@ -186,26 +186,26 @@ export default function ChatbotWidget() {
 
             {/* LOADING STATE */}
             {isLoading && (
-              <div className="flex items-center gap-2 text-xs text-[#756860] p-2">
-                <Loader2 className="w-4 h-4 animate-spin text-[#1C1917]" />
+              <div className="flex items-center gap-2 text-xs text-[#756860] dark:text-[#A89F91] p-2">
+                <Loader2 className="w-4 h-4 animate-spin text-[#1C1917] dark:text-[#FDB27C]" />
                 Searching official department records & AI knowledge...
               </div>
             )}
 
             {/* VALIDATION ERROR STATE */}
             {validationError && (
-              <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs space-y-1">
+              <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-xs space-y-1">
                 <p>{validationError}</p>
               </div>
             )}
 
             {/* ERROR STATE */}
             {error && (
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs space-y-2">
+              <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs space-y-2">
                 <p>Unable to process request. {getErrorMessage(error)}</p>
                 <button
                   onClick={() => reload()}
-                  className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-900 underline"
+                  className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-900 dark:text-rose-300 underline"
                 >
                   <RefreshCw className="w-3 h-3" /> Retry Prompt
                 </button>
@@ -218,7 +218,7 @@ export default function ChatbotWidget() {
           {/* INPUT FORM */}
           <form
             onSubmit={handleFormSubmit}
-            className="p-3 bg-[#FFFFFF] border-t border-[#EFEAE3] flex items-center gap-2"
+            className="p-3 bg-[#FFFFFF] dark:bg-[#1C1917] border-t border-[#EFEAE3] dark:border-[#38322D] flex items-center gap-2"
           >
             <input
               type="text"
@@ -227,13 +227,13 @@ export default function ChatbotWidget() {
               placeholder="Ask Mr. Melbin a question..."
               disabled={isLoading}
               aria-label="Type your message to Mr. Melbin"
-              className="flex-grow px-3.5 py-2.5 rounded-xl bg-[#FBF9F7] border border-[#EFEAE3] text-xs text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#1C1917] disabled:opacity-50"
+              className="flex-grow px-3.5 py-2.5 rounded-xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] text-xs text-[#1C1917] dark:text-white placeholder-[#756860]/70 dark:placeholder-[#A89F91]/70 focus:outline-none focus:ring-2 focus:ring-[#1C1917] dark:focus:ring-[#FDB27C] disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
               aria-label="Send Message"
-              className="p-2.5 rounded-xl bg-[#1C1917] text-[#FDB27C] hover:bg-[#231F1C] transition-all disabled:opacity-40 disabled:hover:bg-[#1C1917] shrink-0"
+              className="p-2.5 rounded-xl bg-[#1C1917] dark:bg-[#FDB27C] text-[#FDB27C] dark:text-[#1C1917] hover:bg-[#231F1C] dark:hover:bg-[#fca562] transition-all disabled:opacity-40 disabled:hover:bg-[#1C1917] shrink-0"
             >
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </button>

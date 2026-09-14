@@ -35,7 +35,7 @@ export default async function HomePage() {
   return (
     <main className="space-y-20 pb-20">
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden min-h-[85vh] flex items-center pt-16 sm:pt-24 pb-16 border-b border-[#EFEAE3]">
+      <section className="relative overflow-hidden min-h-[85vh] flex items-center pt-16 sm:pt-24 pb-16 border-b border-[#EFEAE3] dark:border-[#282420]">
         {/* Background Image IMG_04.jpg */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -45,33 +45,33 @@ export default async function HomePage() {
             priority
             quality={95}
             sizes="100vw"
-            className="object-cover object-center contrast-[1.02]"
+            className="object-cover object-center contrast-[1.02] dark:opacity-40"
           />
           {/* Subtle Gradient Overlays for High Legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/45 md:to-white/35" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/45 md:to-white/35 dark:from-[#141210]/95 dark:via-[#141210]/85 dark:to-[#141210]/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/30 dark:from-[#141210] dark:via-transparent dark:to-[#141210]/40" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="max-w-3xl space-y-6">
             {/* Batch Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDB27C]/30 backdrop-blur-sm border border-[#FDB27C]/50 text-[#1C1917] text-xs font-bold uppercase tracking-wider shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDB27C]/30 backdrop-blur-sm border border-[#FDB27C]/50 text-[#1C1917] dark:text-[#FDB27C] text-xs font-bold uppercase tracking-wider shadow-xs">
               FIRST BATCH 2026–2030 &bull; CHANGANASSERY, KERALA
             </div>
 
             {/* Title */}
             <div className="space-y-1">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-[#1C1917] tracking-tight leading-[1.12]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-[#1C1917] dark:text-white tracking-tight leading-[1.12]">
                 BSc. Artificial Intelligence <br />
-                <span className="text-[#EA580C] sm:inline block">
+                <span className="text-[#EA580C] dark:text-[#FDB27C] sm:inline block">
                   & Data Science
                 </span>
               </h1>
             </div>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-[#574E46] leading-relaxed max-w-2xl font-medium">
-              Department of AI & Data Science at <strong className="text-[#1C1917] font-semibold">St. Berchmans College</strong>, Changanassery &mdash; shaping the future of technology, one mind at a time.
+            <p className="text-base sm:text-lg text-[#574E46] dark:text-[#D1C7BD] leading-relaxed max-w-2xl font-medium">
+              Department of AI & Data Science at <strong className="text-[#1C1917] dark:text-white font-semibold">St. Berchmans College</strong>, Changanassery &mdash; shaping the future of technology, one mind at a time.
             </p>
 
             {/* Buttons */}
@@ -85,21 +85,21 @@ export default async function HomePage() {
                       ? "/dashboard/faculty"
                       : "/dashboard/student"
                   }
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#1C1917] dark:bg-[#FDB27C] text-white dark:text-[#1C1917] font-medium text-sm hover:bg-[#231F1C] dark:hover:bg-[#fca562] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                 >
-                  Go to {session.role.toLowerCase()} Dashboard <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
+                  Go to {session.role.toLowerCase()} Dashboard <ArrowRight className="w-4 h-4 text-[#FDB27C] dark:text-[#1C1917]" />
                 </Link>
               ) : (
                 <>
                   <Link
-                    href="/login"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1917] text-white font-medium text-sm hover:bg-[#231F1C] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                    href="/courses"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1C1917] dark:bg-[#FDB27C] text-white dark:text-[#1C1917] font-medium text-sm hover:bg-[#231F1C] dark:hover:bg-[#fca562] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
                   >
-                    Explore Program <ArrowRight className="w-4 h-4 text-[#FDB27C]" />
+                    Explore Program <ArrowRight className="w-4 h-4 text-[#FDB27C] dark:text-[#1C1917]" />
                   </Link>
                   <Link
                     href="/about"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/70 backdrop-blur-md text-[#1C1917] border border-white/80 font-medium text-sm hover:bg-white transition-all shadow-xs hover:-translate-y-0.5"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/70 dark:bg-[#1C1917]/70 backdrop-blur-md text-[#1C1917] dark:text-white border border-white/80 dark:border-[#38322D] font-medium text-sm hover:bg-white dark:hover:bg-[#282420] transition-all shadow-xs hover:-translate-y-0.5"
                   >
                     About the Department
                   </Link>
@@ -107,7 +107,7 @@ export default async function HomePage() {
               )}
               <Link
                 href="/academics"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-[#574E46] font-medium text-sm hover:text-[#1C1917] transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-[#574E46] dark:text-[#A89F91] font-medium text-sm hover:text-[#1C1917] dark:hover:text-white transition-colors"
               >
                 Explore Academics <ArrowRight className="w-4 h-4" />
               </Link>
@@ -115,22 +115,22 @@ export default async function HomePage() {
 
             {/* Statistics Bar */}
             <div className="pt-4">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 sm:p-5 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 shadow-sm max-w-2xl">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 sm:p-5 rounded-2xl bg-white/60 dark:bg-[#1C1917]/80 backdrop-blur-md border border-white/80 dark:border-[#38322D] shadow-sm max-w-2xl">
                 <div className="text-center space-y-0.5">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">4</div>
-                  <div className="text-xs font-medium text-[#756860]">Year Program</div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C] dark:text-[#FDB27C]">4</div>
+                  <div className="text-xs font-medium text-[#756860] dark:text-[#A89F91]">Year Program</div>
                 </div>
-                <div className="text-center space-y-0.5 border-l border-[#EFEAE3]">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">2026</div>
-                  <div className="text-xs font-medium text-[#756860]">Established</div>
+                <div className="text-center space-y-0.5 border-l border-[#EFEAE3] dark:border-[#38322D]">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C] dark:text-[#FDB27C]">2026</div>
+                  <div className="text-xs font-medium text-[#756860] dark:text-[#A89F91]">Established</div>
                 </div>
-                <div className="text-center space-y-0.5 sm:border-l border-[#EFEAE3]">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">40+</div>
-                  <div className="text-xs font-medium text-[#756860]">Students</div>
+                <div className="text-center space-y-0.5 sm:border-l border-[#EFEAE3] dark:border-[#38322D]">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C] dark:text-[#FDB27C]">40+</div>
+                  <div className="text-xs font-medium text-[#756860] dark:text-[#A89F91]">Students</div>
                 </div>
-                <div className="text-center space-y-0.5 border-l border-[#EFEAE3]">
-                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C]">6</div>
-                  <div className="text-xs font-medium text-[#756860]">Core Subjects</div>
+                <div className="text-center space-y-0.5 border-l border-[#EFEAE3] dark:border-[#38322D]">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#EA580C] dark:text-[#FDB27C]">6</div>
+                  <div className="text-xs font-medium text-[#756860] dark:text-[#A89F91]">Core Subjects</div>
                 </div>
               </div>
             </div>
@@ -140,20 +140,20 @@ export default async function HomePage() {
 
       {/* DEPARTMENT INTRODUCTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#EFEAE3] shadow-sm space-y-8">
+        <div className="bg-white/85 backdrop-blur-md rounded-3xl p-8 sm:p-12 border border-[#EFEAE3] shadow-sm space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-3">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
                 Department Identity
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-[#1C1917]">
+              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-[#1C1917] dark:text-white">
                 Educating Technological Visionaries with Ethical Purpose
               </h2>
-              <p className="text-base text-[#756860] leading-relaxed">
+              <p className="text-base text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Established under St. Berchmans College, Changanassery, the Department of Artificial Intelligence & Data Science prepares students to navigate the rapidly evolving domain of intelligent computing, statistical modeling, machine learning, and ethical data science.
               </p>
             </div>
-            <div className="lg:col-span-5 relative w-full h-56 rounded-2xl overflow-hidden bg-[#FBF9F7] border border-[#EFEAE3]">
+            <div className="lg:col-span-5 relative w-full h-56 rounded-2xl overflow-hidden bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D]">
               <Image
                 src="/images/home/sb-college-left.jpg"
                 alt="View of St. Berchmans College campus"
@@ -168,32 +168,32 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-            <div className="p-6 rounded-2xl bg-[#FBF9F7] border border-[#EFEAE3] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#1C1917] text-[#FDB27C] flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#FDB27C] text-[#FDB27C] dark:text-[#1C1917] flex items-center justify-center">
                 <BrainCircuit className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#1C1917] font-heading">AI & Machine Learning</h3>
-              <p className="text-sm text-[#756860] leading-relaxed">
+              <h3 className="text-lg font-bold text-[#1C1917] dark:text-white font-heading">AI & Machine Learning</h3>
+              <p className="text-sm text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Hands-on exposure to neural networks, computer vision, natural language processing, and predictive analytics.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#FBF9F7] border border-[#EFEAE3] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#1C1917] text-[#FDB27C] flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#FDB27C] text-[#FDB27C] dark:text-[#1C1917] flex items-center justify-center">
                 <Database className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#1C1917] font-heading">Data Engineering</h3>
-              <p className="text-sm text-[#756860] leading-relaxed">
+              <h3 className="text-lg font-bold text-[#1C1917] dark:text-white font-heading">Data Engineering</h3>
+              <p className="text-sm text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Scalable data structures, SQL & NoSQL architectures, algorithm optimization, and data visualization.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#FBF9F7] border border-[#EFEAE3] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#1C1917] text-[#FDB27C] flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#FDB27C] text-[#FDB27C] dark:text-[#1C1917] flex items-center justify-center">
                 <Award className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#1C1917] font-heading">Academic Ethics</h3>
-              <p className="text-sm text-[#756860] leading-relaxed">
+              <h3 className="text-lg font-bold text-[#1C1917] dark:text-white font-heading">Academic Ethics</h3>
+              <p className="text-sm text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Emphasis on ethical AI deployment, practical capstone projects, research discipline, and leadership values.
               </p>
             </div>
@@ -203,22 +203,22 @@ export default async function HomePage() {
 
       {/* 100 YEARS OF ST BERCHMANS SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl border border-[#EFEAE3] shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
+        <div className="bg-white dark:bg-[#1C1917] rounded-3xl border border-[#EFEAE3] dark:border-[#282420] shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
           {/* LEFT CONTENT COLUMN */}
           <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 flex flex-col justify-between space-y-8">
             <div className="space-y-6">
               <div>
-                <span className="inline-block px-4 py-1.5 rounded-full border border-[#756860]/30 text-[#574E46] text-xs font-semibold uppercase tracking-wider">
+                <span className="inline-block px-4 py-1.5 rounded-full border border-[#756860]/30 text-[#574E46] dark:text-[#A89F91] text-xs font-semibold uppercase tracking-wider">
                   ABOUT THE COLLEGE
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1C1917] tracking-tight leading-[1.15]">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1C1917] dark:text-white tracking-tight leading-[1.15]">
                 100 Years of <br />
                 <span className="text-[#FDB27C]">St Berchmans</span>
               </h2>
 
-              <div className="space-y-4 text-sm sm:text-base text-[#574E46] leading-relaxed font-normal">
+              <div className="space-y-4 text-sm sm:text-base text-[#574E46] dark:text-[#D1C7BD] leading-relaxed font-normal">
                 <p>
                   The year was 1922 and the occasion a momentous one. V.V. John, former Vice Chancellor of the Jodhpur university, had just enrolled in a junior intermediate class of 125 students that functioned from a multi-storey building in the vicinity of the Parayil Church in Changanassery. Feeling slightly nervous, he proceeded straight to a classroom where a man called Kulandaiswami Pillai was teaching English. “We admit boys till the benches break,” remarked Mr. Pillai, welcoming the youngster to his class.
                 </p>
@@ -248,7 +248,7 @@ export default async function HomePage() {
           </div>
 
           {/* RIGHT IMAGE COLUMN */}
-          <div className="lg:col-span-5 relative min-h-[400px] lg:min-h-[650px] w-full bg-[#FBF9F7] overflow-hidden">
+          <div className="lg:col-span-5 relative min-h-[400px] lg:min-h-[650px] w-full bg-[#FBF9F7] dark:bg-[#231F1C] overflow-hidden">
             <Image
               src="/images/home/IMG_04.jpg"
               alt="100 Years of St Berchmans College Tower"
@@ -264,18 +264,18 @@ export default async function HomePage() {
 
       {/* FACULTY PREVIEW (DB BACKED WITH HONEST EMPTY STATE) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#EFEAE3] pb-4">
+        <div className="flex items-center justify-between border-b border-[#EFEAE3] dark:border-[#282420] pb-4">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
               Department Directory
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917]">
+            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917] dark:text-white">
               Faculty Profiles
             </h2>
           </div>
           <Link
             href="/faculty"
-            className="text-sm font-semibold text-[#1C1917] hover:text-[#756860] inline-flex items-center gap-1 transition-colors"
+            className="text-sm font-semibold text-[#1C1917] dark:text-[#FDB27C] hover:text-[#756860] dark:hover:text-[#fca562] inline-flex items-center gap-1 transition-colors"
           >
             View All Faculty <ArrowRight className="w-4 h-4" />
           </Link>
@@ -288,12 +288,12 @@ export default async function HomePage() {
             ))}
           </div>
         ) : (
-          <div className="p-8 rounded-2xl bg-white border border-[#EFEAE3] text-center space-y-2">
-            <Users className="w-8 h-8 text-[#756860] mx-auto opacity-40" />
-            <p className="text-sm font-medium text-[#1C1917]">
+          <div className="p-8 rounded-2xl bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#282420] text-center space-y-2">
+            <Users className="w-8 h-8 text-[#756860] dark:text-[#A89F91] mx-auto opacity-40" />
+            <p className="text-sm font-medium text-[#1C1917] dark:text-white">
               Faculty profiles will be available here as the department directory is updated.
             </p>
-            <p className="text-xs text-[#756860]">
+            <p className="text-xs text-[#756860] dark:text-[#A89F91]">
               Verified faculty accounts are provisioned directly by administration.
             </p>
           </div>
@@ -302,18 +302,18 @@ export default async function HomePage() {
 
       {/* EVENTS PREVIEW (DB BACKED WITH HONEST EMPTY STATE) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#EFEAE3] pb-4">
+        <div className="flex items-center justify-between border-b border-[#EFEAE3] dark:border-[#282420] pb-4">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
               Campus Life
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917]">
+            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917] dark:text-white">
               Upcoming Events
             </h2>
           </div>
           <Link
             href="/events"
-            className="text-sm font-semibold text-[#1C1917] hover:text-[#756860] inline-flex items-center gap-1 transition-colors"
+            className="text-sm font-semibold text-[#1C1917] dark:text-[#FDB27C] hover:text-[#756860] dark:hover:text-[#fca562] inline-flex items-center gap-1 transition-colors"
           >
             View Events Calendar <ArrowRight className="w-4 h-4" />
           </Link>
@@ -322,26 +322,26 @@ export default async function HomePage() {
         {eventsList.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {eventsList.slice(0, 3).map((event: any) => (
-              <div key={event.id} className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-3">
-                <div className="text-xs font-semibold text-[#FDB27C] bg-[#1C1917] px-3 py-1 rounded-md inline-block">
+              <div key={event.id} className="p-6 rounded-2xl bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#282420] shadow-xs space-y-3">
+                <div className="text-xs font-semibold text-[#FDB27C] bg-[#1C1917] dark:bg-[#282420] px-3 py-1 rounded-md inline-block">
                   {new Date(event.eventDate).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                     year: "numeric",
                   })}
                 </div>
-                <h3 className="text-lg font-bold text-[#1C1917]">{event.title}</h3>
-                <p className="text-xs text-[#756860] line-clamp-3">{event.description}</p>
+                <h3 className="text-lg font-bold text-[#1C1917] dark:text-white">{event.title}</h3>
+                <p className="text-xs text-[#756860] dark:text-[#A89F91] line-clamp-3">{event.description}</p>
               </div>
             ))}
           </div>
         ) : (
-          <div className="p-8 rounded-2xl bg-white border border-[#EFEAE3] text-center space-y-2">
-            <Calendar className="w-8 h-8 text-[#756860] mx-auto opacity-40" />
-            <p className="text-sm font-medium text-[#1C1917]">
+          <div className="p-8 rounded-2xl bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#282420] text-center space-y-2">
+            <Calendar className="w-8 h-8 text-[#756860] dark:text-[#A89F91] mx-auto opacity-40" />
+            <p className="text-sm font-medium text-[#1C1917] dark:text-white">
               No upcoming events have been published yet.
             </p>
-            <p className="text-xs text-[#756860]">
+            <p className="text-xs text-[#756860] dark:text-[#A89F91]">
               Official department announcements and academic events will be posted here.
             </p>
           </div>
@@ -350,18 +350,18 @@ export default async function HomePage() {
 
       {/* FEATURED PROJECTS PREVIEW (DB BACKED WITH HONEST EMPTY STATE) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#EFEAE3] pb-4">
+        <div className="flex items-center justify-between border-b border-[#EFEAE3] dark:border-[#282420] pb-4">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860]">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
               Student Innovation
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917]">
+            <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#1C1917] dark:text-white">
               Featured Projects
             </h2>
           </div>
           <Link
             href="/projects"
-            className="text-sm font-semibold text-[#1C1917] hover:text-[#756860] inline-flex items-center gap-1 transition-colors"
+            className="text-sm font-semibold text-[#1C1917] dark:text-[#FDB27C] hover:text-[#756860] dark:hover:text-[#fca562] inline-flex items-center gap-1 transition-colors"
           >
             Explore Projects Showcase <ArrowRight className="w-4 h-4" />
           </Link>
@@ -370,25 +370,25 @@ export default async function HomePage() {
         {projectsList.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {projectsList.slice(0, 3).map((project: any) => (
-              <div key={project.id} className="p-6 rounded-2xl bg-white border border-[#EFEAE3] shadow-xs space-y-3">
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+              <div key={project.id} className="p-6 rounded-2xl bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#282420] shadow-xs space-y-3">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
                   Featured Project
                 </span>
-                <h3 className="text-lg font-bold text-[#1C1917]">{project.title}</h3>
-                <p className="text-xs text-[#756860] line-clamp-3">{project.description}</p>
-                <div className="text-xs text-[#756860] pt-2 border-t border-[#EFEAE3]">
-                  By <strong className="text-[#1C1917]">{project.student.fullName}</strong> ({project.student.batch})
+                <h3 className="text-lg font-bold text-[#1C1917] dark:text-white">{project.title}</h3>
+                <p className="text-xs text-[#756860] dark:text-[#A89F91] line-clamp-3">{project.description}</p>
+                <div className="text-xs text-[#756860] dark:text-[#A89F91] pt-2 border-t border-[#EFEAE3] dark:border-[#282420]">
+                  By <strong className="text-[#1C1917] dark:text-white">{project.student.fullName}</strong> ({project.student.batch})
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="p-8 rounded-2xl bg-white border border-[#EFEAE3] text-center space-y-2">
-            <FolderKanban className="w-8 h-8 text-[#756860] mx-auto opacity-40" />
-            <p className="text-sm font-medium text-[#1C1917]">
+          <div className="p-8 rounded-2xl bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#282420] text-center space-y-2">
+            <FolderKanban className="w-8 h-8 text-[#756860] dark:text-[#A89F91] mx-auto opacity-40" />
+            <p className="text-sm font-medium text-[#1C1917] dark:text-white">
               No student projects have been published yet.
             </p>
-            <p className="text-xs text-[#756860]">
+            <p className="text-xs text-[#756860] dark:text-[#A89F91]">
               Student projects will be featured here as students build their portfolios.
             </p>
           </div>
@@ -397,7 +397,7 @@ export default async function HomePage() {
 
       {/* LOCATION & PORTAL CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#1C1917] text-white rounded-3xl p-8 sm:p-12 space-y-8 border border-[#231F1C]">
+        <div className="bg-[#1C1917] dark:bg-[#1C1917] text-white rounded-3xl p-8 sm:p-12 space-y-8 border border-[#231F1C] dark:border-[#282420]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#FDB27C] text-xs font-semibold">
@@ -406,7 +406,7 @@ export default async function HomePage() {
               <h2 className="text-3xl sm:text-4xl font-bold font-heading text-white">
                 Join the Department Community
               </h2>
-              <p className="text-sm sm:text-base text-[#756860] max-w-2xl">
+              <p className="text-sm sm:text-base text-[#A89F91] max-w-2xl">
                 Enrolled students and department faculty members can access course notes, project portfolios, and administrative tools through the authenticated portal.
               </p>
             </div>

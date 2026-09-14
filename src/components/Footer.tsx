@@ -52,6 +52,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/vision" className="hover:text-white transition-colors">
+                  Vision & Mission
+                </Link>
+              </li>
+              <li>
                 <Link href="/academics" className="hover:text-white transition-colors">
                   Academic Framework
                 </Link>
@@ -81,13 +86,18 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-[#756860]">
               <li>
+                <Link href="/events" className="hover:text-white transition-colors">
+                  Department Events
+                </Link>
+              </li>
+              <li>
                 <Link href="/projects" className="hover:text-white transition-colors">
                   Student Projects
                 </Link>
               </li>
               <li>
-                <Link href="/events" className="hover:text-white transition-colors">
-                  Department Events
+                <Link href="/sdp" className="hover:text-white transition-colors">
+                  Student Development (SDP)
                 </Link>
               </li>
               <li>

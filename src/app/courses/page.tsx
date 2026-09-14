@@ -30,28 +30,28 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       {/* HEADER SECTION */}
       <section className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] text-[#1C1917] text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFEAE3] dark:bg-[#28231D] text-[#1C1917] dark:text-[#E6DFD5] text-xs font-semibold">
           Academic Catalog &bull; St. Berchmans College
         </div>
-        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] tracking-tight">
+        <h1 className="text-4xl sm:text-5xl font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7] tracking-tight">
           BSc AI & Data Science Courses
         </h1>
-        <p className="text-lg text-[#756860] leading-relaxed">
+        <p className="text-lg text-[#756860] dark:text-[#A89F91] leading-relaxed">
           Detailed subject syllabus structure, course codes, credit assignments, and assigned faculty for the 4-year degree program.
         </p>
       </section>
 
       {/* SEMESTER FILTER BAR */}
-      <section className="flex flex-wrap items-center gap-2 border-b border-[#EFEAE3] pb-6">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#756860] mr-2">
+      <section className="flex flex-wrap items-center gap-2 border-b border-[#EFEAE3] dark:border-[#38322D] pb-6">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#756860] dark:text-[#A89F91] mr-2">
           Filter Semester:
         </span>
         <Link
           href="/courses"
           className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
             !selectedSemester
-              ? "bg-[#1C1917] text-white shadow-xs"
-              : "bg-white text-[#756860] border border-[#EFEAE3] hover:bg-[#EFEAE3]/50"
+              ? "bg-[#1C1917] text-white dark:bg-[#FBF9F7] dark:text-[#141210] shadow-xs"
+              : "bg-white text-[#756860] dark:bg-[#1C1917] dark:text-[#A89F91] border border-[#EFEAE3] dark:border-[#38322D] hover:bg-[#EFEAE3]/50 dark:hover:bg-[#28231D]"
           }`}
         >
           All Semesters
@@ -62,8 +62,8 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
             href={`/courses?semester=${sem}`}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
               selectedSemester === sem
-                ? "bg-[#1C1917] text-white shadow-xs"
-                : "bg-white text-[#756860] border border-[#EFEAE3] hover:bg-[#EFEAE3]/50"
+                ? "bg-[#1C1917] text-white dark:bg-[#FBF9F7] dark:text-[#141210] shadow-xs"
+                : "bg-white text-[#756860] dark:bg-[#1C1917] dark:text-[#A89F91] border border-[#EFEAE3] dark:border-[#38322D] hover:bg-[#EFEAE3]/50 dark:hover:bg-[#28231D]"
             }`}
           >
             Sem {sem}
@@ -78,50 +78,50 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
             {subjects.map((subject) => (
               <div
                 key={subject.id}
-                className="p-8 rounded-3xl bg-white border border-[#EFEAE3] shadow-xs space-y-4 flex flex-col justify-between"
+                className="p-8 rounded-3xl bg-white/85 dark:bg-[#1C1917]/85 backdrop-blur-md border border-[#EFEAE3] dark:border-[#38322D] shadow-xs space-y-4 flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono font-bold text-xs px-3 py-1 rounded-lg bg-[#1C1917] text-[#FDB27C]">
+                    <span className="font-mono font-bold text-xs px-3 py-1 rounded-lg bg-[#1C1917] text-[#FDB27C] dark:bg-[#28231D] border border-transparent dark:border-[#38322D]">
                       {subject.code}
                     </span>
-                    <span className="text-xs font-bold text-[#756860] bg-[#FBF9F7] px-3 py-1 rounded-lg border border-[#EFEAE3]">
+                    <span className="text-xs font-bold text-[#756860] dark:text-[#A89F91] bg-[#FBF9F7] dark:bg-[#141210] px-3 py-1 rounded-lg border border-[#EFEAE3] dark:border-[#38322D]">
                       Semester {subject.semester}
                     </span>
                   </div>
 
-                  <h2 className="text-xl font-bold font-heading text-[#1C1917]">
+                  <h2 className="text-xl font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7]">
                     {subject.name}
                   </h2>
 
                   {subject.description ? (
-                    <p className="text-sm text-[#756860] leading-relaxed">
+                    <p className="text-sm text-[#756860] dark:text-[#A89F91] leading-relaxed">
                       {subject.description}
                     </p>
                   ) : (
-                    <p className="text-xs italic text-[#756860]">
+                    <p className="text-xs italic text-[#756860] dark:text-[#A89F91]/70">
                       Course syllabus details will be updated.
                     </p>
                   )}
                 </div>
 
-                <div className="pt-4 border-t border-[#EFEAE3] space-y-2 text-xs">
+                <div className="pt-4 border-t border-[#EFEAE3] dark:border-[#38322D] space-y-2 text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="text-[#756860] font-semibold">Faculty In-Charge:</span>
+                    <span className="text-[#756860] dark:text-[#A89F91] font-semibold">Faculty In-Charge:</span>
                     {subject.faculties && subject.faculties.length > 0 ? (
-                      <span className="font-bold text-[#1C1917]">
+                      <span className="font-bold text-[#1C1917] dark:text-[#FBF9F7]">
                         {subject.faculties
                           .map((f) => f.faculty.fullName)
                           .join(", ")}
                       </span>
                     ) : (
-                      <span className="text-[#756860] italic">To be assigned</span>
+                      <span className="text-[#756860] dark:text-[#A89F91]/70 italic">To be assigned</span>
                     )}
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-[#756860] font-semibold">Available Notes:</span>
-                    <span className="font-bold text-[#1C1917]">
+                    <span className="text-[#756860] dark:text-[#A89F91] font-semibold">Available Notes:</span>
+                    <span className="font-bold text-[#1C1917] dark:text-[#FBF9F7]">
                       {subject.notes ? subject.notes.length : 0}{" "}
                       {subject.notes && subject.notes.length === 1 ? "File" : "Files"}
                     </span>
@@ -131,18 +131,18 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
             ))}
           </div>
         ) : (
-          <div className="p-12 rounded-3xl bg-white border border-[#EFEAE3] text-center space-y-3">
-            <BookOpen className="w-10 h-10 text-[#756860] mx-auto opacity-40" />
-            <h3 className="text-lg font-bold text-[#1C1917]">
+          <div className="p-12 rounded-3xl bg-white dark:bg-[#1C1917] border border-[#EFEAE3] dark:border-[#38322D] text-center space-y-3">
+            <BookOpen className="w-10 h-10 text-[#756860] dark:text-[#A89F91] mx-auto opacity-40" />
+            <h3 className="text-lg font-bold text-[#1C1917] dark:text-[#FBF9F7]">
               No courses found for Semester {selectedSemester}
             </h3>
-            <p className="text-xs text-[#756860]">
+            <p className="text-xs text-[#756860] dark:text-[#A89F91]">
               Please select a different semester filter or browse all semesters.
             </p>
             <div className="pt-2">
               <Link
                 href="/courses"
-                className="inline-block px-4 py-2 rounded-xl bg-[#1C1917] text-white text-xs font-semibold"
+                className="inline-block px-4 py-2 rounded-xl bg-[#1C1917] text-white dark:bg-[#FBF9F7] dark:text-[#141210] text-xs font-semibold"
               >
                 Clear Filter
               </Link>

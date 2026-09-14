@@ -37,9 +37,13 @@ export async function updateStudentProfile(userId: string, input: UpdateStudentP
     throw new Error("Student profile not found");
   }
 
-  // Clean empty strings to null or undefined for optional URLs
+  // Clean empty strings to null or undefined for optional URLs and fields
   const cleanData = {
     ...(input.fullName ? { fullName: input.fullName.trim() } : {}),
+    ...(input.bloodGroup !== undefined ? { bloodGroup: input.bloodGroup.trim() || null } : {}),
+    ...(input.dateOfBirth !== undefined
+      ? { dateOfBirth: input.dateOfBirth && input.dateOfBirth.trim() ? new Date(input.dateOfBirth.trim()) : null }
+      : {}),
     ...(input.bio !== undefined ? { bio: input.bio.trim() } : {}),
     ...(input.profilePhotoUrl !== undefined ? { profilePhotoUrl: input.profilePhotoUrl.trim() || null } : {}),
     ...(input.githubUrl !== undefined ? { githubUrl: input.githubUrl.trim() || null } : {}),
