@@ -70,10 +70,6 @@ export default function StudentProfileCard({ userItem }: StudentProfileCardProps
             </span>
           )}
         </div>
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/40 text-emerald-300 text-[10px] font-semibold tracking-wider uppercase">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          Verified
-        </span>
       </div>
 
       {/* Glassmorphism Information Panel (Lower Portion) */}

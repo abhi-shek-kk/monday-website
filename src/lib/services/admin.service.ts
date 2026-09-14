@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { Role, AccountStatus, PublicationStatus } from "@prisma/client";
+import { compareRollNumbers } from "@/lib/services/faculty.service";
 import {
   SubjectInput,
   WingInput,
@@ -54,7 +55,7 @@ export async function getAdminStudentsList(params?: {
 }) {
   const { query, batch, status } = params || {};
 
-  return db.user.findMany({
+  const students = await db.user.findMany({
     where: {
       role: Role.STUDENT,
       ...(status ? { status } : {}),
@@ -95,8 +96,11 @@ export async function getAdminStudentsList(params?: {
         },
       },
     },
-    orderBy: { createdAt: "desc" },
   });
+
+  return students.sort((a: any, b: any) =>
+    compareRollNumbers(a.studentProfile?.registerNumber, b.studentProfile?.registerNumber)
+  );
 }
 
 export async function deleteStudentAdmin(userId: string) {
@@ -431,7 +435,7 @@ export async function getAdminBloodGroupsData() {
   });
 
   const result = STANDARD_BLOOD_GROUPS.map((group) => {
-    const groupStudents = groupMap[group].sort((a, b) =>
+    const groupStudents = groupMap[group].sort((a: any, b: any) =>
       a.fullName.localeCompare(b.fullName, undefined, { sensitivity: "base" })
     );
     return {
@@ -441,7 +445,7 @@ export async function getAdminBloodGroupsData() {
     };
   });
 
-  const notSpecifiedStudents = groupMap["Not Specified"].sort((a, b) =>
+  const notSpecifiedStudents = groupMap["Not Specified"].sort((a: any, b: any) =>
     a.fullName.localeCompare(b.fullName, undefined, { sensitivity: "base" })
   );
 

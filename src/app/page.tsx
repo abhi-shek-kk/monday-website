@@ -140,20 +140,20 @@ export default async function HomePage() {
 
       {/* DEPARTMENT INTRODUCTION */}
       <section className="w-[96%] max-w-none mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/85 backdrop-blur-md rounded-3xl p-8 sm:p-12 border border-[#EFEAE3] shadow-sm space-y-8">
+        <div className="bg-white/85 dark:bg-[#1C1917]/85 backdrop-blur-md rounded-3xl p-6 sm:p-10 md:p-12 border border-[#EFEAE3] dark:border-[#38322D] shadow-sm dark:shadow-2xl space-y-8 transition-colors duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-3">
               <span className="text-xs font-semibold uppercase tracking-widest text-[#756860] dark:text-[#A89F91]">
                 Department Identity
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-[#1C1917] dark:text-white">
+              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-[#1C1917] dark:text-[#FBF9F7] tracking-tight">
                 Educating Technological Visionaries with Ethical Purpose
               </h2>
               <p className="text-base text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Established under St. Berchmans College, Changanassery, the Department of Artificial Intelligence & Data Science prepares students to navigate the rapidly evolving domain of intelligent computing, statistical modeling, machine learning, and ethical data science.
               </p>
             </div>
-            <div className="lg:col-span-5 relative w-full h-56 rounded-2xl overflow-hidden bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D]">
+            <div className="lg:col-span-5 relative w-full h-56 rounded-2xl overflow-hidden bg-[#FBF9F7] dark:bg-[#141210] border border-[#EFEAE3] dark:border-[#38322D] shadow-xs">
               <Image
                 src="/images/home/sb-college-left.jpg"
                 alt="View of St. Berchmans College campus"
@@ -161,38 +161,38 @@ export default async function HomePage() {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                 className="object-cover hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute bottom-3 left-3 bg-[#1C1917]/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/10">
+              <div className="absolute bottom-3 left-3 bg-[#1C1917]/80 dark:bg-[#141210]/80 backdrop-blur-md text-white dark:text-[#E6DFD5] text-[11px] font-semibold px-3 py-1 rounded-full border border-white/10 dark:border-white/15 shadow-xs">
                 Campus View
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#FDB27C] text-[#FDB27C] dark:text-[#1C1917] flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#141210]/90 backdrop-blur-xs border border-[#EFEAE3] dark:border-[#38322D] space-y-3 shadow-xs hover:border-[#FDB27C]/40 dark:hover:border-[#FDB27C]/40 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#28231D] text-[#FDB27C] dark:text-[#FDB27C] flex items-center justify-center border border-transparent dark:border-[#38322D] shadow-xs">
                 <BrainCircuit className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#1C1917] dark:text-white font-heading">AI & Machine Learning</h3>
+              <h3 className="text-lg font-bold text-[#1C1917] dark:text-[#FBF9F7] font-heading">AI & Machine Learning</h3>
               <p className="text-sm text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Hands-on exposure to neural networks, computer vision, natural language processing, and predictive analytics.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#FDB27C] text-[#FDB27C] dark:text-[#1C1917] flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#141210]/90 backdrop-blur-xs border border-[#EFEAE3] dark:border-[#38322D] space-y-3 shadow-xs hover:border-[#FDB27C]/40 dark:hover:border-[#FDB27C]/40 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#28231D] text-[#FDB27C] dark:text-[#FDB27C] flex items-center justify-center border border-transparent dark:border-[#38322D] shadow-xs">
                 <Database className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#1C1917] dark:text-white font-heading">Data Engineering</h3>
+              <h3 className="text-lg font-bold text-[#1C1917] dark:text-[#FBF9F7] font-heading">Data Engineering</h3>
               <p className="text-sm text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Scalable data structures, SQL & NoSQL architectures, algorithm optimization, and data visualization.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#231F1C] border border-[#EFEAE3] dark:border-[#38322D] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#FDB27C] text-[#FDB27C] dark:text-[#1C1917] flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#FBF9F7] dark:bg-[#141210]/90 backdrop-blur-xs border border-[#EFEAE3] dark:border-[#38322D] space-y-3 shadow-xs hover:border-[#FDB27C]/40 dark:hover:border-[#FDB27C]/40 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#1C1917] dark:bg-[#28231D] text-[#FDB27C] dark:text-[#FDB27C] flex items-center justify-center border border-transparent dark:border-[#38322D] shadow-xs">
                 <Award className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#1C1917] dark:text-white font-heading">Academic Ethics</h3>
+              <h3 className="text-lg font-bold text-[#1C1917] dark:text-[#FBF9F7] font-heading">Academic Ethics</h3>
               <p className="text-sm text-[#756860] dark:text-[#A89F91] leading-relaxed">
                 Emphasis on ethical AI deployment, practical capstone projects, research discipline, and leadership values.
               </p>

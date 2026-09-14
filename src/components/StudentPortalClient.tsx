@@ -575,7 +575,7 @@ export default function StudentPortalClient({
                 <div className="text-xl font-bold font-mono text-[#1C1917]">
                   {profile?.registerNumber || "Not Set"}
                 </div>
-                <span className="text-xs text-[#756860] block">System Verified</span>
+                <span className="text-xs text-[#756860] block">Roll / Register Number</span>
               </div>
 
               <div className="bg-white p-6 rounded-2xl border border-[#EFEAE3] shadow-xs space-y-2">

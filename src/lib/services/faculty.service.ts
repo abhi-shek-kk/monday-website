@@ -30,6 +30,24 @@ export async function getPublicFacultyProfiles() {
   });
 }
 
+export function compareRollNumbers(aStr?: string | null, bStr?: string | null): number {
+  if (!aStr && !bStr) return 0;
+  if (!aStr) return 1;  // Missing/invalid roll numbers at the end
+  if (!bStr) return -1; // Missing/invalid roll numbers at the end
+
+  const a = aStr.trim();
+  const b = bStr.trim();
+
+  const aNum = Number(a);
+  const bNum = Number(b);
+
+  if (!isNaN(aNum) && !isNaN(bNum)) {
+    return aNum - bNum;
+  }
+
+  return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+}
+
 export async function getPublicStudentProfiles(
   batchFilter?: string,
   userRole?: string | Role | null
@@ -40,7 +58,7 @@ export async function getPublicStudentProfiles(
     return [];
   }
 
-  return db.user.findMany({
+  const students = await db.user.findMany({
     where: {
       role: Role.STUDENT,
       status: AccountStatus.APPROVED,
@@ -93,10 +111,11 @@ export async function getPublicStudentProfiles(
         },
       },
     },
-    orderBy: {
-      createdAt: "desc",
-    },
   });
+
+  return students.sort((a: any, b: any) =>
+    compareRollNumbers(a.studentProfile?.registerNumber, b.studentProfile?.registerNumber)
+  );
 }
 
 export async function getStudentBatches(userRole?: string | Role | null) {
