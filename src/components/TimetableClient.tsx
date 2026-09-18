@@ -35,23 +35,29 @@ export default function TimetableClient() {
           badge: "bg-indigo-500/20 text-indigo-300 border-indigo-400/30",
           label: "Multi-Disciplinary",
         };
-      case "LANG":
+      case "AEC":
         return {
           bg: "bg-amber-950/80 text-amber-100 border-amber-800/50 backdrop-blur-md",
           badge: "bg-amber-500/20 text-amber-300 border-amber-400/30",
-          label: "Language",
-        };
-      case "ENG":
-        return {
-          bg: "bg-sky-950/80 text-sky-100 border-sky-800/50 backdrop-blur-md",
-          badge: "bg-sky-500/20 text-sky-300 border-sky-400/30",
-          label: "English",
+          label: "Ability Enhancement",
         };
       case "MENTOR":
         return {
           bg: "bg-purple-950/80 text-purple-100 border-purple-800/50 backdrop-blur-md",
           badge: "bg-purple-500/20 text-purple-300 border-purple-400/30",
-          label: "Mentoring & Value",
+          label: "Mentoring",
+        };
+      case "SWAYAM":
+        return {
+          bg: "bg-teal-950/80 text-teal-100 border-teal-800/50 backdrop-blur-md",
+          badge: "bg-teal-500/20 text-teal-300 border-teal-400/30",
+          label: "Swayam MOOC",
+        };
+      case "TECHLAB":
+        return {
+          bg: "bg-sky-950/80 text-sky-100 border-sky-800/50 backdrop-blur-md",
+          badge: "bg-sky-500/20 text-sky-300 border-sky-400/30",
+          label: "Tech Lab",
         };
       default:
         return {
@@ -258,17 +264,22 @@ export default function TimetableClient() {
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-600" />
-            <span>Language</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-sky-600" />
-            <span>English</span>
+            <span>Ability Enhancement (AEC)</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-purple-600" />
-            <span>Mentoring / Skill</span>
+            <span>Mentoring</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-teal-600" />
+            <span>Swayam MOOC</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-sky-600" />
+            <span>Tech Lab</span>
           </div>
         </div>
+
       </div>
     </div>
   );
