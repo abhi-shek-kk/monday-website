@@ -3,7 +3,7 @@ export interface TimetableCell {
   span?: number; // 1 (default) or multi-period continuous span (e.g., 2 or 3)
   code: string;
   name: string;
-  category: "DSC" | "LAB" | "MDC" | "LANG" | "ENG" | "MENTOR";
+  category: "DSC" | "LAB" | "MDC" | "AEC" | "MENTOR" | "SWAYAM" | "TECHLAB";
 }
 
 export interface DaySchedule {
@@ -29,55 +29,58 @@ export const TIMETABLE_DATA: Record<string, SemesterTimetable> = {
         day: "DAY 1",
         label: "Order Day 1",
         cells: [
-          { period: 1, code: "AIDS101", name: "Introduction to AI & Data Science", category: "DSC" },
-          { period: 2, code: "AIDS102", name: "Programming in C & Problem Solving", category: "DSC" },
-          { period: 3, code: "ENG-101", name: "English & Technical Communication", category: "ENG" },
-          { period: 4, code: "LANG-101", name: "Second Language", category: "LANG" },
-          { period: 5, span: 2, code: "AIDS102-L", name: "Programming in C Lab", category: "LAB" },
+          { period: 1, code: "DSC-A", name: "AI and Data Science", category: "DSC" },
+          { period: 2, code: "DSC-B", name: "Python Programming", category: "DSC" },
+          { period: 3, code: "DSC-C", name: "Statistics", category: "DSC" },
+          { period: 4, code: "AEC-ENG", name: "English", category: "AEC" },
+          { period: 5, code: "AEC-LANG", name: "Cyriac / Hindi / Malayalam", category: "AEC" },
+          { period: 6, code: "LAB-XL", name: "Lab (Excel)", category: "LAB" },
         ],
       },
       {
         day: "DAY 2",
         label: "Order Day 2",
         cells: [
-          { period: 1, code: "AIDS102", name: "Programming in C & Problem Solving", category: "DSC" },
-          { period: 2, code: "MDC-101", name: "Multi-Disciplinary Course", category: "MDC" },
-          { period: 3, code: "AIDS101", name: "Introduction to AI & Data Science", category: "DSC" },
-          { period: 4, span: 3, code: "AIDS101-L", name: "AI & Data Science Tools Lab", category: "LAB" },
+          { period: 1, code: "DSC-C", name: "Statistics", category: "DSC" },
+          { period: 2, span: 2, code: "DSC-B-LAB", name: "Python Lab", category: "LAB" },
+          { period: 4, span: 2, code: "MDC", name: "Multi-Disciplinary Course", category: "MDC" },
+          { period: 6, code: "LAB-XL", name: "Lab (Excel)", category: "LAB" },
         ],
       },
       {
         day: "DAY 3",
         label: "Order Day 3",
         cells: [
-          { period: 1, code: "ENG-101", name: "English & Technical Communication", category: "ENG" },
-          { period: 2, code: "AIDS101", name: "Introduction to AI & Data Science", category: "DSC" },
-          { period: 3, code: "LANG-101", name: "Second Language", category: "LANG" },
-          { period: 4, code: "MDC-101", name: "Multi-Disciplinary Course", category: "MDC" },
-          { period: 5, code: "AIDS102", name: "Programming in C & Problem Solving", category: "DSC" },
-          { period: 6, code: "VAC-101", name: "Value Added / Skill Course", category: "MENTOR" },
+          { period: 1, code: "DSC-A", name: "AI and Data Science", category: "DSC" },
+          { period: 2, code: "DSC-A", name: "AI and Data Science", category: "DSC" },
+          { period: 3, code: "MDC", name: "Multi-Disciplinary Course", category: "MDC" },
+          { period: 4, code: "DSC-B", name: "Python Programming", category: "DSC" },
+          { period: 5, code: "AEC-LANG", name: "Cyriac / Hindi / Malayalam", category: "AEC" },
+          { period: 6, code: "SWAYAM", name: "Swayam", category: "SWAYAM" },
         ],
       },
       {
         day: "DAY 4",
         label: "Order Day 4",
         cells: [
-          { period: 1, span: 2, code: "AIDS102-L", name: "Programming in C Lab", category: "LAB" },
-          { period: 3, code: "AIDS101", name: "Introduction to AI & Data Science", category: "DSC" },
-          { period: 4, code: "ENG-101", name: "English & Technical Communication", category: "ENG" },
-          { period: 5, code: "MDC-101", name: "Multi-Disciplinary Course", category: "MDC" },
-          { period: 6, code: "MENTOR", name: "Academic Mentoring", category: "MENTOR" },
+          { period: 1, code: "DSC-A", name: "AI and Data Science", category: "DSC" },
+          { period: 2, code: "DSC-B", name: "Python Programming", category: "DSC" },
+          { period: 3, code: "AEC-ENG", name: "English", category: "AEC" },
+          { period: 4, code: "DSC-C", name: "Statistics", category: "DSC" },
+          { period: 5, code: "MDC", name: "Multi-Disciplinary Course", category: "MDC" },
+          { period: 6, code: "TECH-LAB", name: "Tech Lab", category: "TECHLAB" },
         ],
       },
       {
         day: "DAY 5",
         label: "Order Day 5",
         cells: [
-          { period: 1, code: "LANG-101", name: "Second Language", category: "LANG" },
-          { period: 2, code: "AIDS102", name: "Programming in C & Problem Solving", category: "DSC" },
-          { period: 3, code: "MDC-101", name: "Multi-Disciplinary Course", category: "MDC" },
-          { period: 4, code: "AIDS101", name: "Introduction to AI & Data Science", category: "DSC" },
-          { period: 5, span: 2, code: "AIDS101-L", name: "AI & Data Tools Lab", category: "LAB" },
+          { period: 1, code: "DSC-A", name: "AI and Data Science", category: "DSC" },
+          { period: 2, code: "DSC-C", name: "Statistics", category: "DSC" },
+          { period: 3, code: "DSC-C", name: "Statistics", category: "DSC" },
+          { period: 4, code: "AEC-ENG", name: "English", category: "AEC" },
+          { period: 5, code: "AEC-LANG", name: "Cyriac / Hindi / Malayalam", category: "AEC" },
+          { period: 6, code: "MENTOR", name: "Mentoring", category: "MENTOR" },
         ],
       },
     ],
